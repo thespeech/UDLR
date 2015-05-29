@@ -1,0 +1,144 @@
+#logo, #shadow{
+  position: absolute;
+  width: 33.5%;
+  left: 33.5%;
+  top: 36.5%;
+  height: auto;
+  z-index: 0;
+  min-width: 32.5%;
+  min-height: auto;
+  }
+
+#shadow
+{
+  top: 38%;
+}
+
+
+.centered {
+  position: absolute;
+  top:43%;
+  left: 39%;
+  z-index:0;
+}
+
+#uparrow {
+  position: absolute;
+  top: 1%;
+  left: 47.5%;
+  width: 5%;
+  height: auto;
+}
+
+#downarrow {
+  position: absolute;
+  bottom: 1%;
+  left: 47.5%;
+  width:5%;
+  height: auto;
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+#leftarrow {
+  position: absolute;
+  top: 46.5%;
+  left: -0.5%;
+  width: 5%;
+  height: auto;
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+#screensize { /*Just used to get height and width of screen.*/
+  position:fixed;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  z-index: -999;
+}
+
+#rightarrow {
+  position: absolute;
+  top: 46.5%;
+  right: -0.5%;
+  width: 5%;
+  height: auto;
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.arrow {
+  opacity: 0;
+  }
+
+.brick {
+  /*min-height: 100%;
+	 min-width: 100%;*/
+  
+  position: fixed;
+  height: 110%;
+  width: 200%;
+  top:   -5%;
+  left:  -50%;
+  z-index: -2;
+}
+
+.wood {
+  min-height: 100%;
+  min-width: 100%;
+  height: 120%;
+  width: 120%;
+  position: absolute;
+  top: 80%;
+  left: -10%;
+  z-index: -1; 
+}
+
+.skyfg {
+  display: none;
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+#skybg {
+  visibility: visible;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -3;
+  }
+
+@font-face {
+  font-family:'PF Din Regular';
+  src:url('PFDinTextCondPro-Regular.ttf');
+}
+
+#contactUs {
+  visibility:hidden;
+  position: absolute;
+  top: 33%;
+  left: 13%;
+  font-family: "PF Din Regular";
+  font-size: 7.0vh;
+  color: black;
+  z-index: -2;
+}
+
+html, body {
+  overflow-x:hidden;
+  overflow-y:hidden;
+  margin: 0px;
+  width: 100%;
+  }
+
+  
