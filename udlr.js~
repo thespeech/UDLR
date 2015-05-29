@@ -71,7 +71,6 @@ $(document).ready(function() {
 					{
 					
 						fadeOutUpArrow = true;
-					 $('.skyfg').show();
 						wood.stop().velocity({top:"100%"}, 500);
 						logo.stop().velocity({top:"100%"}, 500);
 						shadow.stop().velocity({top:"100%"}, 500);

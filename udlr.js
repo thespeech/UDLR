@@ -68,8 +68,7 @@ $(document).ready(function() {
 				if(currentState == 'home') //Check state
 				{
 					if(arrow == '#uparrow')
-					{
-					
+					{	
 						fadeOutUpArrow = true;
 						wood.stop().velocity({top:"100%"}, 500);
 						logo.stop().velocity({top:"100%"}, 500);
