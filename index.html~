@@ -18,8 +18,9 @@
 	  <img src="brick.png"  class="brick centered" alt="">
 	  <img src="wood.png" class="wood" alt="">
 	  
-	  <img src="Clouds/Clouds-BG.jpg" id="skybg" class="skybg" alt=""> 
+	  <img src="Clouds/Clouds-BG.jpg" id="skybg" 7alt=""> 
 	  <img src="Clouds/Clouds-Back.png" id="back" class="skyfg" alt="">
+	  <img src="Clouds/Clouds-Confetti.png" id="confetti" class="skyfg" alt="">
 	  <!-- Confetti crashing for some reason. --> 
 	  <img src="Clouds/Clouds-Front-1.png" id="front-1" class="skyfg" alt="">
 	 <img src="Clouds/Clouds-Front-2.png" id="front-2" class="skyfg" alt="">
