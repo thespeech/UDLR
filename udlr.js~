@@ -30,10 +30,7 @@ $(document).ready(function() {
 	{
 		$(document).on("mousemove", function(event){
 			var edgePercentHeight = $(window).height() * 0.1;
-			console.log(edgePercentHeight);
 			var edgePercentWidth = $(window).width() * 0.04;
-			console.log("x: " + event.pageX + ", y: " + event.pageY);
-			console.log("Screen height: " + $(window).height());
 			if(fadeOutUpArrow == false)
 			{
 			if((event.pageY < edgePercentHeight) ||
@@ -46,13 +43,14 @@ $(document).ready(function() {
 					$(".arrow").stop().velocity({"opacity": "1"}, 250);
 					alreadyInEdge = true;
 				}
-				console.log(alreadyInEdge);
 			}
 			else
 			{
+				if(alreadyInEdge == true)
+				{
 				$(".arrow").stop().velocity({"opacity": "0"}, 250);
 				alreadyInEdge = false;
-				console.log(alreadyInEdge);
+				}
 			}
 			}
 		});
@@ -153,6 +151,7 @@ $(document).ready(function() {
 
 	function focusAndFade(element1, blurRad1, element2, blurRad2)
 	{
+		console.log("Doing it!");
 		$({blurRadius: blurRad1}).animate({blurRadius: 0}, {
 						duration: 200,
 						easing: 'swing',

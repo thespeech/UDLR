@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
 	var currentState = 'home';
 	var brick = $('.brick'); //Allow jquery to work on these elements.
@@ -12,14 +10,53 @@ $(document).ready(function() {
 	var lastelement;
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
+
+	//Initialize window height and width on first load.
+	var winWidth = $(window).width();
+	var winHeight = $(window).height();
+	//Use original CSS values for ratios.
+	/*
+	console.log(logo.height());
+	console.log($(window).height());
+	var logoHeightPercentage = (logo.height()/$(window).height()) * 100;
+	var logoWidthPercentage = (logo.width()/$(window).width()) * 100;
+	console.log(logoHeightPercentage + "%");
+*/
 	bgHover(brick);
 	bgHover(wood);
-	
 	arrowClick('#uparrow', 'bounce');
 	arrowClick('#downarrow', 'bounce');
 	arrowClick('#leftarrow', 'bounce');
 	arrowClick('#rightarrow', 'bounce');
 	hoverEdges();
+	
+	//checkWindowResize();
+	
+	function checkWindowResize()
+	{
+		$(window).resize(function() {
+			//Do for logo and shadow first.
+			if(currentState == 'home')
+			{
+			if($(window).width() !== winWidth)
+			{
+				logo.css({"width":logoWidthPercentage+"%",
+						  "height":"auto"});
+				shadow.css({"width":logoWidthPercentage+"%",
+							"height":"auto"});
+			}
+			else if($(window).height() !== winHeight)
+			{
+				logo.css({"height":logoHeightPercentage+"%",
+						  "width":"auto"});
+				shadow.css({"height": logoHeightPercentage+"%",
+							"width":"auto"});
+			}
+			}
+			winWidth = $(window).width();
+			winHeight = $(window).height();
+		});
+	}
 
 	function cloudsAnimate()
 	{
