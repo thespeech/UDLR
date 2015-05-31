@@ -31,7 +31,7 @@ $(document).ready(function() {
 	hoverEdges();
 	
 	//checkWindowResize();
-	
+/*	
 	function checkWindowResize()
 	{
 		$(window).resize(function() {
@@ -57,10 +57,28 @@ $(document).ready(function() {
 			winHeight = $(window).height();
 		});
 	}
-
+*/
+	function spawnClouds() //Run this when the up arrow is pressed.
+	{
+		//6 clouds to randomize. All should be more or less visible.
+		//Minimum percentage from top of cloud spawn: 77%, no greater
+		var xarray=[];
+		var yarray=[];
+		for(var i=0;i<6;i++)
+		{
+			xarray.push(Math.floor((Math.random() * 109)) -10); //Random number between 99 and -10
+			yarray.push(Math.floor((Math.random() * 78)) - 2); //Random number between -2 and 76
+		}
+		console.log(xarray);
+		console.log(yarray);
+	}
 	function cloudsAnimate()
 	{
-		
+		if(currentState == 'about')
+		{
+			//Animate stuff
+			
+		}
 	}
 	
 	function hoverEdges() //Do arrow fading stuff.
@@ -105,6 +123,7 @@ $(document).ready(function() {
 					if(arrow == '#uparrow')
 					{	
 						fadeOutUpArrow = true;
+						spawnClouds();
 						wood.stop().velocity({top:"100%"}, 500);
 						logo.stop().velocity({top:"100%"}, 500);
 						shadow.stop().velocity({top:"100%"}, 500);
@@ -159,7 +178,6 @@ $(document).ready(function() {
 						var heightPercentage = (100*(logo.height()))/(screenSize.height());
 						logo.velocity({
 							width: (widthPercentage/2)+'%',
-							height: (heightPercentage/2)+'%',
 							top: '15%',
 							left:'40.5%',
 							},
@@ -167,7 +185,6 @@ $(document).ready(function() {
 						
 						shadow.velocity({
 							width: (widthPercentage/2)+'%',
-							height: (heightPercentage/2)+'%',
 							top: '16%',
 							left:'40.5%',
 							},
