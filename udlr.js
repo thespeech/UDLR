@@ -69,12 +69,14 @@ $(document).ready(function() {
 		//Minimum percentage from top of cloud spawn: 77%, no greater
 		console.log(frontClouds);
 		var currentFront = frontClouds.shift();
+		var leftPercent = 0;
+		leftPercent = Math.floor((Math.random()*5))+"%";
 		console.log(currentFront);
 		currentFront.css({"top":(Math.floor((Math.random()*56)))+"%"});
 		animateFrontCloud(currentFront, true);
 		middleClouds.forEach(function(element)
-		{
-			element.css({"top":(Math.floor((Math.random()*15))+25)+"%",
+							 {
+			element.css({"top":(Math.floor((Math.random()*5))+20)+"%",
 						 "left":(Math.floor((Math.random()*109)-10))+"%"});
 			animateMiddleCloud(element, true);
 			
@@ -89,7 +91,7 @@ $(document).ready(function() {
 		if(!firsttime)
 		{
 			element.css({"top":"0%",
-						 "left":"-200%"});
+						 "left":"-180%"});
 		}
 		element.show();
 		var newSpeed=Math.floor((Math.random()*10)+300);
@@ -103,23 +105,24 @@ $(document).ready(function() {
 	{
 		if(!firsttime)
 		{
-			element.css({"top":(Math.floor((Math.random()*15))+25)+"%",
-						 "left": "-200%"});
+			element.css({"top":(Math.floor((Math.random()*15))+15)+"%",
+						 "left": "-70%"});
 
 		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*10)+120);
+		var newSpeed=Math.floor((Math.random()*120)+10);
 element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			animateMiddleCloud(element, false);
 		});
 	}
+
 
 	function animateFrontCloud(element, firsttime)
 	{
 		if(!firsttime)
 		{
 			element.css({"top":(Math.floor((Math.random()*50))-2)+"%",
-						 "left": "-200%"});
+						 "left": "-100%"});
 		}
 		element.show();
 		var newSpeed=Math.floor((Math.random()*10)+50);
