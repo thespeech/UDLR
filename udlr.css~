@@ -107,7 +107,7 @@ html, body {
 }
 
 .skyfg {
-  visibility: visible;
+  display: none;
   position:absolute;
   height: 100%;
   width: 100%;
@@ -117,15 +117,15 @@ html, body {
 }
 
 #back {
-  width: 30%;
+  width: 200%;
   height: auto;
 }
 #front-1, #front-2 {
-  width: 40%;
+  width: 200%;
   height: auto;
 }
 #middle-1, #middle-2, #middle-3 {
-  width: 30%;
+  width: 200%;
   height: auto;
 }
 

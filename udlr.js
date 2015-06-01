@@ -70,11 +70,11 @@ $(document).ready(function() {
 		console.log(frontClouds);
 		var currentFront = frontClouds.shift();
 		console.log(currentFront);
-		currentFront.css({"top":(Math.floor((Math.random()*76)))+"%"});
+		currentFront.css({"top":(Math.floor((Math.random()*56)))+"%"});
 		animateFrontCloud(currentFront, true);
 		middleClouds.forEach(function(element)
 		{
-			element.css({"top":(Math.floor((Math.random()*57))+20)+"%",
+			element.css({"top":(Math.floor((Math.random()*15))+25)+"%",
 						 "left":(Math.floor((Math.random()*109)-10))+"%"});
 			animateMiddleCloud(element, true);
 			
@@ -103,7 +103,7 @@ $(document).ready(function() {
 	{
 		if(!firsttime)
 		{
-			element.css({"top":(Math.floor((Math.random()*70))-2)+"%",
+			element.css({"top":(Math.floor((Math.random()*15))+25)+"%",
 						 "left": "-200%"});
 
 		}
@@ -118,7 +118,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 	{
 		if(!firsttime)
 		{
-			element.css({"top":(Math.floor((Math.random()*70))-2)+"%",
+			element.css({"top":(Math.floor((Math.random()*50))-2)+"%",
 						 "left": "-200%"});
 		}
 		element.show();
