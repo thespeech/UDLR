@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
 	var currentState = 'home';
 	var brick = $('.brick'); //Allow jquery to work on these elements.
@@ -12,18 +10,75 @@ $(document).ready(function() {
 	var lastelement;
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
+
+	//Initialize window height and width on first load.
+	var winWidth = $(window).width();
+	var winHeight = $(window).height();
+	//Use original CSS values for ratios.
+	/*
+	console.log(logo.height());
+	console.log($(window).height());
+	var logoHeightPercentage = (logo.height()/$(window).height()) * 100;
+	var logoWidthPercentage = (logo.width()/$(window).width()) * 100;
+	console.log(logoHeightPercentage + "%");
+*/
 	bgHover(brick);
 	bgHover(wood);
-	
 	arrowClick('#uparrow', 'bounce');
 	arrowClick('#downarrow', 'bounce');
 	arrowClick('#leftarrow', 'bounce');
 	arrowClick('#rightarrow', 'bounce');
 	hoverEdges();
-
+	
+	//checkWindowResize();
+/*	
+	function checkWindowResize()
+	{
+		$(window).resize(function() {
+			//Do for logo and shadow first.
+			if(currentState == 'home')
+			{
+			if($(window).width() !== winWidth)
+			{
+				logo.css({"width":logoWidthPercentage+"%",
+						  "height":"auto"});
+				shadow.css({"width":logoWidthPercentage+"%",
+							"height":"auto"});
+			}
+			else if($(window).height() !== winHeight)
+			{
+				logo.css({"height":logoHeightPercentage+"%",
+						  "width":"auto"});
+				shadow.css({"height": logoHeightPercentage+"%",
+							"width":"auto"});
+			}
+			}
+			winWidth = $(window).width();
+			winHeight = $(window).height();
+		});
+	}
+*/
+	function spawnClouds() //Run this when the up arrow is pressed.
+	{
+		//6 clouds to randomize. All should be more or less visible.
+		//Minimum percentage from top of cloud spawn: 77%, no greater
+		var xarray=[];
+		var yarray=[];
+		for(var i=0;i<6;i++)
+		{
+			xarray.push(Math.floor((Math.random() * 109)) -10); //Random number between 99 and -10
+			yarray.push(Math.floor((Math.random() * 78)) - 2); //Random number between -2 and 76
+		}
+		console.log(xarray);
+		console.log(yarray);
+	}
 	function cloudsAnimate()
 	{
-		
+		if(currentState == 'about')
+		{
+			//Animate stuff
+			
+		}
 	}
 	
 	function hoverEdges() //Do arrow fading stuff.
@@ -68,6 +123,7 @@ $(document).ready(function() {
 					if(arrow == '#uparrow')
 					{	
 						fadeOutUpArrow = true;
+						spawnClouds();
 						wood.stop().velocity({top:"100%"}, 500);
 						logo.stop().velocity({top:"100%"}, 500);
 						shadow.stop().velocity({top:"100%"}, 500);
@@ -122,7 +178,6 @@ $(document).ready(function() {
 						var heightPercentage = (100*(logo.height()))/(screenSize.height());
 						logo.velocity({
 							width: (widthPercentage/2)+'%',
-							height: (heightPercentage/2)+'%',
 							top: '15%',
 							left:'40.5%',
 							},
@@ -130,7 +185,6 @@ $(document).ready(function() {
 						
 						shadow.velocity({
 							width: (widthPercentage/2)+'%',
-							height: (heightPercentage/2)+'%',
 							top: '16%',
 							left:'40.5%',
 							},

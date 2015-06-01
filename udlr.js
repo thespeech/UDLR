@@ -14,6 +14,7 @@ $(document).ready(function() {
 	//Initialize window height and width on first load.
 	var winWidth = $(window).width();
 	var winHeight = $(window).height();
+		var clouds=[$('#back'),$('#middle-1'),$('#middle-2'),$('#middle-3'),$('#front-1'),$('#front-2')];
 	//Use original CSS values for ratios.
 	/*
 	console.log(logo.height());
@@ -29,6 +30,7 @@ $(document).ready(function() {
 	arrowClick('#leftarrow', 'bounce');
 	arrowClick('#rightarrow', 'bounce');
 	hoverEdges();
+	var cloudSpeeds;
 	
 	//checkWindowResize();
 /*	
@@ -62,21 +64,20 @@ $(document).ready(function() {
 	{
 		//6 clouds to randomize. All should be more or less visible.
 		//Minimum percentage from top of cloud spawn: 77%, no greater
-		var xarray=[];
-		var yarray=[];
-		for(var i=0;i<6;i++)
+		clouds.forEach(function(element)
 		{
-			xarray.push(Math.floor((Math.random() * 109)) -10); //Random number between 99 and -10
-			yarray.push(Math.floor((Math.random() * 78)) - 2); //Random number between -2 and 76
-		}
-		console.log(xarray);
-		console.log(yarray);
+			element.css({"top":(Math.floor((Math.random()*78))-2)+"%",
+						 "left":(Math.floor((Math.random()*109)-10))+"%"});
+		});
 	}
+		
 	function cloudsAnimate()
 	{
 		if(currentState == 'about')
 		{
-			//Animate stuff
+			//Animate clouds; if clouds pass out of screen, rerandom a position and speed on the other side for them.
+			
+			
 			
 		}
 	}
@@ -222,7 +223,7 @@ $(document).ready(function() {
 		$({blurRadius: 0}).animate({blurRadius: blurRad2}, {
 						duration: 200,
 						easing: 'swing',
-						step: function() {
+			step: function() {
 							element2.css({
 								"-webkit-filter":"blur("+this.blurRadius+"px)",
 								"filter":"blur("+this.blurRadius+"px)",
