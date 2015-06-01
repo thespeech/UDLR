@@ -8,8 +8,7 @@
 	<link type="text/css" href="udlr.css" rel="stylesheet"/>
 	<link type="text/css" href="animate.css" rel="stylesheet"/> 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script type="text/javascript" src="udlr.js"></script>
-	<script type="text/javascript" src="tailorfit-1.5.9.min.js"></script>
+<script type="text/javascript" src="udlr.js"></script>
 	<script type="text/javascript" src="velocity.min.js"></script>
 	</head>
   <body>

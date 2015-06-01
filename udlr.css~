@@ -117,15 +117,15 @@ html, body {
 }
 
 #back {
-  width: 200%;
+  width: 180%;
   height: auto;
 }
 #front-1, #front-2 {
-  width: 200%;
+  width: 100%;
   height: auto;
 }
 #middle-1, #middle-2, #middle-3 {
-  width: 200%;
+  width: 70%;
   height: auto;
 }
 

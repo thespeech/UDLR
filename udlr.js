@@ -15,6 +15,7 @@ $(document).ready(function() {
 	var winWidth = $(window).width();
 	var winHeight = $(window).height();
 	var randomClouds=[$('#middle-1'),$('#middle-2'),$('#middle-3'),$('#front-1'),$('#front-2')];
+	var backClouds=[$('#back2'), $('#back3')];
 	var frontClouds=[$('#front-1'), $('#front-2')];
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
 	
@@ -70,47 +71,56 @@ $(document).ready(function() {
 		console.log(frontClouds);
 		var currentFront = frontClouds.shift();
 		var leftPercent = 0;
-		leftPercent = Math.floor((Math.random()*5))+"%";
+		leftPercent = Math.floor((Math.random()*5));
 		console.log(currentFront);
-		currentFront.css({"top":(Math.floor((Math.random()*56)))+"%"});
+		currentFront.css({"top":(Math.floor(Math.random()*56))+"%",
+						  "left":(Math.floor(Math.random()*50))+"%"});
 		animateFrontCloud(currentFront, true);
 		middleClouds.forEach(function(element)
 							 {
-			element.css({"top":(Math.floor((Math.random()*5))+20)+"%",
-						 "left":(Math.floor((Math.random()*109)-10))+"%"});
+			element.css({"top":(Math.floor((Math.random()*5))+10)+"%",
+						 "left":leftPercent+"%"});
+								 leftPercent+=(Math.floor((Math.random()*5)+25));
 			animateMiddleCloud(element, true);
 			
 		});
-		$('#back').css({"top":"0%",
-					   "left":(Math.floor((Math.random()*109)-10))+"%"});
+		$('#back').css({"top":"-180%",
+						"left":"0%"});
 		animateBackCloud($('#back'), true);
+		animateConfetti();
 	}
 
+	function animateConfetti()
+	{
+
+	}
+	
 	function animateBackCloud(element, firsttime)
 	{
-		if(!firsttime)
-		{
 			element.css({"top":"0%",
 						 "left":"-180%"});
-		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*10)+300);
-		element.velocity({left:"100%"}, newSpeed*1000, "linear", function() {
-			animateBackCloud(element, false);
+		var newSpeed=160;
+		element.velocity({left:"50%"}, newSpeed*1000, "linear", function(){
+			animateBackCloud(backClouds.shift(), false);
+			element.velocity({left:"180%"}, newSpeed*1000, "linear", function() {
+				backClouds.push(element);
+			});
 		});
 		
+
 	}
 
 	function animateMiddleCloud(element, firsttime)
 	{
 		if(!firsttime)
 		{
-			element.css({"top":(Math.floor((Math.random()*15))+15)+"%",
-						 "left": "-70%"});
+			element.css({"top":(Math.floor((Math.random()*0))+10)+"%",
+						 "left": "-120%"});
 
 		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*120)+10);
+		var newSpeed=Math.floor((Math.random()*15)+82);
 element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			animateMiddleCloud(element, false);
 		});
