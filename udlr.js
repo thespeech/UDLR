@@ -14,7 +14,10 @@ $(document).ready(function() {
 	//Initialize window height and width on first load.
 	var winWidth = $(window).width();
 	var winHeight = $(window).height();
-		var clouds=[$('#back'),$('#middle-1'),$('#middle-2'),$('#middle-3'),$('#front-1'),$('#front-2')];
+	var randomClouds=[$('#middle-1'),$('#middle-2'),$('#middle-3'),$('#front-1'),$('#front-2')];
+	var frontClouds=[$('#front-1'), $('#front-2')];
+	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
+	
 	//Use original CSS values for ratios.
 	/*
 	console.log(logo.height());
@@ -30,7 +33,7 @@ $(document).ready(function() {
 	arrowClick('#leftarrow', 'bounce');
 	arrowClick('#rightarrow', 'bounce');
 	hoverEdges();
-	var cloudSpeeds;
+
 	
 	//checkWindowResize();
 /*	
@@ -64,23 +67,70 @@ $(document).ready(function() {
 	{
 		//6 clouds to randomize. All should be more or less visible.
 		//Minimum percentage from top of cloud spawn: 77%, no greater
-		clouds.forEach(function(element)
+		console.log(frontClouds);
+		var currentFront = frontClouds.shift();
+		console.log(currentFront);
+		currentFront.css({"top":(Math.floor((Math.random()*76)))+"%"});
+		animateFrontCloud(currentFront, true);
+		middleClouds.forEach(function(element)
 		{
-			element.css({"top":(Math.floor((Math.random()*78))-2)+"%",
+			element.css({"top":(Math.floor((Math.random()*57))+20)+"%",
 						 "left":(Math.floor((Math.random()*109)-10))+"%"});
+			animateMiddleCloud(element, true);
+			
+		});
+		$('#back').css({"top":"0%",
+					   "left":(Math.floor((Math.random()*109)-10))+"%"});
+		animateBackCloud($('#back'), true);
+	}
+
+	function animateBackCloud(element, firsttime)
+	{
+		if(!firsttime)
+		{
+			element.css({"top":"0%",
+						 "left":"-200%"});
+		}
+		element.show();
+		var newSpeed=Math.floor((Math.random()*10)+300);
+		element.velocity({left:"100%"}, newSpeed*1000, "linear", function() {
+			animateBackCloud(element, false);
+		});
+		
+	}
+
+	function animateMiddleCloud(element, firsttime)
+	{
+		if(!firsttime)
+		{
+			element.css({"top":(Math.floor((Math.random()*70))-2)+"%",
+						 "left": "-200%"});
+
+		}
+		element.show();
+		var newSpeed=Math.floor((Math.random()*10)+120);
+element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
+			animateMiddleCloud(element, false);
+		});
+	}
+
+	function animateFrontCloud(element, firsttime)
+	{
+		if(!firsttime)
+		{
+			element.css({"top":(Math.floor((Math.random()*70))-2)+"%",
+						 "left": "-200%"});
+		}
+		element.show();
+		var newSpeed=Math.floor((Math.random()*10)+50);
+		element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
+			frontClouds.push(element);
+			element=frontClouds.shift();
+			animateFrontCloud(element, false);
 		});
 	}
 		
-	function cloudsAnimate()
-	{
-		if(currentState == 'about')
-		{
-			//Animate clouds; if clouds pass out of screen, rerandom a position and speed on the other side for them.
-			
-			
-			
-		}
-	}
+
 	
 	function hoverEdges() //Do arrow fading stuff.
 	{
@@ -143,7 +193,7 @@ $(document).ready(function() {
 							$('#uparrow').hide();
 							fadeOutUpArrow = false;
 						});
-						
+						currentState="about";	
 					}
 					else if(arrow == '#downarrow')
 					{

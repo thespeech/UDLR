@@ -22,11 +22,11 @@
 	  <img src="Clouds/Clouds-Back.png" id="back" class="skyfg" alt="">
 	 <!-- <img src="Clouds/Clouds-Confetti-1.png" id="confetti" class="skyfg" alt=""> -->
 	  <!-- Confetti crashing for some reason. --> 
+	  	  <img src="Clouds/Clouds-Middle-1.png" id="middle-1" class="skyfg" alt="">
+	  <img src="Clouds/Clouds-Middle-2.png" id="middle-2" class="skyfg" alt="">
+	  <img src="Clouds/Clouds-Middle-3.png" id="middle-3" class="skyfg" alt="">
 	  <img src="Clouds/Clouds-Front-1.png" id="front-1" class="skyfg" alt="">
 	 <img src="Clouds/Clouds-Front-2.png" id="front-2" class="skyfg" alt="">
-	  <img src="Clouds/Clouds-Middle-1.png" id="middle-1" class="skyfg" alt="">
-	  <img src="Clouds/Clouds-Middle-2.png" id="middle-2" class="skyfg" alt="">
-	  <img src="Clouds/Clouds-Middle-3.png" id="middle-3" class="skyfg" alt=""> 
 	  <img src="Arrow.png" id="uparrow" class="arrow">
 	  <img src="Arrow.png" id="downarrow" class="arrow">
 	  <img src="Arrow.png" id="leftarrow" class="arrow">
