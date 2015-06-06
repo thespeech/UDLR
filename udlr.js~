@@ -15,10 +15,11 @@ $(document).ready(function() {
 	var winWidth = $(window).width();
 	var winHeight = $(window).height();
 	var randomClouds=[$('#middle-1'),$('#middle-2'),$('#middle-3'),$('#front-1'),$('#front-2')];
+	var backClouds=[$('#back2'), $('#back3')];
 	var frontClouds=[$('#front-1'), $('#front-2')];
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
-	
-	//Use original CSS values for ratios.
+
+		//Use original CSS values for ratios.
 	/*
 	console.log(logo.height());
 	console.log($(window).height());
@@ -63,74 +64,131 @@ $(document).ready(function() {
 		});
 	}
 */
+
+	function stopClouds()
+	{
+		frontClouds=[$('#front-1'), $('#front-2')];
+		frontClouds.forEach(function(element)
+							{
+								element.velocity("stop");
+							});
+		middleClouds.forEach(function(element)
+							{
+								element.velocity("stop");
+							});
+		
+		$('#back').velocity("stop");
+		
+	}
+	
 	function spawnClouds() //Run this when the up arrow is pressed.
 	{
-		//6 clouds to randomize. All should be more or less visible.
+				//6 clouds to randomize. All should be more or less visible.
 		//Minimum percentage from top of cloud spawn: 77%, no greater
+		frontClouds=[$('#front-1'), $('#front-2')];
 		console.log(frontClouds);
 		var currentFront = frontClouds.shift();
 		var leftPercent = 0;
-		leftPercent = Math.floor((Math.random()*5))+"%";
+		leftPercent = Math.floor((Math.random()*5));
 		console.log(currentFront);
-		currentFront.css({"top":(Math.floor((Math.random()*56)))+"%"});
+		currentFront.css({"top":(Math.floor(Math.random()*56))+"%",
+						  "left":(Math.floor(Math.random()*50))+"%"});
 		animateFrontCloud(currentFront, true);
 		middleClouds.forEach(function(element)
 							 {
-			element.css({"top":(Math.floor((Math.random()*5))+20)+"%",
-						 "left":(Math.floor((Math.random()*109)-10))+"%"});
+			element.css({"top":(Math.floor((Math.random()*5))+10)+"%",
+						 "left":leftPercent+"%"});
+								 leftPercent+=(Math.floor((Math.random()*5)+25));
 			animateMiddleCloud(element, true);
 			
 		});
-		$('#back').css({"top":"0%",
-					   "left":(Math.floor((Math.random()*109)-10))+"%"});
+		$('#back').css({"top":"-180%",
+						"left":"0%"});
 		animateBackCloud($('#back'), true);
+		animateConfetti();
 	}
 
+	function arrowFadeSlide(element, direction)
+	{
+		element.velocity({opacity: 1}, 500, "linear");
+		if(direction=='up')
+		{
+			
+		}
+		else if(direction=='down')
+		{
+		}
+		else if(direction=='left')
+		{
+		}
+		else if(direction=='right')
+		{
+		}
+	}
+
+	function animateConfetti()
+	{
+
+	}
+	
 	function animateBackCloud(element, firsttime)
 	{
-		if(!firsttime)
+		if(currentState=='about')
 		{
 			element.css({"top":"0%",
 						 "left":"-180%"});
-		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*10)+300);
-		element.velocity({left:"100%"}, newSpeed*1000, "linear", function() {
-			animateBackCloud(element, false);
+			var newSpeed=160;
+			element.velocity("stop");
+		element.velocity({left:"50%"}, newSpeed*1000, "linear", function(){
+			animateBackCloud(backClouds.shift(), false);
+					element.velocity("stop");
+			element.velocity({left:"180%"}, newSpeed*1000, "linear", function() {
+				backClouds.push(element);
+			});
 		});
-		
+		}
+
 	}
 
 	function animateMiddleCloud(element, firsttime)
 	{
+		if(currentState=='about')
+		{
 		if(!firsttime)
 		{
-			element.css({"top":(Math.floor((Math.random()*15))+15)+"%",
-						 "left": "-70%"});
+			element.css({"top":(Math.floor((Math.random()*0))+10)+"%",
+						 "left": "-120%"});
 
 		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*120)+10);
+			var newSpeed=Math.floor((Math.random()*15)+82);
+					element.velocity("stop");
 element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			animateMiddleCloud(element, false);
-		});
+});
+		}
 	}
 
 
 	function animateFrontCloud(element, firsttime)
 	{
+		if(currentState=='about')
+		{
 		if(!firsttime)
 		{
 			element.css({"top":(Math.floor((Math.random()*50))-2)+"%",
 						 "left": "-100%"});
 		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*10)+50);
+			var newSpeed=Math.floor((Math.random()*10)+50);
+					element.velocity("stop");
 		element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			frontClouds.push(element);
 			element=frontClouds.shift();
 			animateFrontCloud(element, false);
 		});
+		}
 	}
 		
 
@@ -177,6 +235,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					if(arrow == '#uparrow')
 					{	
 						fadeOutUpArrow = true;
+						currentState="about";
 						spawnClouds();
 						wood.stop().velocity({top:"100%"}, 500);
 						logo.stop().velocity({top:"100%"}, 500);
@@ -196,7 +255,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							$('#uparrow').hide();
 							fadeOutUpArrow = false;
 						});
-						currentState="about";	
+					
 					}
 					else if(arrow == '#downarrow')
 					{
@@ -246,6 +305,32 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 
 						
 						currentState = 'contact';
+					}
+				}
+				else if(currentState=="about")
+				{
+					if(arrow== '#downarrow')
+					{
+						stopClouds();
+						focusAndFade(wood, 0, brick, 0);
+						wood.stop().velocity({top:"80%"}, 500);
+						logo.stop().velocity({top:"36.5%"}, 500);
+						shadow.stop().velocity({top:"38%"}, 500);
+									brick.stop().velocity({top:"-5%",
+									   left: "-50%",
+									   width: "200%",
+									   height: "auto"
+											  }, 500, function()
+											  {
+											 
+											  });			
+													     
+						$('#uparrow').fadeIn("slow", function() {
+							$('#uparrow').show();
+							fadeOutUpArrow = false;
+						});
+						currentState="home";
+						
 					}
 				}
 				

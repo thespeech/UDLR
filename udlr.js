@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var currentState = 'home';
+	var currentState = 'home'; //Records which 'page' the website is on.
 	var brick = $('.brick'); //Allow jquery to work on these elements.
 	var wood = $('.wood');
 	var sky = $('.sky');
@@ -18,15 +18,18 @@ $(document).ready(function() {
 	var backClouds=[$('#back2'), $('#back3')];
 	var frontClouds=[$('#front-1'), $('#front-2')];
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
-	
-	//Use original CSS values for ratios.
+
+		//Use original CSS values for ratios.
 	/*
 	console.log(logo.height());
 	console.log($(window).height());
 	var logoHeightPercentage = (logo.height()/$(window).height()) * 100;
 	var logoWidthPercentage = (logo.width()/$(window).width()) * 100;
 	console.log(logoHeightPercentage + "%");
-*/
+	*/
+
+	//Run the actual functions.
+	
 	bgHover(brick);
 	bgHover(wood);
 	arrowClick('#uparrow', 'bounce');
@@ -64,12 +67,31 @@ $(document).ready(function() {
 		});
 	}
 */
-	function spawnClouds() //Run this when the up arrow is pressed.
+
+	function stopClouds()
+	{
+		frontClouds=[$('#front-1'), $('#front-2')]; //Reset front clouds to stop them properly.
+		frontClouds.forEach(function(element)
+							{
+								element.velocity("stop");
+							});
+		middleClouds.forEach(function(element)
+							{
+								element.velocity("stop");
+							});
+		
+		$('#back').velocity("stop"); //Stop every cloud's animation.
+		
+	}
+	
+	function spawnClouds() //Run this only when the up arrow is pressed.
 	{
 		//6 clouds to randomize. All should be more or less visible.
 		//Minimum percentage from top of cloud spawn: 77%, no greater
+		//
+		frontClouds=[$('#front-1'), $('#front-2')];
 		console.log(frontClouds);
-		var currentFront = frontClouds.shift();
+		var currentFront = frontClouds.shift(); //Pop the cloud off the array.
 		var leftPercent = 0;
 		leftPercent = Math.floor((Math.random()*5));
 		console.log(currentFront);
@@ -86,8 +108,26 @@ $(document).ready(function() {
 		});
 		$('#back').css({"top":"-180%",
 						"left":"0%"});
-		animateBackCloud($('#back'), true);
+		animateBackCloud($('#back'), true); 
 		animateConfetti();
+	}
+
+	function arrowFadeSlide(element, direction)
+	{
+		element.velocity({opacity: 1}, 500, "linear");
+		if(direction=='up')
+		{
+			
+		}
+		else if(direction=='down')
+		{
+		}
+		else if(direction=='left')
+		{
+		}
+		else if(direction=='right')
+		{
+		}
 	}
 
 	function animateConfetti()
@@ -97,22 +137,28 @@ $(document).ready(function() {
 	
 	function animateBackCloud(element, firsttime)
 	{
+		if(currentState=='about')
+		{
 			element.css({"top":"0%",
 						 "left":"-180%"});
 		element.show();
-		var newSpeed=160;
+			var newSpeed=160;
+			element.velocity("stop");
 		element.velocity({left:"50%"}, newSpeed*1000, "linear", function(){
 			animateBackCloud(backClouds.shift(), false);
+					element.velocity("stop");
 			element.velocity({left:"180%"}, newSpeed*1000, "linear", function() {
 				backClouds.push(element);
 			});
 		});
-		
+		}
 
 	}
 
 	function animateMiddleCloud(element, firsttime)
 	{
+		if(currentState=='about')
+		{
 		if(!firsttime)
 		{
 			element.css({"top":(Math.floor((Math.random()*0))+10)+"%",
@@ -120,27 +166,33 @@ $(document).ready(function() {
 
 		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*15)+82);
+			var newSpeed=Math.floor((Math.random()*15)+82);
+					element.velocity("stop");
 element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			animateMiddleCloud(element, false);
-		});
+});
+		}
 	}
 
 
 	function animateFrontCloud(element, firsttime)
 	{
+		if(currentState=='about')
+		{
 		if(!firsttime)
 		{
 			element.css({"top":(Math.floor((Math.random()*50))-2)+"%",
 						 "left": "-100%"});
 		}
 		element.show();
-		var newSpeed=Math.floor((Math.random()*10)+50);
+			var newSpeed=Math.floor((Math.random()*10)+50);
+					element.velocity("stop");
 		element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			frontClouds.push(element);
 			element=frontClouds.shift();
 			animateFrontCloud(element, false);
 		});
+		}
 	}
 		
 
@@ -185,28 +237,31 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				if(currentState == 'home') //Check state
 				{
 					if(arrow == '#uparrow')
-					{	
+					{
 						fadeOutUpArrow = true;
+						currentState="about";
 						spawnClouds();
-						wood.stop().velocity({top:"100%"}, 500);
-						logo.stop().velocity({top:"100%"}, 500);
-						shadow.stop().velocity({top:"100%"}, 500);
+						setTimeout(function(){
+						wood.stop().velocity({top:"100%"}, 300);
+						logo.stop().velocity({top:"100%"}, 300);
+						shadow.stop().velocity({top:"100%"}, 300);
 									brick.stop().velocity({top:"77%",
 									   left: "-100%",
 									   width: "300%",
 									   height: "150%"
-											  }, 500, function()
+											  }, 300, function()
 											  {
-											 
+										 
 											  });			
 													    
 						focusAndFade(sky, 0.0, brick, 8.0); 
-												currentState = 'about';
+							currentState = 'about';
+						}, 800); //Set timeout to let clouds load a bit longer.
 						$('#uparrow').fadeOut("slow", function() {
 							$('#uparrow').hide();
 							fadeOutUpArrow = false;
 						});
-						currentState="about";	
+					
 					}
 					else if(arrow == '#downarrow')
 					{
@@ -256,6 +311,85 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 
 						
 						currentState = 'contact';
+					}
+				}
+				else if(currentState=="about")
+				{
+					if(arrow=='#downarrow')
+					{
+						stopClouds();
+						focusAndFade(wood, 0, brick, 0);
+						wood.stop().velocity({top:"80%"}, 300);
+						logo.stop().velocity({top:"36.5%"}, 300);
+						shadow.stop().velocity({top:"38%"}, 300);
+									brick.stop().velocity({top:"-5%",
+									   left: "-50%",
+									   width: "200%",
+									   height: "auto"
+											  }, 300, function()
+											  {
+											 
+											  });			
+													     
+						$('#uparrow').fadeIn("slow", function() {
+							$('#uparrow').show();
+							fadeOutUpArrow = false;
+						});
+						currentState="home";
+						
+					}
+				}
+				else if(currentState=="contact")
+				{
+					if(arrow=='#uparrow')
+					{
+						console.log(brick.height());
+						console.log(brick.width());
+						focusAndFade(wood, 0, brick, 0);
+						var scale = 0.90;
+						var w = brick.width();
+						var h = brick.height();
+						brick.data('w',w).data('h',h);
+
+						contactUs.css("visibility", "hidden");
+							contactUs.velocity({
+							top: '33%'
+							});
+						
+						brick.velocity({ //Just use percentages so window can scale.
+							width: "200%",
+							height: "auto",
+							left: '-50%',
+							top: '-5%'
+						},  150);
+						
+						wood.velocity({
+							top: '80%',
+							left: '-10%',
+							width: '120%',
+							height: '120%'
+						},  200,'swing', function() {
+						});
+
+						//Get percentage of width:
+						var widthPercentage = (100*(logo.width()))/(screenSize.width());
+						var heightPercentage = (100*(logo.height()))/(screenSize.height());
+						logo.velocity({
+							width: (widthPercentage*2)+'%',
+							top: '36.5%',
+							left:'33.5%',
+							},
+									 {queue:false, duration:200});
+						
+						shadow.velocity({
+							width: (widthPercentage*2)+'%',
+							top: '38%',
+							left:'33.5%',
+							},
+									   {queue:false, duration:200});
+
+						
+						currentState = 'home';
 					}
 				}
 				
