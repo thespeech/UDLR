@@ -43,7 +43,6 @@ $(document).ready(function() {
 	function initializeBrick()
 	{
 		//Set initial positions of bricks
-		infiniteBrick[1].show(); //Center is always infiniteBrick[1].
 		infiniteBrick[0].css({"left": "-250%"});
 		infiniteBrick[2].css({"left": "150%"});
 	}
@@ -370,11 +369,18 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 					else if(arrow=='#leftarrow')
 					{
-						infiniteBrick[2].show();
 						infiniteBrick[1].velocity({
-							left: '-150%'}, 300);
+							left: '-150%'}, 300); //Shove current away
 						infiniteBrick[2].velocity({
-							left: '-150%'}, 300);
+							left: '-50%'}, 300, function()
+												  {
+	                    var temp = infiniteBrick[1];
+						infiniteBrick[1]=infiniteBrick[2];
+						infiniteBrick[2]=temp;
+						infiniteBrick[2].css({"left":"150%"});
+
+												  }); //Move right brick in
+												
 					}
 					
 				}
