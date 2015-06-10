@@ -32,10 +32,10 @@ $(document).ready(function() {
 	
 	bgHover(brick);
 	bgHover(wood);
-	arrowClick('#uparrow', 'bounce');
-	arrowClick('#downarrow', 'bounce');
-	arrowClick('#leftarrow', 'bounce');
-	arrowClick('#rightarrow', 'bounce');
+	arrowClick('#uparrow');
+	arrowClick('#downarrow');
+	arrowClick('#leftarrow');
+	arrowClick('#rightarrow');
 	hoverEdges();
 
 	
@@ -109,31 +109,8 @@ $(document).ready(function() {
 		$('#back').css({"top":"-180%",
 						"left":"0%"});
 		animateBackCloud($('#back'), true); 
-		animateConfetti();
 	}
 
-	function arrowFadeSlide(element, direction)
-	{
-		element.velocity({opacity: 1}, 500, "linear");
-		if(direction=='up')
-		{
-			
-		}
-		else if(direction=='down')
-		{
-		}
-		else if(direction=='left')
-		{
-		}
-		else if(direction=='right')
-		{
-		}
-	}
-
-	function animateConfetti()
-	{
-
-	}
 	
 	function animateBackCloud(element, firsttime)
 	{
@@ -199,40 +176,142 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 	
 	function hoverEdges() //Do arrow fading stuff.
 	{
+		var movedArrow="";
 		$(document).on("mousemove", function(event){
-			var edgePercentHeight = $(window).height() * 0.1;
-			var edgePercentWidth = $(window).width() * 0.04;
+			var edgePercentHeight = $(window).height() * 0.05;
+			var edgePercentWidth = $(window).width() * 0.04; //Recalculate every mouse movement.
 			if(fadeOutUpArrow == false)
 			{
-			if((event.pageY < edgePercentHeight) ||
-			   ((($(window).height() - event.pageY) < edgePercentHeight)) ||
-			  (event.pageX < edgePercentWidth) ||
-			   ((($(window).width() - event.pageX) < edgePercentWidth)))
-			{
-				if(alreadyInEdge == false)
+			if((event.pageY < edgePercentHeight) || //Top
+			   ((($(window).height() - event.pageY) < edgePercentHeight)) || //Bottom
+			  (event.pageX < edgePercentWidth) || //Left
+			   ((($(window).width() - event.pageX) < edgePercentWidth))) //Right
+				{
+					/*
+
+*/
+					
+				if(alreadyInEdge == false) //The last mouse position not near the edge.
 				{
 					$(".arrow").stop().velocity({"opacity": "1"}, 250);
-					alreadyInEdge = true;
+										//Check especially which edge is being activated.
+					//Revert the original activated arrow if it is not the current one,
+					//then activate the new one.
+					
+					if(event.pageY < edgePercentHeight)
+					{
+						if(movedArrow!=="top")
+						{
+							console.log("Arrow is top!");
+							revertArrow(movedArrow);
+							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
+						}
+					}
+					else if(($(window).height() - event.pageY) < edgePercentHeight)
+					{
+						if(movedArrow!=="bottom")
+						{
+							revertArrow(movedArrow);
+							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
+						}
+					}
+					else if(event.pageX < edgePercentWidth)
+					{
+						if(movedArrow!=="left")
+						{
+							revertArrow(movedArrow);
+							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
+						}
+					}
+					else if(($(window).width() - event.pageX) < edgePercentWidth)
+					{
+						if(movedArrow!=="right")
+						{
+							revertArrow(movedArrow);
+							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
+						}
+					}
+					
+					alreadyInEdge = true; //Set last mouse pos to be near edge.
 				}
-			}
+				}
 			else
-			{
-				if(alreadyInEdge == true)
 				{
-				$(".arrow").stop().velocity({"opacity": "0"}, 250);
+				if(alreadyInEdge == true) //Converse.
+					{
+						console.log("Fading.");
+						revertArrow(movedArrow);
+						movedArrow = "";
+						$(".arrow").stop().velocity({"opacity": "0"}, 250);
 				alreadyInEdge = false;
 				}
 			}
 			}
 		});
 	}
-		
-	function arrowClick(element, animation) {
+	
+	function arrowSlide(edgePercentHeight, edgePercentWidth, event)
+	{
+		var movedArrow="";
+		if(event.pageY < edgePercentHeight)
+		{
+			$('#uparrow').velocity({
+				top:"0%"}, 500);
+			movedArrow="up";
+		}
+		else if(($(window).height()-event.pageY) < edgePercentHeight)
+		{
+			$('#downarrow').velocity({
+				bottom:"0.5%"}, 500);
+			movedArrow="bottom";
+		}
+		else if(event.pageX < edgePercentWidth)
+		{
+			$('#leftarrow').velocity({
+				left:"-1%"}, 500);
+			movedArrow="left";
+		}
+		else if(($(window).width() - event.pageX) < edgePercentWidth)
+		{
+			$('#rightarrow').velocity({
+				right:"-1%"}, 500);
+			movedArrow="right";
+		}
+		return movedArrow;
+	}
+
+	function revertArrow(arrow)
+	{
+		if( arrow !== "")
+		{
+		if(arrow == "up")
+		{
+			$('#uparrow').velocity({
+				top:"1%"}, 250);
+		}
+		else if(arrow == "left")
+		{
+			$('#leftarrow').velocity({
+				left:"-0.5%"}, 250);
+		}
+		else if(arrow == "right")
+		{
+			$('#rightarrow').velocity({
+				right:"-0.5%"}, 250);
+		}
+		else if(arrow == "bottom")
+		{
+			$('#downarrow').velocity({
+				bottom:"1%"}, 250);
+		}
+		}
+	}
+	
+	function arrowClick(element) {
 		var arrow = element;
 		element = $(element);
 		element.click(
 			function() {
-				element.addClass('animated ' + animation);
 				
 				if(currentState == 'home') //Check state
 				{
@@ -392,11 +471,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						currentState = 'home';
 					}
 				}
-				
-				//wait for animation to finish before removing classes
-				window.setTimeout( function() {
-					element.removeClass('animated ' + animation);
-				}, 2000);
+			
 			}
 		);
 	};
