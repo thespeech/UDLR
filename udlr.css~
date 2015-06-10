@@ -116,7 +116,7 @@ html, body {
   z-index: -3;
 }
 
-#back {
+#back, #back2, #back3 {
   width: 180%;
   height: auto;
 }
@@ -125,10 +125,17 @@ html, body {
   height: auto;
 }
 #middle-1, #middle-2, #middle-3 {
-  width: 70%;
+  width: auto;
+  height: 70%;
+  }
+/*
+#confetti-1, #confetti-2, #confetti-3, #confetti-4 {
+  visibility: visible;
+  display:inline-block;
+  width: 30%;
   height: auto;
-}
-
+  z-index: -2;
+}*/
 
 #skybg {
   visibility: visible;

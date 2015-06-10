@@ -18,6 +18,7 @@ $(document).ready(function() {
 	var backClouds=[$('#back2'), $('#back3')];
 	var frontClouds=[$('#front-1'), $('#front-2')];
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
+	var infiniteBrick=[$('#brick1'), $('#brick2'), $('#brick3')];
 
 		//Use original CSS values for ratios.
 	/*
@@ -37,37 +38,16 @@ $(document).ready(function() {
 	arrowClick('#leftarrow');
 	arrowClick('#rightarrow');
 	hoverEdges();
+	initializeBrick();
 
-	
-	//checkWindowResize();
-/*	
-	function checkWindowResize()
+	function initializeBrick()
 	{
-		$(window).resize(function() {
-			//Do for logo and shadow first.
-			if(currentState == 'home')
-			{
-			if($(window).width() !== winWidth)
-			{
-				logo.css({"width":logoWidthPercentage+"%",
-						  "height":"auto"});
-				shadow.css({"width":logoWidthPercentage+"%",
-							"height":"auto"});
-			}
-			else if($(window).height() !== winHeight)
-			{
-				logo.css({"height":logoHeightPercentage+"%",
-						  "width":"auto"});
-				shadow.css({"height": logoHeightPercentage+"%",
-							"width":"auto"});
-			}
-			}
-			winWidth = $(window).width();
-			winHeight = $(window).height();
-		});
+		//Set initial positions of bricks
+		infiniteBrick[1].show(); //Center is always infiniteBrick[1].
+		infiniteBrick[0].css({"left": "-250%"});
+		infiniteBrick[2].css({"left": "150%"});
 	}
-*/
-
+	
 	function stopClouds()
 	{
 		frontClouds=[$('#front-1'), $('#front-2')]; //Reset front clouds to stop them properly.
@@ -187,9 +167,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			  (event.pageX < edgePercentWidth) || //Left
 			   ((($(window).width() - event.pageX) < edgePercentWidth))) //Right
 				{
-					/*
-
-*/
 					
 				if(alreadyInEdge == false) //The last mouse position not near the edge.
 				{
@@ -335,7 +312,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 													    
 						focusAndFade(sky, 0.0, brick, 8.0); 
 							currentState = 'about';
-						}, 800); //Set timeout to let clouds load a bit longer.
+						}, 100); //Set timeout to let clouds load a bit longer.
 						$('#uparrow').fadeOut("slow", function() {
 							$('#uparrow').hide();
 							fadeOutUpArrow = false;
@@ -391,6 +368,15 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						
 						currentState = 'contact';
 					}
+					else if(arrow=='#leftarrow')
+					{
+						infiniteBrick[2].show();
+						infiniteBrick[1].velocity({
+							left: '-150%'}, 300);
+						infiniteBrick[2].velocity({
+							left: '-150%'}, 300);
+					}
+					
 				}
 				else if(currentState=="about")
 				{
