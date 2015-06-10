@@ -14,7 +14,9 @@
   <body>
 	<div id="screensize" class="centered">
 	</div>
-	  <img src="brick.png"  class="brick centered" alt="">
+	<img src="brick.png"  class="brick centered" id="brick1" alt="">
+	<img src="brick.png" class="brick centered" id="brick2" alt="">
+	<img src="brick.png" class="brick centered" id="brick3" alt="">
 	  <img src="wood.png" class="wood" alt="">
 	  
 	  <img src="Clouds/Clouds-BG.jpg" id="skybg" 7alt=""> 
