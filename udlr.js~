@@ -11,6 +11,7 @@ $(document).ready(function() {
 	var lastelement=null;
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
+	var mutexScroll = true;
 
 	//Initialize window height and width on first load.
 	var winWidth = $(window).width();
@@ -20,6 +21,7 @@ $(document).ready(function() {
 	var frontClouds=[$('#front-1'), $('#front-2')];
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
 	var infiniteBrick=[$('#brick1'), $('#brick2'), $('#brick3')];
+	var infiniteWood=[$('#wood1'), $('#wood2'), $('#wood3')];
 
 		//Use original CSS values for ratios.
 	/*
@@ -40,6 +42,13 @@ $(document).ready(function() {
 	arrowClick('#rightarrow');
 	hoverEdges();
 	initializeBrick();
+	initializeWood();
+	
+	function initializeWood()
+	{
+		infiniteWood[0].css({"left": "-130%"});
+		infiniteWood[2].css({"left": "110%"});
+	}
 
 	function initializeBrick()
 	{
@@ -169,46 +178,14 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				{
 					
 				if(alreadyInEdge == false) //The last mouse position not near the edge.
-				{
-					$(".arrow").stop().velocity({"opacity": "1"}, 250);
+					{
+						//$(".arrow").velocity({"opacity": "1"}, 350);
+						arrowSlide();
+
 										//Check especially which edge is being activated.
 					//Revert the original activated arrow if it is not the current one,
 					//then activate the new one.
-					
-					if(event.pageY < edgePercentHeight)
-					{
-						if(movedArrow!=="top")
-						{
-							console.log("Arrow is top!");
-							revertArrow(movedArrow);
-							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
-						}
-					}
-					else if(($(window).height() - event.pageY) < edgePercentHeight)
-					{
-						if(movedArrow!=="bottom")
-						{
-							revertArrow(movedArrow);
-							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
-						}
-					}
-					else if(event.pageX < edgePercentWidth)
-					{
-						if(movedArrow!=="left")
-						{
-							revertArrow(movedArrow);
-							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
-						}
-					}
-					else if(($(window).width() - event.pageX) < edgePercentWidth)
-					{
-						if(movedArrow!=="right")
-						{
-							revertArrow(movedArrow);
-							movedArrow = arrowSlide(edgePercentHeight, edgePercentWidth, event);
-						}
-					}
-					
+
 					alreadyInEdge = true; //Set last mouse pos to be near edge.
 				}
 				}
@@ -217,9 +194,10 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				if(alreadyInEdge == true) //Converse.
 					{
 						console.log("Fading.");
-						revertArrow(movedArrow);
-						movedArrow = "";
-						$(".arrow").stop().velocity({"opacity": "0"}, 250);
+						$(".arrow").stop().velocity({"opacity": "0"}, 250, function()
+													{
+														revertArrow();
+													});
 				alreadyInEdge = false;
 				}
 			}
@@ -227,61 +205,37 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 		});
 	}
 	
-	function arrowSlide(edgePercentHeight, edgePercentWidth, event)
+	function arrowSlide()
 	{
 		var movedArrow="";
-		if(event.pageY < edgePercentHeight)
-		{
 			$('#uparrow').velocity({
-				top:"0%"}, 500);
+				top:"2%",
+				opacity: "1"}, 100);
 			movedArrow="up";
-		}
-		else if(($(window).height()-event.pageY) < edgePercentHeight)
-		{
 			$('#downarrow').velocity({
-				bottom:"0.5%"}, 500);
+				bottom:"2%",
+				opacity: "1"}, 100);
 			movedArrow="bottom";
-		}
-		else if(event.pageX < edgePercentWidth)
-		{
 			$('#leftarrow').velocity({
-				left:"-1%"}, 500);
+				left:"0%",
+				opacity: "1"}, 100);
 			movedArrow="left";
-		}
-		else if(($(window).width() - event.pageX) < edgePercentWidth)
-		{
 			$('#rightarrow').velocity({
-				right:"-1%"}, 500);
+				right:"0%",
+				opacity: "1"}, 100);
 			movedArrow="right";
-		}
-		return movedArrow;
 	}
 
 	function revertArrow(arrow)
 	{
-		if( arrow !== "")
-		{
-		if(arrow == "up")
-		{
-			$('#uparrow').velocity({
-				top:"1%"}, 250);
-		}
-		else if(arrow == "left")
-		{
-			$('#leftarrow').velocity({
-				left:"-0.5%"}, 250);
-		}
-		else if(arrow == "right")
-		{
-			$('#rightarrow').velocity({
-				right:"-0.5%"}, 250);
-		}
-		else if(arrow == "bottom")
-		{
-			$('#downarrow').velocity({
-				bottom:"1%"}, 250);
-		}
-		}
+		$('#uparrow').css({
+				top:"4%"});
+			$('#leftarrow').css({
+				left:"2%"});
+			$('#rightarrow').css({
+				right:"2%"});
+			$('#downarrow').css({
+				bottom:"4%"});
 	}
 	
 	function arrowClick(element) {
@@ -289,7 +243,8 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 		element = $(element);
 		element.click(
 			function() {
-				
+				if(mutexScroll == true)
+				{
 				if(currentState == 'home') //Check state
 				{
 					if(arrow == '#uparrow')
@@ -313,9 +268,10 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 															  });
 											  });			
 													    
-						focusAndFade(sky, 0.0, brick, 8.0); 
+						focusAndFade(sky, 0.0, brick, 7.0); 
 							currentState = 'about';
 						}, 100); //Set timeout to let clouds load a bit longer.
+
 						$('#uparrow').fadeOut("slow", function() {
 							$('#uparrow').hide();
 							fadeOutUpArrow = false;
@@ -326,7 +282,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					{
 						console.log(brick.height());
 						console.log(brick.width());
-						focusAndFade(wood, 0, brick, 8);
+						focusAndFade(wood, 0, brick, 5);
 						var scale = 0.90;
 						var w = brick.width();
 						var h = brick.height();
@@ -373,8 +329,13 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 					else if(arrow=='#leftarrow')
 					{
+						mutexScroll = false;
+						infiniteWood[1].velocity({
+							left: '110%'}, 300);
+						infiniteWood[0].velocity({
+							left: '-10%'}, 300);
 						infiniteBrick[1].velocity({
-							left: '50%'}, 300); //Shove current away
+							left: '150%'}, 300); //Shove current away
 						infiniteBrick[0].velocity({
 							left: '-50%'}, 300, function()
 												  {
@@ -382,6 +343,11 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 													  infiniteBrick[1]=infiniteBrick[0];
 													  infiniteBrick[0]=temp;
 													  infiniteBrick[0].css({"left":"-250%"});
+													  temp = infiniteWood[1];
+													  infiniteWood[1] = infiniteWood[0];
+													  infiniteWood[0] = temp;
+													  infiniteWood[0].css({"left":"-130%"});
+													  mutexScroll = true;
 												  });
 						logo.velocity({
 							left: '+=100%'}, 300);
@@ -390,7 +356,12 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 					else if(arrow=='#rightarrow')
 					{
-												infiniteBrick[1].velocity({
+						mutexScroll = false;
+						infiniteWood[1].velocity({
+							left: '-130%'}, 300);
+						infiniteWood[2].velocity({
+							left: '-10%'}, 300);
+						infiniteBrick[1].velocity({
 							left: '-150%'}, 300); //Shove current away
 						infiniteBrick[2].velocity({
 							left: '-50%'}, 300, function()
@@ -399,6 +370,12 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 													  infiniteBrick[1]=infiniteBrick[2];
 													  infiniteBrick[2]=temp;
 													  infiniteBrick[2].css({"left":"150%"});
+													  temp = infiniteWood[1];
+													  infiniteWood[1] = infiniteWood[2];
+													  infiniteWood[2] = temp;
+													  infiniteWood[2].css({"left":"110%"});
+													  
+													  mutexScroll = true;
 												  }); //Move right brick in
 						logo.velocity({
 							left:'-=100%'}, 300);
@@ -411,6 +388,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				{
 					if(arrow=='#downarrow')
 					{
+						lastelement = null;
 						aboutUs.css("visibility", "hidden");
 						aboutUs.velocity({
 							top: '77%'
@@ -427,6 +405,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 											  }, 300, function()
 											  {
 												  initializeBrick();
+												  initializeWood();
 											  });			
 													     
 						$('#uparrow').fadeIn("slow", function() {
@@ -441,6 +420,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				{
 					if(arrow=='#uparrow')
 					{
+						lastelement = null;
 						console.log(brick.height());
 						console.log(brick.width());
 						focusAndFade(wood, 0, brick, 0);
@@ -462,6 +442,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						},  150, function()
 									   {
 										   initializeBrick(); //Lazy, resolves uncertainty
+										   initializeWood();
 									   });
 						
 						wood.velocity({
@@ -493,7 +474,8 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						currentState = 'home';
 					}
 				}
-			
+					
+				}
 			}
 		);
 	};
@@ -539,7 +521,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					{
 						if(lastelement !== null)
 						{
-							focusAndFade(brick, 6.0, wood, 5.0);
+							focusAndFade(brick, 5.0, wood, 5.0);
 						}
 						else if(lastelement == null)
 						{
@@ -551,11 +533,11 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				{
 						if(lastelement !== null)
 						{
-							focusAndFade(wood, 5.0, brick, 6.0);
+							focusAndFade(wood, 5.0, brick, 5.0);
 						}
 					else if(lastelement == null)
 					{
-						focusAndFade(wood, 0.0, brick, 6.0);
+						focusAndFade(wood, 0.0, brick, 5.0);
 					}
 						lastelement = wood;
 
