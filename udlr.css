@@ -29,7 +29,7 @@ html, body {
 
 #uparrow {
   position: absolute;
-  top: 1%;
+  top: 4%;
   left: 47.5%;
   width: 5%;
   height: auto;
@@ -37,7 +37,7 @@ html, body {
 
 #downarrow {
   position: absolute;
-  bottom: 1%;
+  bottom: 4%;
   left: 47.5%;
   width:5%;
   height: auto;
@@ -49,7 +49,7 @@ html, body {
 #leftarrow {
   position: absolute;
   top: 46.5%;
-  left: -0.5%;
+  left: 2%;
   width: 5%;
   height: auto;
   -ms-transform: rotate(-90deg);
@@ -68,7 +68,7 @@ html, body {
 #rightarrow {
   position: absolute;
   top: 46.5%;
-  right: -0.5%;
+  right: 2%;
   width: 5%;
   height: auto;
   -ms-transform: rotate(90deg);

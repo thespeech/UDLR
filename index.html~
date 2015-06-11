@@ -48,6 +48,10 @@
 	<div id="contactUs">
 	  Contact Us
 	</div>
+
+	<div id="aboutUs">
+	  About Us
+	</div>
 	 
 	</body>
 </html>

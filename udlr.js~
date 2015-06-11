@@ -8,7 +8,7 @@ $(document).ready(function() {
 	var contactUs = $('#contactUs');
 	var screenSize = $('#screensize');
 	var aboutUs = $('#aboutUs');
-	var lastelement;
+	var lastelement=null;
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
 
@@ -374,20 +374,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					else if(arrow=='#leftarrow')
 					{
 						infiniteBrick[1].velocity({
-							left: '-150%'}, 300); //Shove current away
-						infiniteBrick[2].velocity({
-							left: '-50%'}, 300, function()
-												  {
-													  var temp = infiniteBrick[1];
-													  infiniteBrick[1]=infiniteBrick[2];
-													  infiniteBrick[2]=temp;
-													  infiniteBrick[2].css({"left":"150%"});
-												  }); //Move right brick in
-												
-					}
-					else if(arrow=='#rightarrow')
-					{
-						infiniteBrick[1].velocity({
 							left: '50%'}, 300); //Shove current away
 						infiniteBrick[0].velocity({
 							left: '-50%'}, 300, function()
@@ -397,6 +383,27 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 													  infiniteBrick[0]=temp;
 													  infiniteBrick[0].css({"left":"-250%"});
 												  });
+						logo.velocity({
+							left: '+=100%'}, 300);
+						shadow.velocity({
+							left: '+=100%'}, 300);
+					}
+					else if(arrow=='#rightarrow')
+					{
+												infiniteBrick[1].velocity({
+							left: '-150%'}, 300); //Shove current away
+						infiniteBrick[2].velocity({
+							left: '-50%'}, 300, function()
+												  {
+													  var temp = infiniteBrick[1];
+													  infiniteBrick[1]=infiniteBrick[2];
+													  infiniteBrick[2]=temp;
+													  infiniteBrick[2].css({"left":"150%"});
+												  }); //Move right brick in
+						logo.velocity({
+							left:'-=100%'}, 300);
+						shadow.velocity({
+							left:'-=100%'}, 300);
 					}
 					
 				}
@@ -530,13 +537,28 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				{
 				if(element == brick && (lastelement == wood || lastelement == null))
 					{
-					lastelement = brick;
-					focusAndFade(brick, 6.0, wood, 5.0);
-				}
+						if(lastelement !== null)
+						{
+							focusAndFade(brick, 6.0, wood, 5.0);
+						}
+						else if(lastelement == null)
+						{
+							focusAndFade(brick, 0.0, wood, 5.0);
+						}
+						lastelement = brick;
+					}
 				else if(element == wood && (lastelement == brick || lastelement == null))
 				{
-					lastelement = wood;
-					focusAndFade(wood, 5.0, brick, 6.0);
+						if(lastelement !== null)
+						{
+							focusAndFade(wood, 5.0, brick, 6.0);
+						}
+					else if(lastelement == null)
+					{
+						focusAndFade(wood, 0.0, brick, 6.0);
+					}
+						lastelement = wood;
+
 				}
 				}
 			});
