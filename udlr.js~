@@ -43,6 +43,51 @@ $(document).ready(function() {
 	hoverEdges();
 	initializeBrick();
 	initializeWood();
+	keyboardNav();
+
+	function keyboardNav()
+	{
+		document.onkeydown = function(e) {
+			switch (e.keyCode) {
+			case 37:
+				navPage('#leftarrow');
+				flashArrow('left');
+				break;
+			case 38:
+				navPage('#uparrow');
+				flashArrow('up');
+				break;
+			case 39:
+				navPage('#rightarrow');
+				flashArrow('right');
+				break;
+			case 40:
+				navPage('#downarrow');
+				flashArrow('down');
+				break;
+			}
+		}
+	}
+
+	function flashArrow(direction)
+	{
+		if(direction == 'left')
+		{
+			
+		}
+		else if(direction == 'right')
+		{
+			
+		}
+		else if(direction == 'up')
+		{
+			
+		}
+		else if(direction == 'down')
+		{
+			
+		}
+	}
 	
 	function initializeWood()
 	{
@@ -237,14 +282,11 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			$('#downarrow').css({
 				bottom:"4%"});
 	}
-	
-	function arrowClick(element) {
-		var arrow = element;
-		element = $(element);
-		element.click(
-			function() {
-				if(mutexScroll == true)
-				{
+
+	function navPage(arrow){
+		if(mutexScroll == true)
+		{
+			mutexScroll = false;
 				if(currentState == 'home') //Check state
 				{
 					if(arrow == '#uparrow')
@@ -395,7 +437,10 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						});
 						stopClouds();
 						focusAndFade(wood, 0, brick, 0);
-						wood.stop().velocity({top:"80%"}, 300);
+						wood.stop().velocity({top:"80%"}, 300, function()
+											 {
+												  initializeWood();
+											 });
 						logo.stop().velocity({top:"36.5%"}, 300);
 						shadow.stop().velocity({top:"38%"}, 300);
 									brick.stop().velocity({top:"-5%",
@@ -405,7 +450,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 											  }, 300, function()
 											  {
 												  initializeBrick();
-												  initializeWood();
 											  });			
 													     
 						$('#uparrow').fadeIn("slow", function() {
@@ -432,7 +476,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						contactUs.css("visibility", "hidden");
 							contactUs.velocity({
 							top: '33%'
-							});
+							}, 200);
 						
 						brick.velocity({ //Just use percentages so window can scale.
 							width: "200%",
@@ -442,7 +486,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						},  150, function()
 									   {
 										   initializeBrick(); //Lazy, resolves uncertainty
-										   initializeWood();
 									   });
 						
 						wood.velocity({
@@ -451,6 +494,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							width: '120%',
 							height: '120%'
 						},  200,'swing', function() {
+							initializeWood();
 						});
 
 						//Get percentage of width:
@@ -474,8 +518,16 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						currentState = 'home';
 					}
 				}
-					
+			setTimeout(function(){mutexScroll = true},300);
 				}
+			}
+	
+	function arrowClick(element) {
+		var arrow = element;
+		element = $(element);
+		element.click(
+			function() {
+				navPage(arrow);
 			}
 		);
 	};

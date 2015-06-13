@@ -17,7 +17,10 @@
 	<img src="brick.png"  class="brick centered" id="brick1" alt="">
 	<img src="brick.png" class="brick centered" id="brick2" alt="">
 	<img src="brick.png" class="brick centered" id="brick3" alt="">
-	  <img src="wood.png" class="wood" alt="">
+
+	<img src="wood.png" class="wood" id="wood1" alt="">
+	<img src="wood.png" class="wood" id="wood2" alt="">
+	<img src="wood.png" class="wood" id="wood3" alt=""> 
 	  
 	  <img src="Clouds/Clouds-BG.jpg" id="skybg" 7alt=""> 
 	  <img src="Clouds/Clouds-Back.png" id="back" class="skyfg" alt="">
@@ -40,7 +43,13 @@
 	  <img src="Arrow.png" id="uparrow" class="arrow">
 	  <img src="Arrow.png" id="downarrow" class="arrow">
 	  <img src="Arrow.png" id="leftarrow" class="arrow">
-	  <img src="Arrow.png" id="rightarrow" class ="arrow">
+	  <img src="Arrow.png" id="rightarrow" class="arrow">
+
+	  <img src="Arrow-White.png" id="upwhite" class="arrow">
+	  <img src="Arrow-White.png" id="downwhite" class="arrow">
+	  <img src="Arrow-White.png" id="leftwhite" class="arrow">
+	  <img src="Arrow-White.png" id="rightwhite" class="arrow">
+	  
 	  <div id="logo-container">
 		<img src="UDLR Logo.png" id="logo" alt="">
 		<img src="UDLR Logo Shadow.png" id="shadow" alt="">
@@ -52,6 +61,6 @@
 	<div id="aboutUs">
 	  About Us
 	</div>
-	 
+
 	</body>
 </html>

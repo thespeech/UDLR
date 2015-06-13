@@ -73,19 +73,36 @@ $(document).ready(function() {
 	{
 		if(direction == 'left')
 		{
-			
+		$('#leftwhite').velocity({'opacity':'1'}, 300, function()
+									 {
+										 $('#leftwhite').velocity({
+											 'opacity':'0'}, 300);
+									 });
+
 		}
 		else if(direction == 'right')
 		{
-			
+			$('#rightwhite').velocity({'opacity':'1'}, 300, function()
+									 {
+										 $('#rightwhite').velocity({
+											 'opacity':'0'}, 300);
+									 });		
 		}
 		else if(direction == 'up')
 		{
-			
+					$('#upwhite').velocity({'opacity':'1'}, 300, function()
+									 {
+										 $('#upwhite').velocity({
+											 'opacity':'0'}, 300);
+									 });
 		}
 		else if(direction == 'down')
 		{
-			
+					$('#downwhite').velocity({'opacity':'1'}, 300, function()
+									 {
+										 $('#downwhite').velocity({
+											 'opacity':'0'}, 300);
+									 });
 		}
 	}
 	

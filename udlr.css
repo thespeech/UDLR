@@ -27,7 +27,7 @@ html, body {
   z-index:0;
 }
 
-#uparrow {
+#uparrow, #upwhite {
   position: absolute;
   top: 4%;
   left: 47.5%;
@@ -35,7 +35,7 @@ html, body {
   height: auto;
 }
 
-#downarrow {
+#downarrow, #downwhite {
   position: absolute;
   bottom: 4%;
   left: 47.5%;
@@ -46,7 +46,7 @@ html, body {
   transform: rotate(180deg);
 }
 
-#leftarrow {
+#leftarrow, #leftwhite {
   position: absolute;
   top: 46.5%;
   left: 2%;
@@ -56,16 +56,8 @@ html, body {
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-#screensize { /*Just used to get height and width of screen.*/
-  position:fixed;
-  height: 100%;
-  width: 100%;
-  top: 0%;
-  left: 0%;
-  z-index: -999;
-}
 
-#rightarrow {
+#rightarrow, #rightwhite {
   position: absolute;
   top: 46.5%;
   right: 2%;
@@ -76,9 +68,19 @@ html, body {
   transform: rotate(90deg);
 }
 
-.arrow {
+.arrow, .backarrow {
   opacity: 0;
   }
+
+#screensize { /*Just used to get height and width of screen.*/
+  position:fixed;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  z-index: -999;
+}
+
 
 .brick {
   min-height: 100%;
