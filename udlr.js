@@ -347,25 +347,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						var h = brick.height();
 						brick.data('w',w).data('h',h);
 
-						brick.velocity({ //Just use percentages so window can scale.
-							width: "150%",
-							height: "100%",
-							left: '-25%',
-							top: '-15%'
-						},  150);
 						
-						wood.velocity({
-							top: '33%',
-							left: '0%',
-							width: '100%',
-							height: '100%'
-						},  200,'swing', function() {
-							contactUs.css("visibility", "visible");
-							contactUs.velocity({
-							top: '26.3%'
-							});
-						});
-
 						//Get percentage of width:
 						var widthPercentage = (100*(logo.width()))/(screenSize.width());
 						var heightPercentage = (100*(logo.height()))/(screenSize.height());
@@ -373,16 +355,33 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							width: (widthPercentage/2)+'%',
 							top: '15%',
 							left:'40.5%',
-							},
-									 {queue:false, duration:200});
+						}, {duration: 150, queue: false});
 						
 						shadow.velocity({
 							width: (widthPercentage/2)+'%',
 							top: '16%',
 							left:'40.5%',
-							},
-									   {queue:false, duration:200});
+						}, {duration: 150, queue: false});
 
+
+						brick.velocity({ //Just use percentages so window can scale.
+							width: "150%",
+							height: "100%",
+							left: '-25%',
+							top: '-15%'
+						},  {duration: 150, queue: false});
+						
+						wood.velocity({
+							top: '33%',
+							left: '0%',
+							width: '100%',
+							height: '100%'
+						},  {duration: 150, queue: false},'linear', function() {
+							contactUs.css("visibility", "visible");
+							contactUs.velocity({
+							top: '26.3%'
+							});
+						});
 						
 						currentState = 'contact';
 					}
@@ -493,14 +492,14 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						contactUs.css("visibility", "hidden");
 							contactUs.velocity({
 							top: '33%'
-							}, 200);
+							}, {duration: 200, queue: false});
 						
 						brick.velocity({ //Just use percentages so window can scale.
 							width: "200%",
 							height: "auto",
 							left: '-50%',
 							top: '-5%'
-						},  150, function()
+						},  {duration: 150, queue: false}, function()
 									   {
 										   initializeBrick(); //Lazy, resolves uncertainty
 									   });
@@ -510,7 +509,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							left: '-10%',
 							width: '120%',
 							height: '120%'
-						},  200,'swing', function() {
+						},  {duration: 150, queue: false},'swing', function() {
 							initializeWood();
 						});
 
@@ -552,6 +551,41 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 	function focusAndFade(element1, blurRad1, element2, blurRad2)
 	{
 		console.log("Doing it!");
+		element1.velocity({opacity: 1},{
+			duration: 200,
+			progress: function(elements, complete, remaining, start) {
+				var curPercent=complete;
+				curPercent *= blurRad1;
+				console.log("curpercent1: " + curPercent);
+				element1.css({
+								"-webkit-filter":"blur("+curPercent+"px)",
+								"filter":"blur("+curPercent+"px)",
+								"-moz-filter":"blur("+curPercent+"px)",
+								"-o-filter":"blur("+curPercent+"px)",
+								"-ms-filter":"blur("+curPercent+"px)"
+							});
+
+
+			}
+		});
+		element2.velocity({opacity: 1},{
+			duration:  200,
+			progress: function(elements, complete, remaining, start) {
+				var curPercent=complete;
+				curPercent *= blurRad2;
+				console.log("curpercent2: " + curPercent);
+				element2.css({
+								"-webkit-filter":"blur("+curPercent+"px)",
+								"filter":"blur("+curPercent+"px)",
+								"-moz-filter":"blur("+curPercent+"px)",
+								"-o-filter":"blur("+curPercent+"px)",
+								"-ms-filter":"blur("+curPercent+"px)"
+							});
+
+
+			}
+		});
+		/*
 		$({blurRadius: blurRad1}).animate({blurRadius: 0}, {
 						duration: 200,
 						easing: 'swing',
@@ -564,7 +598,8 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 								"-ms-filter":"blur("+this.blurRadius+"px)"
 							});
 						}
-							});
+						}); */
+		/*
 		$({blurRadius: 0}).animate({blurRadius: blurRad2}, {
 						duration: 200,
 						easing: 'swing',
@@ -577,7 +612,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 								"-ms-filter":"blur("+this.blurRadius+"px)"
 							});
 						}
-					});
+					});*/
 
 	};
 
@@ -590,7 +625,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					{
 						if(lastelement !== null)
 						{
-							focusAndFade(brick, 5.0, wood, 5.0);
+							focusAndFade(brick, 0.0, wood, 5.0);
 						}
 						else if(lastelement == null)
 						{
@@ -602,7 +637,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				{
 						if(lastelement !== null)
 						{
-							focusAndFade(wood, 5.0, brick, 5.0);
+							focusAndFade(wood, 0.0, brick, 5.0);
 						}
 					else if(lastelement == null)
 					{
