@@ -12,7 +12,6 @@ $(document).ready(function() {
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
 	var mutexScroll = true;
-
 	//Initialize window height and width on first load.
 	var winWidth = $(window).width();
 	var winHeight = $(window).height();
@@ -112,8 +111,8 @@ $(document).ready(function() {
 	function initializeBrick()
 	{
 		//Set initial positions of bricks
-		infiniteBrick[0].css({"left": "-250%"});
-		infiniteBrick[2].css({"left": "150%"});
+		infiniteBrick[0].css({"left": "-245%"});
+		infiniteBrick[2].css({"left": "145%"});
 	}
 	
 	function stopClouds()
@@ -333,7 +332,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 					else if(arrow == '#downarrow')
 					{
-						focusAndFade(wood, 0, brick, 5);
+						focusAndFade(wood, 0, brick, 5.0);
 						var scale = 0.90;
 						var w = brick.width();
 						var h = brick.height();
@@ -379,25 +378,33 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 					else if(arrow=='#leftarrow')
 					{
-						mutexScroll = false;
+							mutexScroll = false;
 						infiniteWood[1].velocity({
 							left: '110%'}, 300);
 						infiniteWood[0].velocity({
-							left: '-10%'}, 300);
-						infiniteBrick[1].velocity({
-							left: '150%'}, 300); //Shove current away
-						infiniteBrick[0].velocity({
-							left: '-50%'}, 300, function()
-												  {
-													  var temp = infiniteBrick[1];
-													  infiniteBrick[1]=infiniteBrick[0];
-													  infiniteBrick[0]=temp;
-													  infiniteBrick[0].css({"left":"-250%"});
-													  temp = infiniteWood[1];
+							left: '-10%'}, 300, function() {
+													var temp = infiniteWood[1];
 													  infiniteWood[1] = infiniteWood[0];
 													  infiniteWood[0] = temp;
 													  infiniteWood[0].css({"left":"-130%"});
-													  mutexScroll = true;
+							});
+						
+							infiniteBrick[1].velocity({
+							left: '+=5%'}, 300); //Shove current away
+						infiniteBrick[2].velocity({
+							left: '+=5%'}, 300);
+						infiniteBrick[0].velocity({
+							left: '+=5%'}, 300, function()
+												  {
+													  var leftBrickPercent = infiniteBrick[0].position().left / infiniteBrick[0].parent().width() * 100;
+													  if((leftBrickPercent+5)>0)
+													  {
+														  var temp = infiniteBrick[0];
+														  infiniteBrick[0] = infiniteBrick[2];
+														  infiniteBrick[2] = infiniteBrick[1];
+														  infiniteBrick[1] = temp;
+														  infiniteBrick[0].css({"left":((leftBrickPercent-195)+"%")});
+													  }
 												  });
 						logo.velocity({
 							left: '+=100%'}, 300);
@@ -405,35 +412,42 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							left: '+=100%'}, 300);
 					}
 					else if(arrow=='#rightarrow')
-					{
+						{
 						mutexScroll = false;
 						infiniteWood[1].velocity({
 							left: '-130%'}, 300);
 						infiniteWood[2].velocity({
-							left: '-10%'}, 300);
-						infiniteBrick[1].velocity({
-							left: '-150%'}, 300); //Shove current away
-						infiniteBrick[2].velocity({
-							left: '-50%'}, 300, function()
-												  {
-													  var temp = infiniteBrick[1];
-													  infiniteBrick[1]=infiniteBrick[2];
-													  infiniteBrick[2]=temp;
-													  infiniteBrick[2].css({"left":"150%"});
-													  temp = infiniteWood[1];
+							left: '-10%'}, 300, function()
+												 {
+													  var temp = infiniteWood[1];
 													  infiniteWood[1] = infiniteWood[2];
 													  infiniteWood[2] = temp;
 													  infiniteWood[2].css({"left":"110%"});
-													  
-													  mutexScroll = true;
-												  }); //Move right brick in
+												 });
+							infiniteBrick[1].velocity({
+							left: '-=5%'}, 300); //Shove current away
+							infiniteBrick[0].velocity({
+								left: '-=5%'}, 300);
+						infiniteBrick[2].velocity({
+							left: '-=5%'}, 300, function()
+												  {
+													  var rightBrickPercent = infiniteBrick[2].position().left / infiniteBrick[0].parent().width() * 100;
+													  if((rightBrickPercent-5)<0)
+													  {
+														  var temp = infiniteBrick[2];
+														  infiniteBrick[2] = infiniteBrick[0];
+														  infiniteBrick[0] = infiniteBrick[1];
+														  infiniteBrick[1] = temp;
+														  infiniteBrick[2].css({"left":((rightBrickPercent+195)+"%")});
+													  }
+												  });
 						logo.velocity({
-							left:'-=100%'}, 300);
+							left: '-=100%'}, 300);
 						shadow.velocity({
-							left:'-=100%'}, 300);
-					}
-					
+							left: '-=100%'}, 300);
+						}
 				}
+					
 				else if(currentState=="about")
 				{
 					if(arrow=='#downarrow')
@@ -444,7 +458,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							top: '77%'
 						});
 						stopClouds();
-						focusAndFade(wood, 0, brick, 0);
+						focusAndFade(wood, 0, brick, 5.0);
 						wood.stop().velocity({top:"80%"}, 300, function()
 											 {
 												  initializeWood();
@@ -473,7 +487,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					if(arrow=='#uparrow')
 					{
 						lastelement = null;
-						focusAndFade(wood, 0, brick, 0);
+						focusAndFade(wood, 0, brick, 5);
 						var scale = 0.90;
 						var w = brick.width();
 						var h = brick.height();
@@ -524,9 +538,10 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						currentState = 'home';
 					}
 				}
-			setTimeout(function(){mutexScroll = true},300);
-				}
-			}
+			setTimeout(function(){mutexScroll = true},500);
+				
+		}
+	}
 	
 	function arrowClick(element) {
 		var arrow = element;

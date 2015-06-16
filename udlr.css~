@@ -27,7 +27,7 @@ html, body {
   z-index:0;
 }
 
-#uparrow {
+#uparrow, #upwhite {
   position: absolute;
   top: 4%;
   left: 47.5%;
@@ -35,7 +35,7 @@ html, body {
   height: auto;
 }
 
-#downarrow {
+#downarrow, #downwhite {
   position: absolute;
   bottom: 4%;
   left: 47.5%;
@@ -46,7 +46,7 @@ html, body {
   transform: rotate(180deg);
 }
 
-#leftarrow {
+#leftarrow, #leftwhite {
   position: absolute;
   top: 46.5%;
   left: 2%;
@@ -57,7 +57,7 @@ html, body {
   transform: rotate(-90deg);
 }
 
-#rightarrow {
+#rightarrow, #rightwhite {
   position: absolute;
   top: 46.5%;
   right: 2%;
@@ -68,7 +68,7 @@ html, body {
   transform: rotate(90deg);
 }
 
-.arrow {
+.arrow, .backarrow {
   opacity: 0;
   }
 

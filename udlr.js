@@ -6,6 +6,7 @@ $(document).ready(function() {
 	var logo = $('#logo');
 	var shadow = $('#shadow');
 	var contactUs = $('#contactUs');
+	var contactUsBody = $('#contactUsBody');
 	var screenSize = $('#screensize');
 	var aboutUs = $('#aboutUs');
 	var lastelement=null;
@@ -332,7 +333,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 					else if(arrow == '#downarrow')
 					{
-						focusAndFade(wood, 0, brick, 5);
+						focusAndFade(wood, 0, brick, 5.0);
 						var scale = 0.90;
 						var w = brick.width();
 						var h = brick.height();
@@ -371,7 +372,10 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							contactUs.css("visibility", "visible");
 							contactUs.velocity({
 							top: '26.3%'
-							});
+							}, {duration: 50, queue: false});
+							contactUsBody.velocity({
+								opacity: 1
+							}, {duration: 150, queue: false});
 						}});
 						
 						currentState = 'contact';
@@ -458,7 +462,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							top: '77%'
 						});
 						stopClouds();
-						focusAndFade(wood, 0, brick, 0);
+						focusAndFade(wood, 0, brick, 5.0);
 						wood.stop().velocity({top:"80%"}, 300, function()
 											 {
 												  initializeWood();
@@ -487,7 +491,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					if(arrow=='#uparrow')
 					{
 						lastelement = null;
-						focusAndFade(wood, 0, brick, 0);
+						focusAndFade(wood, 0, brick, 5);
 						var scale = 0.90;
 						var w = brick.width();
 						var h = brick.height();
@@ -496,7 +500,9 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						contactUs.css("visibility", "hidden");
 							contactUs.velocity({
 							top: '33%'
-							}, {duration: 200, queue: false});
+							}, {duration: 100, queue: false});
+
+						contactUsBody.velocity({opacity: 0},{duration: 10, queue: false});
 						
 						brick.velocity({ //Just use percentages so window can scale.
 							width: "200%",
@@ -513,7 +519,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							left: '-10%',
 							width: '120%',
 							height: '120%'
-						}, {duration: 150, queue: false, complete: function() {
+						}, {duration: 300, queue: false, complete: function() {
 							initializeWood();
 						}});
 
@@ -554,7 +560,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 	};
 
 	function focusAndFade(element1, blurRad1, element2, blurRad2)
-	{
+	{ 
 		element1.velocity({opacity: 1},{
 			duration: 200,
 			progress: function(elements, complete, remaining, start) {
@@ -586,37 +592,8 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 
 
 			}
-		});
-		/*
-		$({blurRadius: blurRad1}).animate({blurRadius: 0}, {
-						duration: 200,
-						easing: 'swing',
-						step: function() {
-							element1.css({
-								"-webkit-filter":"blur("+this.blurRadius+"px)",
-								"filter":"blur("+this.blurRadius+"px)",
-								"-moz-filter":"blur("+this.blurRadius+"px)",
-								"-o-filter":"blur("+this.blurRadius+"px)",
-								"-ms-filter":"blur("+this.blurRadius+"px)"
-							});
-						}
-						}); */
-		/*
-		$({blurRadius: 0}).animate({blurRadius: blurRad2}, {
-						duration: 200,
-						easing: 'swing',
-			step: function() {
-							element2.css({
-								"-webkit-filter":"blur("+this.blurRadius+"px)",
-								"filter":"blur("+this.blurRadius+"px)",
-								"-moz-filter":"blur("+this.blurRadius+"px)",
-								"-o-filter":"blur("+this.blurRadius+"px)",
-								"-ms-filter":"blur("+this.blurRadius+"px)"
-							});
-						}
-					});*/
-
-	};
+		}); 
+			};
 
 	function bgHover(element) {
 		element.hover(
