@@ -12,7 +12,6 @@ $(document).ready(function() {
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
 	var mutexScroll = true;
-
 	//Initialize window height and width on first load.
 	var winWidth = $(window).width();
 	var winHeight = $(window).height();
@@ -25,11 +24,8 @@ $(document).ready(function() {
 
 		//Use original CSS values for ratios.
 	/*
-	console.log(logo.height());
-	console.log($(window).height());
 	var logoHeightPercentage = (logo.height()/$(window).height()) * 100;
 	var logoWidthPercentage = (logo.width()/$(window).width()) * 100;
-	console.log(logoHeightPercentage + "%");
 	*/
 
 	//Run the actual functions.
@@ -115,8 +111,8 @@ $(document).ready(function() {
 	function initializeBrick()
 	{
 		//Set initial positions of bricks
-		infiniteBrick[0].css({"left": "-250%"});
-		infiniteBrick[2].css({"left": "150%"});
+		infiniteBrick[0].css({"left": "-245%"});
+		infiniteBrick[2].css({"left": "145%"});
 	}
 	
 	function stopClouds()
@@ -141,11 +137,9 @@ $(document).ready(function() {
 		//Minimum percentage from top of cloud spawn: 77%, no greater
 		//
 		frontClouds=[$('#front-1'), $('#front-2')];
-		console.log(frontClouds);
 		var currentFront = frontClouds.shift(); //Pop the cloud off the array.
 		var leftPercent = 0;
 		leftPercent = Math.floor((Math.random()*5));
-		console.log(currentFront);
 		currentFront.css({"top":(Math.floor(Math.random()*56))+"%",
 						  "left":(Math.floor(Math.random()*50))+"%"});
 		animateFrontCloud(currentFront, true);
@@ -255,7 +249,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 				{
 				if(alreadyInEdge == true) //Converse.
 					{
-						console.log("Fading.");
 						$(".arrow").stop().velocity({"opacity": "0"}, 250, function()
 													{
 														revertArrow();
@@ -339,8 +332,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 					else if(arrow == '#downarrow')
 					{
-						console.log(brick.height());
-						console.log(brick.width());
 						focusAndFade(wood, 0, brick, 5);
 						var scale = 0.90;
 						var w = brick.width();
@@ -376,36 +367,44 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							left: '0%',
 							width: '100%',
 							height: '100%'
-						},  {duration: 150, queue: false},'linear', function() {
+						},  {duration: 150, queue: false, complete: function() {
 							contactUs.css("visibility", "visible");
 							contactUs.velocity({
 							top: '26.3%'
 							});
-						});
+						}});
 						
 						currentState = 'contact';
 					}
 					else if(arrow=='#leftarrow')
 					{
-						mutexScroll = false;
+							mutexScroll = false;
 						infiniteWood[1].velocity({
 							left: '110%'}, 300);
 						infiniteWood[0].velocity({
-							left: '-10%'}, 300);
-						infiniteBrick[1].velocity({
-							left: '150%'}, 300); //Shove current away
-						infiniteBrick[0].velocity({
-							left: '-50%'}, 300, function()
-												  {
-													  var temp = infiniteBrick[1];
-													  infiniteBrick[1]=infiniteBrick[0];
-													  infiniteBrick[0]=temp;
-													  infiniteBrick[0].css({"left":"-250%"});
-													  temp = infiniteWood[1];
+							left: '-10%'}, 300, function() {
+													var temp = infiniteWood[1];
 													  infiniteWood[1] = infiniteWood[0];
 													  infiniteWood[0] = temp;
 													  infiniteWood[0].css({"left":"-130%"});
-													  mutexScroll = true;
+							});
+						
+							infiniteBrick[1].velocity({
+							left: '+=5%'}, 300); //Shove current away
+						infiniteBrick[2].velocity({
+							left: '+=5%'}, 300);
+						infiniteBrick[0].velocity({
+							left: '+=5%'}, 300, function()
+												  {
+													  var leftBrickPercent = infiniteBrick[0].position().left / infiniteBrick[0].parent().width() * 100;
+													  if((leftBrickPercent+5)>0)
+													  {
+														  var temp = infiniteBrick[0];
+														  infiniteBrick[0] = infiniteBrick[2];
+														  infiniteBrick[2] = infiniteBrick[1];
+														  infiniteBrick[1] = temp;
+														  infiniteBrick[0].css({"left":((leftBrickPercent-195)+"%")});
+													  }
 												  });
 						logo.velocity({
 							left: '+=100%'}, 300);
@@ -413,35 +412,42 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							left: '+=100%'}, 300);
 					}
 					else if(arrow=='#rightarrow')
-					{
+						{
 						mutexScroll = false;
 						infiniteWood[1].velocity({
 							left: '-130%'}, 300);
 						infiniteWood[2].velocity({
-							left: '-10%'}, 300);
-						infiniteBrick[1].velocity({
-							left: '-150%'}, 300); //Shove current away
-						infiniteBrick[2].velocity({
-							left: '-50%'}, 300, function()
-												  {
-													  var temp = infiniteBrick[1];
-													  infiniteBrick[1]=infiniteBrick[2];
-													  infiniteBrick[2]=temp;
-													  infiniteBrick[2].css({"left":"150%"});
-													  temp = infiniteWood[1];
+							left: '-10%'}, 300, function()
+												 {
+													  var temp = infiniteWood[1];
 													  infiniteWood[1] = infiniteWood[2];
 													  infiniteWood[2] = temp;
 													  infiniteWood[2].css({"left":"110%"});
-													  
-													  mutexScroll = true;
-												  }); //Move right brick in
+												 });
+							infiniteBrick[1].velocity({
+							left: '-=5%'}, 300); //Shove current away
+							infiniteBrick[0].velocity({
+								left: '-=5%'}, 300);
+						infiniteBrick[2].velocity({
+							left: '-=5%'}, 300, function()
+												  {
+													  var rightBrickPercent = infiniteBrick[2].position().left / infiniteBrick[0].parent().width() * 100;
+													  if((rightBrickPercent-5)<0)
+													  {
+														  var temp = infiniteBrick[2];
+														  infiniteBrick[2] = infiniteBrick[0];
+														  infiniteBrick[0] = infiniteBrick[1];
+														  infiniteBrick[1] = temp;
+														  infiniteBrick[2].css({"left":((rightBrickPercent+195)+"%")});
+													  }
+												  });
 						logo.velocity({
-							left:'-=100%'}, 300);
+							left: '-=100%'}, 300);
 						shadow.velocity({
-							left:'-=100%'}, 300);
-					}
-					
+							left: '-=100%'}, 300);
+						}
 				}
+					
 				else if(currentState=="about")
 				{
 					if(arrow=='#downarrow')
@@ -481,8 +487,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					if(arrow=='#uparrow')
 					{
 						lastelement = null;
-						console.log(brick.height());
-						console.log(brick.width());
 						focusAndFade(wood, 0, brick, 0);
 						var scale = 0.90;
 						var w = brick.width();
@@ -499,19 +503,19 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							height: "auto",
 							left: '-50%',
 							top: '-5%'
-						},  {duration: 150, queue: false}, function()
+						},  {duration: 150, queue: false, complete: function()
 									   {
 										   initializeBrick(); //Lazy, resolves uncertainty
-									   });
+									   }});
 						
 						wood.velocity({
 							top: '80%',
 							left: '-10%',
 							width: '120%',
 							height: '120%'
-						},  {duration: 150, queue: false},'swing', function() {
+						}, {duration: 150, queue: false, complete: function() {
 							initializeWood();
-						});
+						}});
 
 						//Get percentage of width:
 						var widthPercentage = (100*(logo.width()))/(screenSize.width());
@@ -534,9 +538,10 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						currentState = 'home';
 					}
 				}
-			setTimeout(function(){mutexScroll = true},300);
-				}
-			}
+			setTimeout(function(){mutexScroll = true},500);
+				
+		}
+	}
 	
 	function arrowClick(element) {
 		var arrow = element;
@@ -550,13 +555,11 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 
 	function focusAndFade(element1, blurRad1, element2, blurRad2)
 	{
-		console.log("Doing it!");
 		element1.velocity({opacity: 1},{
 			duration: 200,
 			progress: function(elements, complete, remaining, start) {
 				var curPercent=complete;
 				curPercent *= blurRad1;
-				console.log("curpercent1: " + curPercent);
 				element1.css({
 								"-webkit-filter":"blur("+curPercent+"px)",
 								"filter":"blur("+curPercent+"px)",
@@ -573,7 +576,6 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 			progress: function(elements, complete, remaining, start) {
 				var curPercent=complete;
 				curPercent *= blurRad2;
-				console.log("curpercent2: " + curPercent);
 				element2.css({
 								"-webkit-filter":"blur("+curPercent+"px)",
 								"filter":"blur("+curPercent+"px)",
