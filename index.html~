@@ -62,5 +62,25 @@
 	  About Us
 	</div>
 
+	<div id="contactUsBody">
+	  For more inquiries please call or email us at:
+	  <br>
+	  <br>
+	  Tel: +65 8500 0358
+	  <br>
+	  Email: shi@udlrs.com
+	  <br>
+	  facebook.com/udlrstudios
+	</div>
+
+	<div id="supportedby">
+	  Proudly supported by:
+	  <br><br>
+	  
+	  <img src="NUS Logo.png" id="nuslogo">
+	  <img src="SMU Logo.png" id="smulogo">
+	  <img src="AWP logo.jpg" id="awplogo">
+	</div>
+
 	</body>
 </html>
