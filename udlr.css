@@ -256,9 +256,9 @@ opacity: 0;
 .wordArrow {
   opacity: 1;
   font-family: "PF Din Light";
-  font-size: 3.0vh;
-  color: black;
-  z-index: 312;
+  font-size: 6.0vh;
+  color: grey;
+  z-index: 1;
 }
 
 #topWordArrow {

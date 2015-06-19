@@ -54,14 +54,14 @@ $(document).ready(function() {
 		{
 			topWordArrow.text(newText);
 			topWordArrow.velocity({
-				top:"3%",
+				top:"4%",
 				opacity: "1"}, 100);
 		}
 		else if(direction == 'down')
 		{
 			bottomWordArrow.text(newText);
 			bottomWordArrow.velocity({
-				bottom:"3%",
+				bottom:"4%",
 				opacity: "1"}, 100);
 		}
 		else if(direction == 'left')
@@ -69,14 +69,14 @@ $(document).ready(function() {
 			console.log("Left");
 			leftWordArrow.text(newText);
 			leftWordArrow.velocity({
-				left:"3%",
+				left:"4%",
 				opacity: "1"}, 100);
 		}
 		else if(direction == 'right')
 		{
 			rightWordArrow.text(newText);
 			rightWordArrow.velocity({
-				right:"3%",
+				right:"4%",
 				opacity: "1"}, 100);
 		}
 	}
@@ -88,7 +88,6 @@ $(document).ready(function() {
 			case 37:
 				navPage('#leftarrow');
 				flashArrow('left');
-				showTextArrow('stuff', 'left');
 				break;
 			case 38:
 				navPage('#uparrow');
