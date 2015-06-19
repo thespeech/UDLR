@@ -24,6 +24,10 @@ $(document).ready(function() {
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
 	var infiniteBrick=[$('#brick1'), $('#brick2'), $('#brick3')];
 	var infiniteWood=[$('#wood1'), $('#wood2'), $('#wood3')];
+	var topWordArrow=$('#topWordArrow');
+	var leftWordArrow=$('#leftWordArrow');
+	var rightWordArrow=$('#rightWordArrow');
+	var bottomWordArrow=$('#bottomWordArrow');
 
 		//Use original CSS values for ratios.
 	/*
@@ -44,6 +48,39 @@ $(document).ready(function() {
 	initializeWood();
 	keyboardNav();
 
+	function showTextArrow(newText, direction)
+	{
+		if(direction == 'up')
+		{
+			topWordArrow.text(newText);
+			topWordArrow.velocity({
+				top:"3%",
+				opacity: "1"}, 100);
+		}
+		else if(direction == 'down')
+		{
+			bottomWordArrow.text(newText);
+			bottomWordArrow.velocity({
+				bottom:"3%",
+				opacity: "1"}, 100);
+		}
+		else if(direction == 'left')
+		{
+			console.log("Left");
+			leftWordArrow.text(newText);
+			leftWordArrow.velocity({
+				left:"3%",
+				opacity: "1"}, 100);
+		}
+		else if(direction == 'right')
+		{
+			rightWordArrow.text(newText);
+			rightWordArrow.velocity({
+				right:"3%",
+				opacity: "1"}, 100);
+		}
+	}
+
 	function keyboardNav()
 	{
 		document.onkeydown = function(e) {
@@ -51,6 +88,7 @@ $(document).ready(function() {
 			case 37:
 				navPage('#leftarrow');
 				flashArrow('left');
+				showTextArrow('stuff', 'left');
 				break;
 			case 38:
 				navPage('#uparrow');
@@ -72,32 +110,33 @@ $(document).ready(function() {
 	{
 		if(direction == 'left')
 		{
-		$('#leftwhite').velocity({'opacity':'1'}, 300, function()
-									 {
-										 $('#leftwhite').velocity({
-											 'opacity':'0'}, 300);
-									 });
+			$('#leftwhite').stop().velocity({'opacity':'1'}, 300, function()
+											{
+												$('#leftwhite').stop().velocity({
+													'opacity':'0'}, 300);
+											});
 
 		}
 		else if(direction == 'right')
 		{
-			$('#rightwhite').velocity({'opacity':'1'}, 300, function()
-									 {
-										 $('#rightwhite').velocity({
-											 'opacity':'0'}, 300);
-									 });		
+			$('#rightwhite').stop().velocity({'opacity':'1'}, 300, function()
+											 {
+												 $('#rightwhite').stop().
+													 velocity({
+														 'opacity':'0'}, 300);
+											 });		
 		}
 		else if(direction == 'up')
 		{
-					$('#upwhite').velocity({'opacity':'1'}, 300, function()
-									 {
-										 $('#upwhite').velocity({
-											 'opacity':'0'}, 300);
-									 });
+			$('#upwhite').velocity({'opacity':'1'}, 300, function()
+								   {
+									   $('#upwhite').velocity({
+										   'opacity':'0'}, 300);
+								   });
 		}
 		else if(direction == 'down')
 		{
-					$('#downwhite').velocity({'opacity':'1'}, 300, function()
+			$('#downwhite').velocity({'opacity':'1'}, 300, function()
 									 {
 										 $('#downwhite').velocity({
 											 'opacity':'0'}, 300);

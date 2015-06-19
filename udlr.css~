@@ -177,19 +177,21 @@ nit}
   z-index: -1;
 }
 
-#supportedby {
+#supportedBy {
+  opacity: 0;
   font-family: "PF Din Regular";
   font-size: 4vh;
   width: 100%;
   height: auto;
-  top: 70%;
-  left: 31.5%;
-  z-index: 10;
+  top: 72%;
+  left: 13%;
+  z-index: -1;
   position: absolute;
 }
 
 #nuslogo {
   width: 11%;
+  top: 117%;
   height: auto;
   position: absolute;
 }
@@ -199,16 +201,24 @@ nit}
   height: auto;
   position: absolute;
   left: 15%;
-  top: 75%;
+  top: 100%;
 }
 
 #awplogo {
   width: 5%;
   height: auto;
-  left:35%;
-  top: 100%;
+  left:37%;
+  top: 110%;
   position: absolute;
 }
+
+#nalogo {
+  width: 14%;
+  height: auto;
+  left: 48.5%;
+  top: 105%;
+  position: absolute;
+  }
 
 
 #aboutUs {
@@ -220,6 +230,19 @@ nit}
   font-size: 7.0vh;
   color: black;
   z-index: -3;
+}
+
+#aboutUsBody {
+opacity: 0;
+  text-align: center;
+  position: absolute;
+  top: 30.5%;
+  left: 25.5%;
+  width: 50%;
+  font-family: "PF Din Regular";
+  font-size: 4.0vh;
+  color: black;
+  z-index: 110;
 }
 
   

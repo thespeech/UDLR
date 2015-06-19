@@ -7,8 +7,10 @@ $(document).ready(function() {
 	var shadow = $('#shadow');
 	var contactUs = $('#contactUs');
 	var contactUsBody = $('#contactUsBody');
+	var supportedBy = $('#supportedBy');
 	var screenSize = $('#screensize');
 	var aboutUs = $('#aboutUs');
+	var aboutUsBody = $('#aboutUsBody');
 	var lastelement=null;
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
@@ -318,11 +320,16 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 															  aboutUs.css("visibility", "visible");
 															  aboutUs.velocity({
 																  top: '69%'
-															  });
+															  },50);
+															  //aboutUsBody.css("visibility", "visible");
+															  aboutUsBody.velocity({
+																 'opacity': '1'
+															 }, {duration: 150, queue: false});
 											  });			
 													    
 						focusAndFade(sky, 0.0, brick, 7.0); 
 							currentState = 'about';
+							
 						}, 100); //Set timeout to let clouds load a bit longer.
 
 						$('#uparrow').fadeOut("slow", function() {
@@ -374,6 +381,9 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							top: '26.3%'
 							}, {duration: 50, queue: false});
 							contactUsBody.velocity({
+								opacity: 1
+							}, {duration: 150, queue: false});
+							supportedBy.velocity({
 								opacity: 1
 							}, {duration: 150, queue: false});
 						}});
@@ -461,6 +471,9 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 						aboutUs.velocity({
 							top: '77%'
 						});
+						aboutUsBody.velocity({
+							'opacity': '0'
+						}, {duration: 150, queue: false});
 						stopClouds();
 						focusAndFade(wood, 0, brick, 5.0);
 						wood.stop().velocity({top:"80%"}, 300, function()
@@ -503,6 +516,7 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 							}, {duration: 100, queue: false});
 
 						contactUsBody.velocity({opacity: 0},{duration: 10, queue: false});
+						supportedBy.velocity({opacity: 0}, {duration: 10, queue: false});
 						
 						brick.velocity({ //Just use percentages so window can scale.
 							width: "200%",
