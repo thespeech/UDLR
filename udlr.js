@@ -27,7 +27,7 @@ $(document).ready(function() {
 	var topWordArrow=$('#topWordArrow');
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
-	var bottomWordArrow=$('#bottomWordArrow');
+	var downWordArrow=$('#downWordArrow');
 
 		//Use original CSS values for ratios.
 	/*
@@ -59,8 +59,8 @@ $(document).ready(function() {
 		}
 		else if(direction == 'down')
 		{
-			bottomWordArrow.text(newText);
-			bottomWordArrow.velocity({
+			downWordArrow.text(newText);
+			downWordArrow.velocity({
 				bottom:"4%",
 				opacity: "1"}, 100);
 		}
@@ -80,6 +80,72 @@ $(document).ready(function() {
 				opacity: "1"}, 100);
 		}
 	}
+
+	function hideTextArrow(direction)
+	{
+		if(direction == 'up')
+		{
+			topWordArrow.velocity({
+				top:"4%",
+				opacity: "0"}, 100);
+		}
+		else if(direction == 'down')
+		{
+			downWordArrow.velocity({
+				bottom:"4%",
+				opacity: "0"}, 100);
+		}
+		else if(direction == 'left')
+		{
+			leftWordArrow.velocity({
+				left:"2%",
+				opacity: "0"}, 100);
+		}
+		else if(direction == 'right')
+		{
+			rightWordArrow.velocity({
+				right:"2%",
+				opacity: "0"}, 100);
+		}
+	}
+
+	function contextArrowText(direction)
+	{
+		if(currentState == 'home')
+		{
+			if(direction == 'up')
+			{
+				return 'about us';
+			}
+			else if(direction == 'down')
+			{
+				return 'contact us';
+			}
+			else if(direction == 'left')
+			{
+				return 'events';
+			}
+			else if(direction == 'right')
+			{
+				return 'projects';
+			}
+		}
+		else if(currentState == 'about')
+		{
+			if(direction == 'down')
+			{
+				return 'home';
+			}
+		}
+		else if(currentState == 'contact')
+		{
+			if(direction == 'up')
+			{
+				return 'home';
+			}
+		}
+	}
+	
 
 	function keyboardNav()
 	{
@@ -109,36 +175,44 @@ $(document).ready(function() {
 	{
 		if(direction == 'left')
 		{
+			showTextArrow(contextArrowText('left'), 'left');
 			$('#leftwhite').stop().velocity({'opacity':'1'}, 300, function()
 											{
 												$('#leftwhite').stop().velocity({
 													'opacity':'0'}, 300);
+												hideTextArrow('left');
 											});
 
 		}
 		else if(direction == 'right')
 		{
+			showTextArrow(contextArrowText('right'), 'right');
 			$('#rightwhite').stop().velocity({'opacity':'1'}, 300, function()
 											 {
 												 $('#rightwhite').stop().
 													 velocity({
 														 'opacity':'0'}, 300);
+												 hideTextArrow('right');
 											 });		
 		}
 		else if(direction == 'up')
 		{
+			showTextArrow(contextArrowText('up'), 'up');
 			$('#upwhite').velocity({'opacity':'1'}, 300, function()
 								   {
 									   $('#upwhite').velocity({
 										   'opacity':'0'}, 300);
+									   hideTextArrow('up');
 								   });
 		}
 		else if(direction == 'down')
 		{
+			showTextArrow(contextArrowText('down'), 'down');
 			$('#downwhite').velocity({'opacity':'1'}, 300, function()
 									 {
 										 $('#downwhite').velocity({
 											 'opacity':'0'}, 300);
+										 hideTextArrow('down');
 									 });
 		}
 	}
