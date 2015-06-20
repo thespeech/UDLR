@@ -88,24 +88,28 @@ $(document).ready(function() {
 			topWordArrow.velocity({
 				top:"4%",
 				opacity: "0"}, 100);
+			topWordArrow.empty();
 		}
 		else if(direction == 'down')
 		{
 			downWordArrow.velocity({
 				bottom:"4%",
 				opacity: "0"}, 100);
+			downWordArrow.empty();
 		}
 		else if(direction == 'left')
 		{
 			leftWordArrow.velocity({
 				left:"2%",
 				opacity: "0"}, 100);
+			leftWordArrow.empty();
 		}
 		else if(direction == 'right')
 		{
 			rightWordArrow.velocity({
 				right:"2%",
 				opacity: "0"}, 100);
+			rightWordArrow.empty();
 		}
 	}
 
@@ -152,20 +156,20 @@ $(document).ready(function() {
 		document.onkeydown = function(e) {
 			switch (e.keyCode) {
 			case 37:
-				navPage('#leftarrow');
 				flashArrow('left');
+				navPage('#leftarrow');
 				break;
 			case 38:
-				navPage('#uparrow');
 				flashArrow('up');
+				navPage('#uparrow');
 				break;
 			case 39:
-				navPage('#rightarrow');
 				flashArrow('right');
+				navPage('#rightarrow');
 				break;
 			case 40:
-				navPage('#downarrow');
 				flashArrow('down');
+				navPage('#downarrow');
 				break;
 			}
 		}
