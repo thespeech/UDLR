@@ -30,7 +30,7 @@ html, body {
 #uparrow, #upwhite {
   position: absolute;
   top: 4%;
-  left: 47.5%;
+  left: 50%;
   width: 5%;
   height: auto;
 }
@@ -38,17 +38,17 @@ html, body {
 #downarrow, #downwhite {
   position: absolute;
   bottom: 4%;
-  left: 47.5%;
+  left: 50%;
   width:5%;
   height: auto;
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
+  transform: translate(-50%, -50%) rotate(180deg);
 }
 
 #leftarrow, #leftwhite {
   position: absolute;
-  top: 46.5%;
+  top: 50%;
   left: 2%;
   width: 5%;
   height: auto;
@@ -59,7 +59,7 @@ html, body {
 
 #rightarrow, #rightwhite {
   position: absolute;
-  top: 46.5%;
+  top: 50%;
   right: 2%;
   width: 5%;
   height: auto;
@@ -70,6 +70,7 @@ html, body {
 
 .arrow, .backarrow {
   opacity: 0;
+  transform: translate(-50%, -50%);
   }
 
 #screensize { /*Just used to get height and width of screen.*/
@@ -256,40 +257,42 @@ opacity: 0;
 .wordArrow {
   opacity: 1;
   font-family: "PF Din Light";
-  font-size: 6.0vh;
+  font-size: 4.0vh;
+  height: auto;
   color: grey;
   z-index: 1;
+  transform: translate(-50%, -50%);
 }
 
 #topWordArrow {
   position: absolute;
   top: 4%;
-  left: 47.5%;
-  width: 5%;
+  left: 50%;
+  width: auto;
   height: auto;
 }
 
 #downWordArrow {
   position: absolute;
+  left: 50%;
   bottom: 4%;
-  left: 47.5%;
-  width:5%;
+  width: auto;
   height: auto;
 }
 
 #leftWordArrow {
   position: absolute;
-  top: 46.5%;
+  top: 50%;
   left: 2%;
-  width: 5%;
+  width: auto;
   height: auto;
 }
 
 #rightWordArrow {
   position: absolute;
-  top: 46.5%;
+  top: 50%;
   right: 2%;
-  width: 5%;
+  width: auto;
   height: auto;
 }
   

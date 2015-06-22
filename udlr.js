@@ -54,14 +54,14 @@ $(document).ready(function() {
 		{
 			topWordArrow.text(newText);
 			topWordArrow.velocity({
-				top:"4%",
+				top:"10%",
 				opacity: "1"}, 100);
 		}
 		else if(direction == 'down')
 		{
 			downWordArrow.text(newText);
 			downWordArrow.velocity({
-				bottom:"4%",
+				bottom:"10%",
 				opacity: "1"}, 100);
 		}
 		else if(direction == 'left')
