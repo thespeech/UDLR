@@ -176,9 +176,12 @@ nit}
 #contactUsBody {
   opacity: 0;
   text-align: center;
+  width: auto;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
   position: absolute;
-  top: 38.5%;
-  left: 31.5%;
+  top: 52%;
+  left: 50%;
   font-family: "PF Din Light";
   font-size: 4.5vh;
   color: black;
@@ -246,8 +249,10 @@ nit}
 opacity: 0;
   text-align: center;
   position: absolute;
-  top: 22.5%;
-  left: 25.5%;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
   font-family: "PF Din Light";
   font-size: 5.0vh;
   color: black;
