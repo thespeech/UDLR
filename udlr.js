@@ -28,6 +28,7 @@ $(document).ready(function() {
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
 	var downWordArrow=$('#downWordArrow');
+	var keyNav = false;
 
 		//Use original CSS values for ratios.
 	/*
@@ -53,31 +54,34 @@ $(document).ready(function() {
 		if(direction == 'up')
 		{
 			topWordArrow.text(newText);
+			topWordArrow.velocity("stop");
 			topWordArrow.velocity({
-				top:"10%",
-				opacity: "1"}, 100);
+				top:"6%",
+				opacity: "1"}, 322);
 		}
 		else if(direction == 'down')
 		{
 			downWordArrow.text(newText);
+			downWordArrow.velocity("stop");
 			downWordArrow.velocity({
-				bottom:"10%",
-				opacity: "1"}, 100);
+				bottom:"6%",
+				opacity: "1"}, 322);
 		}
 		else if(direction == 'left')
 		{
-			console.log("Left");
 			leftWordArrow.text(newText);
+			leftWordArrow.velocity("stop");
 			leftWordArrow.velocity({
-				left:"4%",
-				opacity: "1"}, 100);
+				left:"2%",
+				opacity: "1"}, 322);
 		}
 		else if(direction == 'right')
 		{
 			rightWordArrow.text(newText);
+			rightWordArrow.velocity("stop");
 			rightWordArrow.velocity({
-				right:"4%",
-				opacity: "1"}, 100);
+				right:"2%",
+				opacity: "1"}, 322);
 		}
 	}
 
@@ -85,31 +89,39 @@ $(document).ready(function() {
 	{
 		if(direction == 'up')
 		{
+			topWordArrow.velocity("stop");
 			topWordArrow.velocity({
-				top:"4%",
-				opacity: "0"}, 100);
-			topWordArrow.empty();
+				opacity: "0"}, 322, function(){
+					topWordArrow.empty();
+					topWordArrow.css({"top":"8%"});
+				});
 		}
 		else if(direction == 'down')
 		{
+			downWordArrow.velocity("stop");
 			downWordArrow.velocity({
-				bottom:"4%",
-				opacity: "0"}, 100);
-			downWordArrow.empty();
+				opacity: "0"}, 322, function(){
+					downWordArrow.empty();
+					downWordArrow.css({"bottom":"8%"});
+				});
 		}
 		else if(direction == 'left')
 		{
+			leftWordArrow.velocity("stop");
 			leftWordArrow.velocity({
-				left:"2%",
-				opacity: "0"}, 100);
-			leftWordArrow.empty();
+				opacity: "0"}, 322, function(){
+					leftWordArrow.empty();
+					leftWordArrow.css({"left":"4%"});
+				});
 		}
 		else if(direction == 'right')
 		{
+			rightWordArrow.velocity("stop");
 			rightWordArrow.velocity({
-				right:"2%",
-				opacity: "0"}, 100);
-			rightWordArrow.empty();
+				opacity: "0"}, 322, function(){
+					rightWordArrow.empty();
+					rightWordArrow.css({"right":"4%"});
+				});
 		}
 	}
 
@@ -153,70 +165,79 @@ $(document).ready(function() {
 
 	function keyboardNav()
 	{
+		keyNav=true;
 		document.onkeydown = function(e) {
 			switch (e.keyCode) {
 			case 37:
 				flashArrow('left');
+				flashTextArrow('left');
 				navPage('#leftarrow');
 				break;
 			case 38:
 				flashArrow('up');
+				flashTextArrow('up');
 				navPage('#uparrow');
 				break;
 			case 39:
 				flashArrow('right');
+				flashTextArrow('right');
 				navPage('#rightarrow');
 				break;
 			case 40:
 				flashArrow('down');
+				flashTextArrow('down');
 				navPage('#downarrow');
 				break;
 			}
 		}
 	}
 
+	function flashTextArrow(direction)
+	{
+		showTextArrow(contextArrowText(direction), direction);
+		setTimeout(function(){hideTextArrow('up');
+							  hideTextArrow('down');
+							  hideTextArrow('left');
+							  hideTextArrow('right');}, 322);
+	}
+
 	function flashArrow(direction)
 	{
 		if(direction == 'left')
 		{
-			showTextArrow(contextArrowText('left'), 'left');
-			$('#leftwhite').stop().velocity({'opacity':'1'}, 300, function()
+			$('#leftwhite').velocity("stop");
+						$('#leftwhite').velocity({'opacity':'1'}, 300, function()
 											{
 												$('#leftwhite').stop().velocity({
 													'opacity':'0'}, 300);
-												hideTextArrow('left');
 											});
-
-		}
+				}
 		else if(direction == 'right')
 		{
-			showTextArrow(contextArrowText('right'), 'right');
-			$('#rightwhite').stop().velocity({'opacity':'1'}, 300, function()
+			$('#rightwhite').velocity("stop");
+						$('#rightwhite').velocity({'opacity':'1'}, 300, function()
 											 {
 												 $('#rightwhite').stop().
 													 velocity({
 														 'opacity':'0'}, 300);
-												 hideTextArrow('right');
 											 });		
 		}
 		else if(direction == 'up')
 		{
-			showTextArrow(contextArrowText('up'), 'up');
+			$('#upwhite').velocity("stop");
 			$('#upwhite').velocity({'opacity':'1'}, 300, function()
 								   {
 									   $('#upwhite').velocity({
 										   'opacity':'0'}, 300);
-									   hideTextArrow('up');
 								   });
 		}
 		else if(direction == 'down')
 		{
-			showTextArrow(contextArrowText('down'), 'down');
+			$('#downwhite').velocity("stop");
 			$('#downwhite').velocity({'opacity':'1'}, 300, function()
 									 {
 										 $('#downwhite').velocity({
 											 'opacity':'0'}, 300);
-										 hideTextArrow('down');
 									 });
 		}
 	}
@@ -242,9 +263,9 @@ $(document).ready(function() {
 								element.velocity("stop");
 							});
 		middleClouds.forEach(function(element)
-							{
-								element.velocity("stop");
-							});
+							 {
+								 element.velocity("stop");
+							 });
 		
 		$('#back').velocity("stop"); //Stop every cloud's animation.
 		
@@ -264,12 +285,12 @@ $(document).ready(function() {
 		animateFrontCloud(currentFront, true);
 		middleClouds.forEach(function(element)
 							 {
-			element.css({"top":(Math.floor((Math.random()*5))+10)+"%",
-						 "left":leftPercent+"%"});
+								 element.css({"top":(Math.floor((Math.random()*5))+10)+"%",
+											  "left":leftPercent+"%"});
 								 leftPercent+=(Math.floor((Math.random()*5)+25));
-			animateMiddleCloud(element, true);
-			
-		});
+								 animateMiddleCloud(element, true);
+								 
+							 });
 		$('#back').css({"top":"-180%",
 						"left":"0%"});
 		animateBackCloud($('#back'), true); 
@@ -282,16 +303,16 @@ $(document).ready(function() {
 		{
 			element.css({"top":"0%",
 						 "left":"-180%"});
-		element.show();
+			element.show();
 			var newSpeed=160;
 			element.velocity("stop");
-		element.velocity({left:"50%"}, newSpeed*1000, "linear", function(){
-			animateBackCloud(backClouds.shift(), false);
-					element.velocity("stop");
-			element.velocity({left:"180%"}, newSpeed*1000, "linear", function() {
-				backClouds.push(element);
+			element.velocity({left:"50%"}, newSpeed*1000, "linear", function(){
+				animateBackCloud(backClouds.shift(), false);
+				element.velocity("stop");
+				element.velocity({left:"180%"}, newSpeed*1000, "linear", function() {
+					backClouds.push(element);
+				});
 			});
-		});
 		}
 
 	}
@@ -300,18 +321,18 @@ $(document).ready(function() {
 	{
 		if(currentState=='about')
 		{
-		if(!firsttime)
-		{
-			element.css({"top":(Math.floor((Math.random()*0))+10)+"%",
-						 "left": "-120%"});
+			if(!firsttime)
+			{
+				element.css({"top":(Math.floor((Math.random()*0))+10)+"%",
+							 "left": "-120%"});
 
-		}
-		element.show();
+			}
+			element.show();
 			var newSpeed=Math.floor((Math.random()*15)+82);
-					element.velocity("stop");
-element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
-			animateMiddleCloud(element, false);
-});
+			element.velocity("stop");
+			element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
+				animateMiddleCloud(element, false);
+			});
 		}
 	}
 
@@ -320,297 +341,317 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 	{
 		if(currentState=='about')
 		{
-		if(!firsttime)
-		{
-			element.css({"top":(Math.floor((Math.random()*50))-2)+"%",
-						 "left": "-100%"});
-		}
-		element.show();
+			if(!firsttime)
+			{
+				element.css({"top":(Math.floor((Math.random()*50))-2)+"%",
+							 "left": "-100%"});
+			}
+			element.show();
 			var newSpeed=Math.floor((Math.random()*10)+50);
-					element.velocity("stop");
-		element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
-			frontClouds.push(element);
-			element=frontClouds.shift();
-			animateFrontCloud(element, false);
-		});
+			element.velocity("stop");
+			element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
+				frontClouds.push(element);
+				element=frontClouds.shift();
+				animateFrontCloud(element, false);
+			});
 		}
 	}
-		
+	
 
 	
 	function hoverEdges() //Do arrow fading stuff.
 	{
 		var movedArrow="";
 		$(document).on("mousemove", function(event){
-			var edgePercentHeight = $(window).height() * 0.05;
-			var edgePercentWidth = $(window).width() * 0.04; //Recalculate every mouse movement.
+			var edgePercentHeight = $(window).height() * 0.15;
+			var edgePercentWidth = $(window).width() * 0.13; //Recalculate every mouse movement.
 			if(fadeOutUpArrow == false)
 			{
-			if((event.pageY < edgePercentHeight) || //Top
-			   ((($(window).height() - event.pageY) < edgePercentHeight)) || //Bottom
-			  (event.pageX < edgePercentWidth) || //Left
-			   ((($(window).width() - event.pageX) < edgePercentWidth))) //Right
+				if((event.pageY < edgePercentHeight) || //Top
+				   ((($(window).height() - event.pageY) < edgePercentHeight)) || //Bottom
+				   (event.pageX < edgePercentWidth) || //Left
+				   ((($(window).width() - event.pageX) < edgePercentWidth))) //Right
 				{
 					
-				if(alreadyInEdge == false) //The last mouse position not near the edge.
+					if(alreadyInEdge == false) //The last mouse position not near the edge.
 					{
 						//$(".arrow").velocity({"opacity": "1"}, 350);
 						arrowSlide();
 
-										//Check especially which edge is being activated.
-					//Revert the original activated arrow if it is not the current one,
-					//then activate the new one.
+						//Check especially which edge is being activated.
+						//Revert the original activated arrow if it is not the current one,
+						//then activate the new one.
 
-					alreadyInEdge = true; //Set last mouse pos to be near edge.
+						alreadyInEdge = true; //Set last mouse pos to be near edge.
+					}
 				}
-				}
-			else
+				else
 				{
-				if(alreadyInEdge == true) //Converse.
+					if(alreadyInEdge == true) //Converse.
 					{
-						$(".arrow").stop().velocity({"opacity": "0"}, 250, function()
+						$(".arrow").velocity("stop");
+						$(".arrow").velocity({"opacity": "0"}, 322, function()
 													{
 														revertArrow();
 													});
-				alreadyInEdge = false;
+						
+						hideTextArrow('up');
+						hideTextArrow('down');
+						hideTextArrow('left');
+						hideTextArrow('right');
+
+						alreadyInEdge = false;
+					}
 				}
-			}
 			}
 		});
 	}
 	
 	function arrowSlide()
 	{
-		var movedArrow="";
-			$('#uparrow').velocity({
-				top:"2%",
-				opacity: "1"}, 100);
-			movedArrow="up";
-			$('#downarrow').velocity({
-				bottom:"2%",
-				opacity: "1"}, 100);
-			movedArrow="bottom";
-			$('#leftarrow').velocity({
-				left:"0%",
-				opacity: "1"}, 100);
-			movedArrow="left";
-			$('#rightarrow').velocity({
-				right:"0%",
-				opacity: "1"}, 100);
-			movedArrow="right";
+		$('#uparrow').velocity({
+			top:"0%",
+			opacity: "1"}, 322);
+		showTextArrow(contextArrowText('up'), 'up');
+		$('#downarrow').velocity({
+			bottom:"0%",
+			opacity: "1"}, 322);
+		showTextArrow(contextArrowText('down'), 'down');
+		$('#leftarrow').velocity({
+			left:"-2%",
+			opacity: "1"}, 322);
+		showTextArrow(contextArrowText('left'), 'left');
+		$('#rightarrow').velocity({
+			right:"-2%",
+			opacity: "1"}, 322);
+		showTextArrow(contextArrowText('right'), 'right');
 	}
 
 	function revertArrow(arrow)
 	{
 		$('#uparrow').css({
-				top:"4%"});
-			$('#leftarrow').css({
-				left:"2%"});
-			$('#rightarrow').css({
-				right:"2%"});
-			$('#downarrow').css({
-				bottom:"4%"});
+			top:"4%"});
+		$('#leftarrow').css({
+			left:"2%"});
+		$('#rightarrow').css({
+			right:"2%"});
+		$('#downarrow').css({
+			bottom:"4%"});
 	}
 
 	function navPage(arrow){
 		if(mutexScroll == true)
 		{
+			if(arrow =='#uparrow')
+			{
+				flashArrow('up');
+			}
+			else if(arrow == '#downarrow')
+			{
+				flashArrow('down');
+			}
+			else if(arrow == '#leftarrow')
+			{
+				flashArrow('left');
+			}
+			else if(arrow == '#rightarrow')
+			{
+				flashArrow('right');
+			}
 			mutexScroll = false;
-				if(currentState == 'home') //Check state
+			if(currentState == 'home') //Check state
+			{
+				if(arrow == '#uparrow')
 				{
-					if(arrow == '#uparrow')
-					{
-						fadeOutUpArrow = true;
-						currentState="about";
-						spawnClouds();
-						setTimeout(function(){
-						wood.stop().velocity({top:"100%"}, 300);
-						logo.stop().velocity({top:"100%"}, 300);
-						shadow.stop().velocity({top:"100%"}, 300);
-									brick.stop().velocity({top:"77%",
-									   left: "-100%",
-									   width: "300%",
-									   height: "150%"
-											  }, 300, function()
-														  {
-															  aboutUs.css("visibility", "visible");
-															  aboutUs.velocity({
-																  top: '69%'
-															  },50);
-															  //aboutUsBody.css("visibility", "visible");
-															  aboutUsBody.velocity({
-																 'opacity': '1'
-															 }, {duration: 150, queue: false});
-											  });			
-													    
-						focusAndFade(sky, 0.0, brick, 7.0); 
-							currentState = 'about';
-							
-						}, 100); //Set timeout to let clouds load a bit longer.
-
-						$('#uparrow').fadeOut("slow", function() {
-							$('#uparrow').hide();
-							fadeOutUpArrow = false;
-						});
-					
-					}
-					else if(arrow == '#downarrow')
-					{
-						focusAndFade(wood, 0, brick, 5.0);
-						var scale = 0.90;
-						var w = brick.width();
-						var h = brick.height();
-						brick.data('w',w).data('h',h);
-
-						
-						//Get percentage of width:
-						var widthPercentage = (100*(logo.width()))/(screenSize.width());
-						var heightPercentage = (100*(logo.height()))/(screenSize.height());
-						logo.velocity({
-							width: (widthPercentage/2)+'%',
-							top: '15%',
-							left:'40.5%',
-						}, {duration: 150, queue: false});
-						
-						shadow.velocity({
-							width: (widthPercentage/2)+'%',
-							top: '16%',
-							left:'40.5%',
-						}, {duration: 150, queue: false});
-
-
-						brick.velocity({ //Just use percentages so window can scale.
-							width: "150%",
-							height: "100%",
-							left: '-25%',
-							top: '-15%'
-						},  {duration: 150, queue: false});
-						
-						wood.velocity({
-							top: '33%',
-							left: '0%',
-							width: '100%',
-							height: '100%'
-						},  {duration: 150, queue: false, complete: function() {
-							contactUs.css("visibility", "visible");
-							contactUs.velocity({
-							top: '26.3%'
-							}, {duration: 50, queue: false});
-							contactUsBody.velocity({
-								opacity: 1
-							}, {duration: 150, queue: false});
-							supportedBy.velocity({
-								opacity: 1
-							}, {duration: 150, queue: false});
-						}});
-						
-						currentState = 'contact';
-					}
-					else if(arrow=='#leftarrow')
-					{
-							mutexScroll = false;
-						infiniteWood[1].velocity({
-							left: '110%'}, 300);
-						infiniteWood[0].velocity({
-							left: '-10%'}, 300, function() {
-													var temp = infiniteWood[1];
-													  infiniteWood[1] = infiniteWood[0];
-													  infiniteWood[0] = temp;
-													  infiniteWood[0].css({"left":"-130%"});
-							});
-						
-							infiniteBrick[1].velocity({
-							left: '+=5%'}, 300); //Shove current away
-						infiniteBrick[2].velocity({
-							left: '+=5%'}, 300);
-						infiniteBrick[0].velocity({
-							left: '+=5%'}, 300, function()
-												  {
-													  var leftBrickPercent = infiniteBrick[0].position().left / infiniteBrick[0].parent().width() * 100;
-													  if((leftBrickPercent+5)>0)
-													  {
-														  var temp = infiniteBrick[0];
-														  infiniteBrick[0] = infiniteBrick[2];
-														  infiniteBrick[2] = infiniteBrick[1];
-														  infiniteBrick[1] = temp;
-														  infiniteBrick[0].css({"left":((leftBrickPercent-195)+"%")});
-													  }
-												  });
-						logo.velocity({
-							left: '+=100%'}, 300);
-						shadow.velocity({
-							left: '+=100%'}, 300);
-					}
-					else if(arrow=='#rightarrow')
-						{
-						mutexScroll = false;
-						infiniteWood[1].velocity({
-							left: '-130%'}, 300);
-						infiniteWood[2].velocity({
-							left: '-10%'}, 300, function()
-												 {
-													  var temp = infiniteWood[1];
-													  infiniteWood[1] = infiniteWood[2];
-													  infiniteWood[2] = temp;
-													  infiniteWood[2].css({"left":"110%"});
-												 });
-							infiniteBrick[1].velocity({
-							left: '-=5%'}, 300); //Shove current away
-							infiniteBrick[0].velocity({
-								left: '-=5%'}, 300);
-						infiniteBrick[2].velocity({
-							left: '-=5%'}, 300, function()
-												  {
-													  var rightBrickPercent = infiniteBrick[2].position().left / infiniteBrick[0].parent().width() * 100;
-													  if((rightBrickPercent-5)<0)
-													  {
-														  var temp = infiniteBrick[2];
-														  infiniteBrick[2] = infiniteBrick[0];
-														  infiniteBrick[0] = infiniteBrick[1];
-														  infiniteBrick[1] = temp;
-														  infiniteBrick[2].css({"left":((rightBrickPercent+195)+"%")});
-													  }
-												  });
-						logo.velocity({
-							left: '-=100%'}, 300);
-						shadow.velocity({
-							left: '-=100%'}, 300);
-						}
-				}
-					
-				else if(currentState=="about")
-				{
-					if(arrow=='#downarrow')
-					{
-						lastelement = null;
-						aboutUs.css("visibility", "hidden");
-						aboutUs.velocity({
-							top: '77%'
-						});
-						aboutUsBody.velocity({
-							'opacity': '0'
-						}, {duration: 150, queue: false});
-						stopClouds();
-						focusAndFade(wood, 0, brick, 5.0);
-						wood.stop().velocity({top:"80%"}, 300, function()
-											 {
-												  initializeWood();
-											 });
-						logo.stop().velocity({top:"36.5%"}, 300);
-						shadow.stop().velocity({top:"38%"}, 300);
-									brick.stop().velocity({top:"-5%",
-									   left: "-50%",
-									   width: "200%",
-									   height: "auto"
+					fadeOutUpArrow = true;
+					currentState="about";
+					spawnClouds();
+					setTimeout(function(){
+						wood.velocity({top:"100%"}, 300);
+						logo.velocity({top:"100%"}, 300);
+						shadow.velocity({top:"100%"}, 300);
+						brick.velocity({top:"77%",
+											   left: "-100%",
+											   width: "300%",
+											   height: "150%"
 											  }, 300, function()
 											  {
-												  initializeBrick();
+												  aboutUs.css("visibility", "visible");
+												  aboutUs.velocity({
+													  top: '69%'
+												  },50);
+												  //aboutUsBody.css("visibility", "visible");
+												  aboutUsBody.velocity({
+													  'opacity': '1'
+												  }, {duration: 150, queue: false});
 											  });			
-													     
-						$('#uparrow').fadeIn("slow", function() {
-							$('#uparrow').show();
-							fadeOutUpArrow = false;
+						
+						focusAndFade(sky, 0.0, brick, 7.0); 
+						currentState = 'about';
+						
+					}, 100); //Set timeout to let clouds load a bit longer.
+
+					$('#uparrow').velocity({opacity: 0}, 322, function() {
+						$('#uparrow').css({display: "none"});
+						fadeOutUpArrow = false;
+					});
+					
+				}
+				else if(arrow == '#downarrow')
+				{
+					focusAndFade(wood, 0, brick, 5.0);
+					var scale = 0.90;
+					var w = brick.width();
+					var h = brick.height();
+					brick.data('w',w).data('h',h);
+
+					
+					//Get percentage of width:
+					var widthPercentage = (100*(logo.width()))/(screenSize.width());
+					var heightPercentage = (100*(logo.height()))/(screenSize.height());
+					logo.velocity({
+						width: (widthPercentage/2)+'%',
+						top: '15%',
+						left:'40.5%',
+					}, {duration: 150, queue: false});
+					
+					shadow.velocity({
+						width: (widthPercentage/2)+'%',
+						top: '16%',
+						left:'40.5%',
+					}, {duration: 150, queue: false});
+
+
+					brick.velocity({ //Just use percentages so window can scale.
+						width: "150%",
+						height: "100%",
+						left: '-25%',
+						top: '-15%'
+					},  {duration: 150, queue: false});
+					
+					wood.velocity({
+						top: '33%',
+						left: '0%',
+						width: '100%',
+						height: '100%'
+					},  {duration: 150, queue: false, complete: function() {
+						contactUs.css("visibility", "visible");
+						contactUs.velocity({
+							top: '26.3%'
+						}, {duration: 50, queue: false});
+						contactUsBody.velocity({
+							opacity: 1
+						}, {duration: 150, queue: false});
+						supportedBy.velocity({
+							opacity: 1
+						}, {duration: 150, queue: false});
+					}});
+					
+					currentState = 'contact';
+				}
+				else if(arrow=='#leftarrow')
+				{
+					mutexScroll = false;
+					infiniteWood[1].velocity({
+						left: '110%'}, 300);
+					infiniteWood[0].velocity({
+						left: '-10%'}, 300, function() {
+							var temp = infiniteWood[1];
+							infiniteWood[1] = infiniteWood[0];
+							infiniteWood[0] = temp;
+							infiniteWood[0].css({"left":"-130%"});
 						});
+					
+					infiniteBrick[1].velocity({
+						left: '+=5%'}, 300); //Shove current away
+					infiniteBrick[2].velocity({
+						left: '+=5%'}, 300);
+					infiniteBrick[0].velocity({
+						left: '+=5%'}, 300, function()
+											  {
+												  var leftBrickPercent = infiniteBrick[0].position().left / infiniteBrick[0].parent().width() * 100;
+												  if((leftBrickPercent+5)>0)
+												  {
+													  var temp = infiniteBrick[0];
+													  infiniteBrick[0] = infiniteBrick[2];
+													  infiniteBrick[2] = infiniteBrick[1];
+													  infiniteBrick[1] = temp;
+													  infiniteBrick[0].css({"left":((leftBrickPercent-195)+"%")});
+												  }
+											  });
+					logo.velocity({
+						left: '+=100%'}, 300);
+					shadow.velocity({
+						left: '+=100%'}, 300);
+				}
+				else if(arrow=='#rightarrow')
+				{
+					mutexScroll = false;
+					infiniteWood[1].velocity({
+						left: '-130%'}, 300);
+					infiniteWood[2].velocity({
+						left: '-10%'}, 300, function()
+											 {
+												 var temp = infiniteWood[1];
+												 infiniteWood[1] = infiniteWood[2];
+												 infiniteWood[2] = temp;
+												 infiniteWood[2].css({"left":"110%"});
+											 });
+					infiniteBrick[1].velocity({
+						left: '-=5%'}, 300); //Shove current away
+					infiniteBrick[0].velocity({
+						left: '-=5%'}, 300);
+					infiniteBrick[2].velocity({
+						left: '-=5%'}, 300, function()
+											  {
+												  var rightBrickPercent = infiniteBrick[2].position().left / infiniteBrick[0].parent().width() * 100;
+												  if((rightBrickPercent-5)<0)
+												  {
+													  var temp = infiniteBrick[2];
+													  infiniteBrick[2] = infiniteBrick[0];
+													  infiniteBrick[0] = infiniteBrick[1];
+													  infiniteBrick[1] = temp;
+													  infiniteBrick[2].css({"left":((rightBrickPercent+195)+"%")});
+												  }
+											  });
+					logo.velocity({
+						left: '-=100%'}, 300);
+					shadow.velocity({
+						left: '-=100%'}, 300);
+				}
+			}
+			
+			else if(currentState=="about")
+			{
+				if(arrow=='#downarrow')
+				{
+					lastelement = null;
+					aboutUs.css("visibility", "hidden");
+					aboutUs.velocity({
+						top: '77%'
+					});
+					aboutUsBody.velocity({
+						'opacity': '0'
+					}, {duration: 150, queue: false});
+					stopClouds();
+					focusAndFade(wood, 0, brick, 5.0);
+					wood.stop().velocity({top:"80%"}, 300, function()
+										 {
+											 initializeWood();
+										 });
+					logo.stop().velocity({top:"36.5%"}, 300);
+					shadow.stop().velocity({top:"38%"}, 300);
+					brick.stop().velocity({top:"-5%",
+										   left: "-50%",
+										   width: "200%",
+										   height: "auto"
+										  }, 300, function()
+										  {
+											  initializeBrick();
+										  });			
+					
+					$('#uparrow').css({display:"block"});
+						fadeOutUpArrow = false;
 						currentState="home";
 						
 					}
@@ -675,7 +716,19 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 					}
 				}
 			setTimeout(function(){mutexScroll = true},500);
-				
+			/*if(keyNav == false)
+			{
+				hideTextArrow('up');
+				hideTextArrow('down');
+				hideTextArrow('left');
+				hideTextArrow('right');
+			}*/
+			$(".arrow").velocity({"opacity": "0"}, 322, function()
+													{
+														revertArrow();
+													});
+
+			
 		}
 	}
 	
@@ -685,6 +738,11 @@ element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
 		element.click(
 			function() {
 				navPage(arrow);
+				setTimeout(function(){hideTextArrow('up');
+									  hideTextArrow('down');
+									  hideTextArrow('left');
+									  hideTextArrow('right');
+									 }, 322);
 			}
 		);
 	};

@@ -33,6 +33,11 @@ html, body {
   left: 50%;
   width: 5%;
   height: auto;
+  transform: translate(-50%, 50%);
+}
+
+#upwhite {
+  top: 0%;
 }
 
 #downarrow, #downwhite {
@@ -46,32 +51,49 @@ html, body {
   transform: translate(-50%, -50%) rotate(180deg);
 }
 
+#downwhite {
+  bottom: 0%;
+}
+
 #leftarrow, #leftwhite {
   position: absolute;
   top: 50%;
-  left: 2%;
+  left: 4%;
   width: 5%;
   height: auto;
   -ms-transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
-  transform: rotate(-90deg);
+  transform: translate(50%, -50%) rotate(-90deg);
+}
+
+#leftwhite {
+  left: -2%;
 }
 
 #rightarrow, #rightwhite {
   position: absolute;
   top: 50%;
-  right: 2%;
+  right: 4%;
   width: 5%;
   height: auto;
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+#rightwhite {
+  right: -2%;
+  
 }
 
 .arrow, .backarrow {
   opacity: 0;
-  transform: translate(-50%, -50%);
-  }
+  z-index: 1;
+}
+
+.backarrow {
+z-index: 0;
+}
 
 #screensize { /*Just used to get height and width of screen.*/
   position:fixed;
@@ -260,44 +282,66 @@ opacity: 0;
 }
 
 .wordArrow {
-  opacity: 1;
   font-family: "PF Din Light";
   font-size: 4.0vh;
   height: auto;
-  color: grey;
+  color: rgba(0, 0, 0, 0.4);
   z-index: 1;
-  transform: translate(-50%, -50%);
 }
 
 #topWordArrow {
   position: absolute;
-  top: 4%;
+  top: 8%;
   left: 50%;
   width: auto;
   height: auto;
+  transform: translate(-50%, +50%);
 }
 
 #downWordArrow {
   position: absolute;
   left: 50%;
-  bottom: 4%;
+  bottom: 8%;
   width: auto;
   height: auto;
+  transform: translate(-50%, -50%);
 }
 
 #leftWordArrow {
   position: absolute;
   top: 50%;
-  left: 2%;
+  left: 4%;
   width: auto;
   height: auto;
+  transform: translate(50%, -50%);
 }
 
 #rightWordArrow {
   position: absolute;
   top: 50%;
-  right: 2%;
+  right: 4%;
   width: auto;
   height: auto;
+  transform: translate(-50%, -50%);
 }
+
+.pjt-thumbnail {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 15%;
+  height: 15%;
+  transform: translate(-50%, -50%);
+}
+
+.pjt-mo {
+  display: none;
+}
+
+#projects {
+  position: absolute;
+z-index: 0;  
+}
+
   
