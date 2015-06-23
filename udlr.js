@@ -49,6 +49,8 @@ $(document).ready(function() {
 	initializeWood();
 	keyboardNav();
 
+
+
 	function showTextArrow(newText, direction)
 	{
 		if(direction == 'up')
@@ -93,6 +95,7 @@ $(document).ready(function() {
 			topWordArrow.velocity({
 				opacity: "0"}, 322, function(){
 					topWordArrow.empty();
+					topWordArrow.css({color: "rgba(0, 0, 0, 0.4)"});
 					topWordArrow.css({"top":"8%"});
 				});
 		}
@@ -102,6 +105,7 @@ $(document).ready(function() {
 			downWordArrow.velocity({
 				opacity: "0"}, 322, function(){
 					downWordArrow.empty();
+					downWordArrow.css({color: "rgba(0, 0, 0, 0.4)"});
 					downWordArrow.css({"bottom":"8%"});
 				});
 		}
@@ -111,6 +115,7 @@ $(document).ready(function() {
 			leftWordArrow.velocity({
 				opacity: "0"}, 322, function(){
 					leftWordArrow.empty();
+					leftWordArrow.css({color: "rgba(0, 0, 0, 0.4)"});
 					leftWordArrow.css({"left":"4%"});
 				});
 		}
@@ -120,6 +125,7 @@ $(document).ready(function() {
 			rightWordArrow.velocity({
 				opacity: "0"}, 322, function(){
 					rightWordArrow.empty();
+					rightWordArrow.css({color: "rgba(0, 0, 0, 0.4)"});
 					rightWordArrow.css({"right":"4%"});
 				});
 		}
@@ -192,13 +198,31 @@ $(document).ready(function() {
 		}
 	}
 
+
 	function flashTextArrow(direction)
 	{
 		showTextArrow(contextArrowText(direction), direction);
+		if(direction == 'up')
+		{
+			topWordArrow.css({color: "white"});
+		}
+		else if(direction == 'down')
+		{
+			downWordArrow.css({color: "white"});
+		}
+		else if(direction == 'left')
+		{
+			leftWordArrow.css({color: 'white'});
+		}
+		else if(direction == 'right')
+		{
+			rightWordArrow.css({color: 'white'});
+		}
 		setTimeout(function(){hideTextArrow('up');
 							  hideTextArrow('down');
 							  hideTextArrow('left');
-							  hideTextArrow('right');}, 322);
+							  hideTextArrow('right');
+							 }, 322);
 	}
 
 	function flashArrow(direction)
@@ -376,7 +400,9 @@ $(document).ready(function() {
 					if(alreadyInEdge == false) //The last mouse position not near the edge.
 					{
 						//$(".arrow").velocity({"opacity": "1"}, 350);
-						arrowSlide();
+						setTimeout(function(){
+							arrowSlide();
+						}, 322);
 
 						//Check especially which edge is being activated.
 						//Revert the original activated arrow if it is not the current one,
@@ -444,18 +470,22 @@ $(document).ready(function() {
 		{
 			if(arrow =='#uparrow')
 			{
+				flashTextArrow('up');
 				flashArrow('up');
 			}
 			else if(arrow == '#downarrow')
 			{
+				flashTextArrow('down');
 				flashArrow('down');
 			}
 			else if(arrow == '#leftarrow')
 			{
+				flashTextArrow('left');
 				flashArrow('left');
 			}
 			else if(arrow == '#rightarrow')
 			{
+				flashTextArrow('right');
 				flashArrow('right');
 			}
 			mutexScroll = false;
@@ -716,13 +746,6 @@ $(document).ready(function() {
 					}
 				}
 			setTimeout(function(){mutexScroll = true},500);
-			/*if(keyNav == false)
-			{
-				hideTextArrow('up');
-				hideTextArrow('down');
-				hideTextArrow('left');
-				hideTextArrow('right');
-			}*/
 			$(".arrow").velocity({"opacity": "0"}, 322, function()
 													{
 														revertArrow();

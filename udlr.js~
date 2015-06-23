@@ -28,6 +28,7 @@ $(document).ready(function() {
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
 	var downWordArrow=$('#downWordArrow');
+	var keyNav = false;
 
 		//Use original CSS values for ratios.
 	/*
@@ -164,30 +165,40 @@ $(document).ready(function() {
 
 	function keyboardNav()
 	{
+		keyNav=true;
 		document.onkeydown = function(e) {
 			switch (e.keyCode) {
 			case 37:
 				flashArrow('left');
-				showTextArrow(contextArrowText('left'),'left');
+				flashTextArrow('left');
 				navPage('#leftarrow');
 				break;
 			case 38:
 				flashArrow('up');
-				showTextArrow(contextArrowText('up'),'up');
+				flashTextArrow('up');
 				navPage('#uparrow');
 				break;
 			case 39:
 				flashArrow('right');
-				showTextArrow(contextArrowText('right'),'right');
+				flashTextArrow('right');
 				navPage('#rightarrow');
 				break;
 			case 40:
 				flashArrow('down');
-				showTextArrow(contextArrowText('down'),'down');
+				flashTextArrow('down');
 				navPage('#downarrow');
 				break;
 			}
 		}
+	}
+
+	function flashTextArrow(direction)
+	{
+		showTextArrow(contextArrowText(direction), direction);
+		setTimeout(function(){hideTextArrow('up');
+							  hideTextArrow('down');
+							  hideTextArrow('left');
+							  hideTextArrow('right');}, 322);
 	}
 
 	function flashArrow(direction)
@@ -705,10 +716,13 @@ $(document).ready(function() {
 					}
 				}
 			setTimeout(function(){mutexScroll = true},500);
+			/*if(keyNav == false)
+			{
 				hideTextArrow('up');
 				hideTextArrow('down');
 				hideTextArrow('left');
 				hideTextArrow('right');
+			}*/
 			$(".arrow").velocity({"opacity": "0"}, 322, function()
 													{
 														revertArrow();
@@ -724,6 +738,11 @@ $(document).ready(function() {
 		element.click(
 			function() {
 				navPage(arrow);
+				setTimeout(function(){hideTextArrow('up');
+									  hideTextArrow('down');
+									  hideTextArrow('left');
+									  hideTextArrow('right');
+									 }, 322);
 			}
 		);
 	};
