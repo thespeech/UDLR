@@ -48,7 +48,28 @@ $(document).ready(function() {
 	initializeBrick();
 	initializeWood();
 	keyboardNav();
+	maintainRatios();
 
+	window.addEventListener('resize', function(event){
+		maintainRatios();
+	});
+
+	
+
+	function maintainRatios()
+	{
+			var viewportWidth = $(window).width();
+			var viewportHeight = $(window).height();
+			
+			if(currentState == 'home')
+			{
+
+				//Check brick height to width ratio:
+		
+				brick.width();
+				wood.css({top: (viewportWidth/16*9*0.8)});
+			}
+	}
 
 
 	function showTextArrow(newText, direction)
