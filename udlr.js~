@@ -64,10 +64,10 @@ $(document).ready(function() {
 			if(currentState == 'home')
 			{
 
-					//Check brick height to width ratio:
-					wood.css({top: (viewportWidth/16*9*0.8)});
-					console.log((brick.width()/brick.height()));
-					//wood.css({top: });
+				//Check brick height to width ratio:
+		
+				brick.width();
+				wood.css({top: (viewportWidth/16*9*0.8)});
 			}
 	}
 
