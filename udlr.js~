@@ -11,6 +11,7 @@ $(document).ready(function() {
 	var screenSize = $('#screensize');
 	var aboutUs = $('#aboutUs');
 	var aboutUsBody = $('#aboutUsBody');
+	var page = $('html', 'body');
 	var lastelement=null;
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
@@ -63,11 +64,16 @@ $(document).ready(function() {
 			
 			if(currentState == 'home')
 			{
-
 				//Check brick height to width ratio:
-		
-				brick.width();
-				wood.css({top: (viewportWidth/16*9*0.8)});
+				var visibleBrickHeight = brick.height();
+				var woodHeight = 0.96*visibleBrickHeight;
+				wood.css({top: woodHeight});
+
+				if(wood.position().top + wood.height() < viewportHeight)
+				{
+					//If the screen height exposes area below original wood,
+					//Tile
+				}
 			}
 	}
 
@@ -251,21 +257,21 @@ $(document).ready(function() {
 		if(direction == 'left')
 		{
 			$('#leftwhite').velocity("stop");
-						$('#leftwhite').velocity({'opacity':'1'}, 300, function()
-											{
-												$('#leftwhite').stop().velocity({
-													'opacity':'0'}, 300);
-											});
-				}
+			$('#leftwhite').velocity({'opacity':'1'}, 300, function()
+									 {
+										 $('#leftwhite').stop().velocity({
+											 'opacity':'0'}, 300);
+									 });
+		}
 		else if(direction == 'right')
 		{
 			$('#rightwhite').velocity("stop");
-						$('#rightwhite').velocity({'opacity':'1'}, 300, function()
-											 {
-												 $('#rightwhite').stop().
-													 velocity({
-														 'opacity':'0'}, 300);
-											 });		
+			$('#rightwhite').velocity({'opacity':'1'}, 300, function()
+									  {
+										  $('#rightwhite').stop().
+											  velocity({
+												  'opacity':'0'}, 300);
+									  });		
 		}
 		else if(direction == 'up')
 		{
@@ -438,9 +444,9 @@ $(document).ready(function() {
 					{
 						$(".arrow").velocity("stop");
 						$(".arrow").velocity({"opacity": "0"}, 322, function()
-													{
-														revertArrow();
-													});
+											 {
+												 revertArrow();
+											 });
 						
 						hideTextArrow('up');
 						hideTextArrow('down');
@@ -522,20 +528,20 @@ $(document).ready(function() {
 						logo.velocity({top:"100%"}, 300);
 						shadow.velocity({top:"100%"}, 300);
 						brick.velocity({top:"77%",
-											   left: "-100%",
-											   width: "300%",
-											   height: "150%"
-											  }, 300, function()
-											  {
-												  aboutUs.css("visibility", "visible");
-												  aboutUs.velocity({
-													  top: '69%'
-												  },50);
-												  //aboutUsBody.css("visibility", "visible");
-												  aboutUsBody.velocity({
-													  'opacity': '1'
-												  }, {duration: 150, queue: false});
-											  });			
+										left: "-100%",
+										width: "300%",
+										height: "150%"
+									   }, 300, function()
+									   {
+										   aboutUs.css("visibility", "visible");
+										   aboutUs.velocity({
+											   top: '69%'
+										   },50);
+										   //aboutUsBody.css("visibility", "visible");
+										   aboutUsBody.velocity({
+											   'opacity': '1'
+										   }, {duration: 150, queue: false});
+									   });			
 						
 						focusAndFade(sky, 0.0, brick, 7.0); 
 						currentState = 'about';
@@ -702,75 +708,75 @@ $(document).ready(function() {
 										  });			
 					
 					$('#uparrow').css({display:"block"});
-						fadeOutUpArrow = false;
-						currentState="home";
-						
-					}
+					fadeOutUpArrow = false;
+					currentState="home";
+					
 				}
-				else if(currentState=="contact")
+			}
+			else if(currentState=="contact")
+			{
+				if(arrow=='#uparrow')
 				{
-					if(arrow=='#uparrow')
-					{
-						lastelement = null;
-						focusAndFade(wood, 0, brick, 5);
-						var scale = 0.90;
-						var w = brick.width();
-						var h = brick.height();
-						brick.data('w',w).data('h',h);
+					lastelement = null;
+					focusAndFade(wood, 0, brick, 5);
+					var scale = 0.90;
+					var w = brick.width();
+					var h = brick.height();
+					brick.data('w',w).data('h',h);
 
-						contactUs.css("visibility", "hidden");
-							contactUs.velocity({
-							top: '33%'
-							}, {duration: 100, queue: false});
+					contactUs.css("visibility", "hidden");
+					contactUs.velocity({
+						top: '33%'
+					}, {duration: 100, queue: false});
 
-						contactUsBody.velocity({opacity: 0},{duration: 10, queue: false});
-						supportedBy.velocity({opacity: 0}, {duration: 10, queue: false});
-						
-						brick.velocity({ //Just use percentages so window can scale.
-							width: "200%",
-							height: "auto",
-							left: '-50%',
-							top: '-5%'
-						},  {duration: 150, queue: false, complete: function()
-									   {
-										   initializeBrick(); //Lazy, resolves uncertainty
-									   }});
-						
-						wood.velocity({
-							top: '80%',
-							left: '-10%',
-							width: '120%',
-							height: '120%'
-						}, {duration: 300, queue: false, complete: function() {
-							initializeWood();
-						}});
+					contactUsBody.velocity({opacity: 0},{duration: 10, queue: false});
+					supportedBy.velocity({opacity: 0}, {duration: 10, queue: false});
+					
+					brick.velocity({ //Just use percentages so window can scale.
+						width: "200%",
+						height: "auto",
+						left: '-50%',
+						top: '-5%'
+					},  {duration: 150, queue: false, complete: function()
+						 {
+							 initializeBrick(); //Lazy, resolves uncertainty
+						 }});
+					
+					wood.velocity({
+						top: '80%',
+						left: '-10%',
+						width: '120%',
+						height: '120%'
+					}, {duration: 300, queue: false, complete: function() {
+						initializeWood();
+					}});
 
-						//Get percentage of width:
-						var widthPercentage = (100*(logo.width()))/(screenSize.width());
-						var heightPercentage = (100*(logo.height()))/(screenSize.height());
-						logo.velocity({
-							width: (widthPercentage*2)+'%',
-							top: '36.5%',
-							left:'33.5%',
-							},
-									 {queue:false, duration:200});
-						
-						shadow.velocity({
-							width: (widthPercentage*2)+'%',
-							top: '38%',
-							left:'33.5%',
-							},
-									   {queue:false, duration:200});
+					//Get percentage of width:
+					var widthPercentage = (100*(logo.width()))/(screenSize.width());
+					var heightPercentage = (100*(logo.height()))/(screenSize.height());
+					logo.velocity({
+						width: (widthPercentage*2)+'%',
+						top: '36.5%',
+						left:'33.5%',
+					},
+								  {queue:false, duration:200});
+					
+					shadow.velocity({
+						width: (widthPercentage*2)+'%',
+						top: '38%',
+						left:'33.5%',
+					},
+									{queue:false, duration:200});
 
-						
-						currentState = 'home';
-					}
+					
+					currentState = 'home';
 				}
+			}
 			setTimeout(function(){mutexScroll = true},500);
 			$(".arrow").velocity({"opacity": "0"}, 322, function()
-													{
-														revertArrow();
-													});
+								 {
+									 revertArrow();
+								 });
 
 			
 		}
@@ -799,12 +805,12 @@ $(document).ready(function() {
 				var curPercent=complete;
 				curPercent *= blurRad1;
 				element1.css({
-								"-webkit-filter":"blur("+curPercent+"px)",
-								"filter":"blur("+curPercent+"px)",
-								"-moz-filter":"blur("+curPercent+"px)",
-								"-o-filter":"blur("+curPercent+"px)",
-								"-ms-filter":"blur("+curPercent+"px)"
-							});
+					"-webkit-filter":"blur("+curPercent+"px)",
+					"filter":"blur("+curPercent+"px)",
+					"-moz-filter":"blur("+curPercent+"px)",
+					"-o-filter":"blur("+curPercent+"px)",
+					"-ms-filter":"blur("+curPercent+"px)"
+				});
 
 
 			}

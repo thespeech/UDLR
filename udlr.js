@@ -1,7 +1,8 @@
 $(document).ready(function() {
 	var currentState = 'home'; //Records which 'page' the website is on.
 	var brick = $('.brick'); //Allow jquery to work on these elements.
-	var wood = $('.wood');
+	var wood = $('.wood'); //This is all wood because it is possible for two wood to be on the screen at the same time
+	var largeWood=$('.largeWood');
 	var sky = $('.sky');
 	var logo = $('#logo');
 	var shadow = $('#shadow');
@@ -25,6 +26,7 @@ $(document).ready(function() {
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
 	var infiniteBrick=[$('#brick1'), $('#brick2'), $('#brick3')];
 	var infiniteWood=[$('#wood1'), $('#wood2'), $('#wood3')];
+	var infiniteLargeWood=[$('#largeWood1'), $('#largeWood2'), $('#largeWood3')];
 	var topWordArrow=$('#topWordArrow');
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
@@ -55,22 +57,77 @@ $(document).ready(function() {
 		maintainRatios();
 	});
 
-	
+	function smallToLargeWood()
+	{
+		var viewportWidth = $(window).width();
+		var viewportHeight = $(window).height();
+		var count = 0;
+		infiniteWood.forEach(function(item)
+		{
+			var percentageLeftPos = item.css('left');
+			percentageLeftPos=parseInt(percentageLeftPos);
+			percentageLeftPos /= item.parent().width();
+			percentageLeftPos *=100;
+			//Get x and y of each wood piece, then assign that to infiniteLargeWood.
+			infiniteLargeWood[count].css("left",percentageLeftPos+"%");
+			count++;
+		})
+		wood.hide();
+		largeWood.show();
+	}
+
+	function largeToSmallWood()
+	{
+		var viewportWidth = $(window).width();
+		var viewportHeight = $(window).height();
+		var count = 0;
+		infiniteLargeWood.forEach(function(item)
+		{
+			var percentageLeftPos = item.css('left');
+			percentageLeftPos=parseInt(percentageLeftPos);
+			percentageLeftPos /= item.parent().width();
+			percentageLeftPos *=100;
+			//Get x and y of each wood piece, then assign that to infiniteLargeWood.
+			infiniteWood[count].css("left",percentageLeftPos+"%");
+			count++;
+		})
+		largeWood.hide();
+		wood.show();
+	}
+
 
 	function maintainRatios()
 	{
 			var viewportWidth = $(window).width();
 			var viewportHeight = $(window).height();
-			
+			var visibleBrickHeight = brick.height();
 			if(currentState == 'home')
 			{
 				//Check brick height to width ratio:
-				var visibleBrickHeight = brick.height();
-				var woodHeight = 0.99*visibleBrickHeight;
+				var woodHeight = 0.890*visibleBrickHeight;
 				wood.css({top: woodHeight});
-				console.log(wood.position().top);
-				console.log(viewportWidth);
+
+				if(wood.position().top + wood.height() < viewportHeight)
+				{
+					//If the screen height exposes area below original wood,
+					//Tile
+					$('body').css("overflow-y", "hidden");
+					$('html').css("overflow-y", "hidden");
+				}
+				else
+				{
+					$('body').css("overflow-y", "auto");
+					$('html').css("overflow-y", "auto");
+				}
 			}
+		else if(currentState == 'contact')
+		{
+			var woodHeight = 0.50*visibleBrickHeight;
+			largeWood.css({top: woodHeight});
+			contactUs.css({top: (1.05*woodHeight)});
+			contactUsBody.css({top: (1.78*woodHeight)});
+			supportedBy.css({top: (2*woodHeight)});
+		}
 	}
 
 
@@ -577,16 +634,16 @@ $(document).ready(function() {
 
 					brick.velocity({ //Just use percentages so window can scale.
 						width: "150%",
-						height: "100%",
 						left: '-25%',
-						top: '-15%'
-					},  {duration: 150, queue: false});
+						top: '-20px'
+					},  {duration: 150, queue: false, complete: function(){
+					}});
+
+					smallToLargeWood();
 					
-					wood.velocity({
-						top: '33%',
+					largeWood.velocity({
 						left: '0%',
-						width: '100%',
-						height: '100%'
+						width: '240%'
 					},  {duration: 150, queue: false, complete: function() {
 						contactUs.css("visibility", "visible");
 						contactUs.velocity({
