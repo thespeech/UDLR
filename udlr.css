@@ -82,7 +82,7 @@ html, body {
 
 #rightwhite {
   right: -2%;
-  
+
 }
 
 .arrow, .backarrow {
@@ -131,7 +131,7 @@ z-index: 0;
   height: auto;
   width: 240%;
   position: absolute;
-  top: 80%;
+  top: 30%;
   left: -10%;
   z-index: -1;
 }
@@ -219,7 +219,7 @@ z-index: 0;
 #supportedBy {
   opacity: 0;
   font-family: "PF Din Regular";
-  font-size: 4vw;
+  font-size: 3vw;
   width: 100%;
   height: auto;
   top: 72%;
@@ -360,5 +360,3 @@ opacity: 0;
   z-index: -3;
   transform: translate(-50%, -50%);
 }
-
-  

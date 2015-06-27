@@ -40,7 +40,7 @@ $(document).ready(function() {
 	*/
 
 	//Run the actual functions.
-	
+
 	bgHover(brick);
 	bgHover(wood);
 	arrowClick('#uparrow');
@@ -106,7 +106,8 @@ $(document).ready(function() {
 				//Check brick height to width ratio:
 				var woodHeight = 0.890*visibleBrickHeight;
 				wood.css({top: woodHeight});
-
+				logo.css({top: 0.4*woodHeight});
+				shadow.css({top: 0.4*woodHeight});
 				if(wood.position().top + wood.height() < viewportHeight)
 				{
 					//If the screen height exposes area below original wood,
@@ -123,10 +124,12 @@ $(document).ready(function() {
 		else if(currentState == 'contact')
 		{
 			var woodHeight = 0.50*visibleBrickHeight;
+			logo.css({top: 0.35*woodHeight});
+			shadow.css({top: 0.35*woodHeight});
 			largeWood.css({top: woodHeight});
 			contactUs.css({top: (1.05*woodHeight)});
 			contactUsBody.css({top: (1.78*woodHeight)});
-			supportedBy.css({top: (2*woodHeight)});
+			supportedBy.css({top: (2.875*woodHeight)});
 		}
 	}
 
@@ -247,7 +250,7 @@ $(document).ready(function() {
 			}
 		}
 	}
-	
+
 
 	function keyboardNav()
 	{
@@ -324,7 +327,7 @@ $(document).ready(function() {
 										  $('#rightwhite').stop().
 											  velocity({
 												  'opacity':'0'}, 300);
-									  });		
+									  });
 		}
 		else if(direction == 'up')
 		{
@@ -345,7 +348,7 @@ $(document).ready(function() {
 									 });
 		}
 	}
-	
+
 	function initializeWood()
 	{
 		infiniteWood[0].css({"left": "-130%"});
@@ -358,7 +361,7 @@ $(document).ready(function() {
 		infiniteBrick[0].css({"left": "-245%"});
 		infiniteBrick[2].css({"left": "145%"});
 	}
-	
+
 	function stopClouds()
 	{
 		frontClouds=[$('#front-1'), $('#front-2')]; //Reset front clouds to stop them properly.
@@ -370,11 +373,11 @@ $(document).ready(function() {
 							 {
 								 element.velocity("stop");
 							 });
-		
+
 		$('#back').velocity("stop"); //Stop every cloud's animation.
-		
+
 	}
-	
+
 	function spawnClouds() //Run this only when the up arrow is pressed.
 	{
 		//6 clouds to randomize. All should be more or less visible.
@@ -393,14 +396,14 @@ $(document).ready(function() {
 											  "left":leftPercent+"%"});
 								 leftPercent+=(Math.floor((Math.random()*5)+25));
 								 animateMiddleCloud(element, true);
-								 
+
 							 });
 		$('#back').css({"top":"-180%",
 						"left":"0%"});
-		animateBackCloud($('#back'), true); 
+		animateBackCloud($('#back'), true);
 	}
 
-	
+
 	function animateBackCloud(element, firsttime)
 	{
 		if(currentState=='about')
@@ -460,9 +463,9 @@ $(document).ready(function() {
 			});
 		}
 	}
-	
 
-	
+
+
 	function hoverEdges() //Do arrow fading stuff.
 	{
 		var movedArrow="";
@@ -476,7 +479,7 @@ $(document).ready(function() {
 				   (event.pageX < edgePercentWidth) || //Left
 				   ((($(window).width() - event.pageX) < edgePercentWidth))) //Right
 				{
-					
+
 					if(alreadyInEdge == false) //The last mouse position not near the edge.
 					{
 						//$(".arrow").velocity({"opacity": "1"}, 350);
@@ -500,7 +503,7 @@ $(document).ready(function() {
 											 {
 												 revertArrow();
 											 });
-						
+
 						hideTextArrow('up');
 						hideTextArrow('down');
 						hideTextArrow('left');
@@ -512,7 +515,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
+
 	function arrowSlide()
 	{
 		$('#uparrow').velocity({
@@ -594,18 +597,18 @@ $(document).ready(function() {
 										   aboutUsBody.velocity({
 											   'opacity': '1'
 										   }, {duration: 150, queue: false});
-									   });			
-						
-						focusAndFade(sky, 0.0, brick, 7.0); 
+									   });
+
+						focusAndFade(sky, 0.0, brick, 7.0);
 						currentState = 'about';
-						
+
 					}, 100); //Set timeout to let clouds load a bit longer.
 
 					$('#uparrow').velocity({opacity: 0}, 322, function() {
 						$('#uparrow').css({display: "none"});
 						fadeOutUpArrow = false;
 					});
-					
+
 				}
 				else if(arrow == '#downarrow')
 				{
@@ -615,7 +618,7 @@ $(document).ready(function() {
 					var h = brick.height();
 					brick.data('w',w).data('h',h);
 
-					
+
 					//Get percentage of width:
 					var widthPercentage = (100*(logo.width()))/(screenSize.width());
 					var heightPercentage = (100*(logo.height()))/(screenSize.height());
@@ -624,7 +627,7 @@ $(document).ready(function() {
 						top: '15%',
 						left:'40.5%',
 					}, {duration: 150, queue: false});
-					
+
 					shadow.velocity({
 						width: (widthPercentage/2)+'%',
 						top: '16%',
@@ -640,15 +643,20 @@ $(document).ready(function() {
 					}});
 
 					smallToLargeWood();
-					
+
 					largeWood.velocity({
 						left: '0%',
-						width: '240%'
+						width: '240%',
+						top: '40%' //Temporary
 					},  {duration: 150, queue: false, complete: function() {
+						maintainRatios();
 						contactUs.css("visibility", "visible");
 						contactUs.velocity({
 							top: '26.3%'
-						}, {duration: 50, queue: false});
+						}, {duration: 50, queue: false, complete: function(){
+						maintainRatios();
+						}
+						});
 						contactUsBody.velocity({
 							opacity: 1
 						}, {duration: 150, queue: false});
@@ -656,7 +664,7 @@ $(document).ready(function() {
 							opacity: 1
 						}, {duration: 150, queue: false});
 					}});
-					
+
 					currentState = 'contact';
 				}
 				else if(arrow=='#leftarrow')
@@ -671,7 +679,7 @@ $(document).ready(function() {
 							infiniteWood[0] = temp;
 							infiniteWood[0].css({"left":"-130%"});
 						});
-					
+
 					infiniteBrick[1].velocity({
 						left: '+=5%'}, 300); //Shove current away
 					infiniteBrick[2].velocity({
@@ -730,7 +738,7 @@ $(document).ready(function() {
 						left: '-=100%'}, 300);
 				}
 			}
-			
+
 			else if(currentState=="about")
 			{
 				if(arrow=='#downarrow')
@@ -758,14 +766,15 @@ $(document).ready(function() {
 										  }, 300, function()
 										  {
 											  initializeBrick();
-										  });			
-					
+										  });
+
 					$('#uparrow').css({display:"block"});
 					fadeOutUpArrow = false;
 					currentState="home";
-					
+
 				}
 			}
+
 			else if(currentState=="contact")
 			{
 				if(arrow=='#uparrow')
@@ -775,7 +784,7 @@ $(document).ready(function() {
 					var scale = 0.90;
 					var w = brick.width();
 					var h = brick.height();
-					brick.data('w',w).data('h',h);
+					//brick.data('w',w).data('h',h);
 
 					contactUs.css("visibility", "hidden");
 					contactUs.velocity({
@@ -784,23 +793,24 @@ $(document).ready(function() {
 
 					contactUsBody.velocity({opacity: 0},{duration: 10, queue: false});
 					supportedBy.velocity({opacity: 0}, {duration: 10, queue: false});
-					
+
 					brick.velocity({ //Just use percentages so window can scale.
-						width: "200%",
-						height: "auto",
+						width: "240%",
 						left: '-50%',
-						top: '-5%'
+						top: '-10px'
 					},  {duration: 150, queue: false, complete: function()
 						 {
 							 initializeBrick(); //Lazy, resolves uncertainty
 						 }});
-					
-					wood.velocity({
-						top: '80%',
+
+
+					largeWood.velocity({
+						top: '60%',
 						left: '-10%',
-						width: '120%',
-						height: '120%'
+						width: '240%',
 					}, {duration: 300, queue: false, complete: function() {
+						largeToSmallWood();
+						maintainRatios();
 						initializeWood();
 					}});
 
@@ -813,7 +823,7 @@ $(document).ready(function() {
 						left:'33.5%',
 					},
 								  {queue:false, duration:200});
-					
+
 					shadow.velocity({
 						width: (widthPercentage*2)+'%',
 						top: '38%',
@@ -821,7 +831,7 @@ $(document).ready(function() {
 					},
 									{queue:false, duration:200});
 
-					
+
 					currentState = 'home';
 				}
 			}
@@ -831,10 +841,10 @@ $(document).ready(function() {
 									 revertArrow();
 								 });
 
-			
+
 		}
 	}
-	
+
 	function arrowClick(element) {
 		var arrow = element;
 		element = $(element);
@@ -851,7 +861,7 @@ $(document).ready(function() {
 	};
 
 	function focusAndFade(element1, blurRad1, element2, blurRad2)
-	{ 
+	{
 		element1.velocity({opacity: 1},{
 			duration: 200,
 			progress: function(elements, complete, remaining, start) {
@@ -883,7 +893,7 @@ $(document).ready(function() {
 
 
 			}
-		}); 
+		});
 			};
 
 	function bgHover(element) {
@@ -919,5 +929,5 @@ $(document).ready(function() {
 				}
 			});
 	};
-	
+
 });
