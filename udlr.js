@@ -51,10 +51,10 @@ $(document).ready(function() {
 	initializeBrick();
 	initializeWood();
 	keyboardNav();
-	maintainRatios();
+//	maintainRatios();
 
 	window.addEventListener('resize', function(event){
-		maintainRatios();
+		//maintainRatios();
 	});
 
 	function smallToLargeWood()
@@ -387,12 +387,12 @@ $(document).ready(function() {
 		var currentFront = frontClouds.shift(); //Pop the cloud off the array.
 		var leftPercent = 0;
 		leftPercent = Math.floor((Math.random()*5));
-		currentFront.css({"top":(Math.floor(Math.random()*56))+"%",
+		currentFront.css({"top":(Math.floor(Math.random()*30))+"vw",
 						  "left":(Math.floor(Math.random()*50))+"%"});
 		animateFrontCloud(currentFront, true);
 		middleClouds.forEach(function(element)
 							 {
-								 element.css({"top":(Math.floor((Math.random()*5))+10)+"%",
+								 element.css({"top":(Math.floor((Math.random()*5))+5)+"vw",
 											  "left":leftPercent+"%"});
 								 leftPercent+=(Math.floor((Math.random()*5)+25));
 								 animateMiddleCloud(element, true);
@@ -430,7 +430,7 @@ $(document).ready(function() {
 		{
 			if(!firsttime)
 			{
-				element.css({"top":(Math.floor((Math.random()*0))+10)+"%",
+				element.css({"top":(Math.floor((Math.random()*0))+10)+"vw",
 							 "left": "-120%"});
 
 			}
@@ -583,15 +583,14 @@ $(document).ready(function() {
 						wood.velocity({top:"100%"}, 300);
 						logo.velocity({top:"100%"}, 300);
 						shadow.velocity({top:"100%"}, 300);
-						brick.velocity({top:"77%",
+						brick.velocity({top:"39vw",
 										left: "-100%",
-										width: "300%",
-										height: "150%"
+										width: "300%"
 									   }, 300, function()
 									   {
 										   aboutUs.css("visibility", "visible");
 										   aboutUs.velocity({
-											   top: '69%'
+											   top: '35vw'
 										   },50);
 										   //aboutUsBody.css("visibility", "visible");
 										   aboutUsBody.velocity({
@@ -623,22 +622,21 @@ $(document).ready(function() {
 					var widthPercentage = (100*(logo.width()))/(screenSize.width());
 					var heightPercentage = (100*(logo.height()))/(screenSize.height());
 					logo.velocity({
-						width: (widthPercentage/2)+'%',
-						top: '15%',
-						left:'40.5%',
+						width: '18vw',
+						top: '-6vw',
+						left:'50%',
 					}, {duration: 150, queue: false});
 
 					shadow.velocity({
-						width: (widthPercentage/2)+'%',
-						top: '16%',
-						left:'40.5%',
+						width: '18vw',
+						top: '-6vw',
+						left:'50%',
 					}, {duration: 150, queue: false});
-
 
 					brick.velocity({ //Just use percentages so window can scale.
 						width: "150%",
 						left: '-25%',
-						top: '-20px'
+						top: '-3vw'
 					},  {duration: 150, queue: false, complete: function(){
 					}});
 
@@ -647,14 +645,14 @@ $(document).ready(function() {
 					largeWood.velocity({
 						left: '0%',
 						width: '240%',
-						top: '40%' //Temporary
+						top: '13vw' //Temporary
 					},  {duration: 150, queue: false, complete: function() {
-						maintainRatios();
+						//maintainRatios();
 						contactUs.css("visibility", "visible");
 						contactUs.velocity({
-							top: '26.3%'
+							top: '14vw'
 						}, {duration: 50, queue: false, complete: function(){
-						maintainRatios();
+						//maintainRatios();
 						}
 						});
 						contactUsBody.velocity({
@@ -797,7 +795,7 @@ $(document).ready(function() {
 					brick.velocity({ //Just use percentages so window can scale.
 						width: "240%",
 						left: '-50%',
-						top: '-10px'
+						top: '-3vw'
 					},  {duration: 150, queue: false, complete: function()
 						 {
 							 initializeBrick(); //Lazy, resolves uncertainty
@@ -805,12 +803,11 @@ $(document).ready(function() {
 
 
 					largeWood.velocity({
-						top: '60%',
-						left: '-10%',
+						top: '41.5vw',
 						width: '240%',
 					}, {duration: 300, queue: false, complete: function() {
 						largeToSmallWood();
-						maintainRatios();
+						//maintainRatios();
 						initializeWood();
 					}});
 
@@ -818,16 +815,16 @@ $(document).ready(function() {
 					var widthPercentage = (100*(logo.width()))/(screenSize.width());
 					var heightPercentage = (100*(logo.height()))/(screenSize.height());
 					logo.velocity({
-						width: (widthPercentage*2)+'%',
-						top: '36.5%',
-						left:'33.5%',
+						width: '33.5%',
+						top: '18vw',
+						left:'50%',
 					},
 								  {queue:false, duration:200});
 
 					shadow.velocity({
 						width: (widthPercentage*2)+'%',
-						top: '38%',
-						left:'33.5%',
+						top: '18.5vw',
+						left:'50%',
 					},
 									{queue:false, duration:200});
 
