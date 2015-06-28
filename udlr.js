@@ -51,10 +51,10 @@ $(document).ready(function() {
 	initializeBrick();
 	initializeWood();
 	keyboardNav();
-//	maintainRatios();
+	maintainRatios();
 
 	window.addEventListener('resize', function(event){
-		//maintainRatios();
+		maintainRatios();
 	});
 
 	function smallToLargeWood()
@@ -104,10 +104,6 @@ $(document).ready(function() {
 			if(currentState == 'home')
 			{
 				//Check brick height to width ratio:
-				var woodHeight = 0.890*visibleBrickHeight;
-				wood.css({top: woodHeight});
-				logo.css({top: 0.4*woodHeight});
-				shadow.css({top: 0.4*woodHeight});
 				if(wood.position().top + wood.height() < viewportHeight)
 				{
 					//If the screen height exposes area below original wood,
@@ -121,15 +117,18 @@ $(document).ready(function() {
 					$('html').css("overflow-y", "auto");
 				}
 			}
-		else if(currentState == 'contact')
+		else if(currentState == 'about')
 		{
-			var woodHeight = 0.50*visibleBrickHeight;
-			logo.css({top: 0.35*woodHeight});
-			shadow.css({top: 0.35*woodHeight});
-			largeWood.css({top: woodHeight});
-			contactUs.css({top: (1.05*woodHeight)});
-			contactUsBody.css({top: (1.78*woodHeight)});
-			supportedBy.css({top: (2.875*woodHeight)});
+			if(aboutUs.position().top < viewportHeight)
+			{
+				$('body').css("overflow-y", "hidden");
+				$('html').css("overflow-y", "hidden");
+			}
+			else
+			{
+				$('body').css("overflow-y", "auto");
+				$('html').css("overflow-y", "auto");
+			}
 		}
 	}
 
@@ -368,13 +367,20 @@ $(document).ready(function() {
 		frontClouds.forEach(function(element)
 							{
 								element.velocity("stop");
+								element.hide();
 							});
 		middleClouds.forEach(function(element)
 							 {
 								 element.velocity("stop");
+								 element.hide();
 							 });
 
 		$('#back').velocity("stop"); //Stop every cloud's animation.
+		$('#back').hide();
+		$('#back2').velocity("stop");
+		$('#back2').hide();
+		$('#back3').velocity("stop");
+		$('#back3').hide();
 
 	}
 
@@ -421,7 +427,6 @@ $(document).ready(function() {
 				});
 			});
 		}
-
 	}
 
 	function animateMiddleCloud(element, firsttime)
@@ -430,14 +435,14 @@ $(document).ready(function() {
 		{
 			if(!firsttime)
 			{
-				element.css({"top":(Math.floor((Math.random()*0))+10)+"vw",
+				element.css({"top":(Math.floor((Math.random()*0))+1)+"vw",
 							 "left": "-120%"});
-
 			}
 			element.show();
 			var newSpeed=Math.floor((Math.random()*15)+82);
 			element.velocity("stop");
 			element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
+				element.hide();
 				animateMiddleCloud(element, false);
 			});
 		}
@@ -450,13 +455,14 @@ $(document).ready(function() {
 		{
 			if(!firsttime)
 			{
-				element.css({"top":(Math.floor((Math.random()*50))-2)+"%",
+				element.css({"top":(Math.floor((Math.random()*20))-2)+"vw",
 							 "left": "-100%"});
 			}
 			element.show();
 			var newSpeed=Math.floor((Math.random()*10)+50);
 			element.velocity("stop");
 			element.velocity({left:"100%"}, newSpeed*1000, "linear", function(){
+				element.hide();
 				frontClouds.push(element);
 				element=frontClouds.shift();
 				animateFrontCloud(element, false);
@@ -579,19 +585,31 @@ $(document).ready(function() {
 					fadeOutUpArrow = true;
 					currentState="about";
 					spawnClouds();
+					aboutUs.show();
 					setTimeout(function(){
-						wood.velocity({top:"100%"}, 300);
-						logo.velocity({top:"100%"}, 300);
-						shadow.velocity({top:"100%"}, 300);
+						wood.velocity({top:"100%"}, 300, function()
+									  {
+										  wood.hide();
+									  });
+						logo.velocity({top:"100%"}, 300, function()
+									  {
+										  logo.hide();
+									  });
+						shadow.velocity({top:"100%"}, 300, function()
+										{
+											shadow.hide();
+										});
 						brick.velocity({top:"39vw",
 										left: "-100%",
 										width: "300%"
 									   }, 300, function()
 									   {
-										   aboutUs.css("visibility", "visible");
 										   aboutUs.velocity({
 											   top: '35vw'
-										   },50);
+										   },50, function()
+															{
+																maintainRatios();
+															});
 										   //aboutUsBody.css("visibility", "visible");
 										   aboutUsBody.velocity({
 											   'opacity': '1'
@@ -625,20 +643,24 @@ $(document).ready(function() {
 						width: '18vw',
 						top: '-6vw',
 						left:'50%',
-					}, {duration: 150, queue: false});
+					}, {duration: 150, queue: false, complete:function() {
+						logo.hide();
+					}});
 
 					shadow.velocity({
 						width: '18vw',
 						top: '-6vw',
 						left:'50%',
-					}, {duration: 150, queue: false});
+					}, {duration: 150, queue: false, complete:function() {
+						shadow.hide();
+					}});
 
 					brick.velocity({ //Just use percentages so window can scale.
 						width: "150%",
 						left: '-25%',
 						top: '-3vw'
-					},  {duration: 150, queue: false, complete: function(){
-					}});
+					},  {duration: 150, queue: false
+					});
 
 					smallToLargeWood();
 
@@ -647,17 +669,18 @@ $(document).ready(function() {
 						width: '240%',
 						top: '13vw' //Temporary
 					},  {duration: 150, queue: false, complete: function() {
-						//maintainRatios();
-						contactUs.css("visibility", "visible");
+						contactUs.show();
 						contactUs.velocity({
 							top: '14vw'
 						}, {duration: 50, queue: false, complete: function(){
-						//maintainRatios();
+							maintainRatios();
 						}
-						});
+						   });
+						contactUsBody.show();
 						contactUsBody.velocity({
 							opacity: 1
 						}, {duration: 150, queue: false});
+						supportedBy.show();
 						supportedBy.velocity({
 							opacity: 1
 						}, {duration: 150, queue: false});
@@ -742,25 +765,29 @@ $(document).ready(function() {
 				if(arrow=='#downarrow')
 				{
 					lastelement = null;
-					aboutUs.css("visibility", "hidden");
+					aboutUs.hide();
 					aboutUs.velocity({
 						top: '77%'
 					});
 					aboutUsBody.velocity({
 						'opacity': '0'
-					}, {duration: 150, queue: false});
+					}, {duration: 150, queue: false, function(){
+						aboutUsBody.hide();
+					}});
 					stopClouds();
 					focusAndFade(wood, 0, brick, 5.0);
-					wood.stop().velocity({top:"80%"}, 300, function()
+					wood.show();
+					wood.stop().velocity({top:"41.5vw"}, 300, function()
 										 {
 											 initializeWood();
 										 });
-					logo.stop().velocity({top:"36.5%"}, 300);
-					shadow.stop().velocity({top:"38%"}, 300);
-					brick.stop().velocity({top:"-5%",
+					logo.show();
+					logo.stop().velocity({top:"18vw"}, 300);
+					shadow.show();
+					shadow.stop().velocity({top:"18.5vw"}, 300);
+					brick.stop().velocity({top:"-3vw",
 										   left: "-50%",
-										   width: "200%",
-										   height: "auto"
+										   width: "240%"
 										  }, 300, function()
 										  {
 											  initializeBrick();
@@ -783,14 +810,19 @@ $(document).ready(function() {
 					var w = brick.width();
 					var h = brick.height();
 					//brick.data('w',w).data('h',h);
-
-					contactUs.css("visibility", "hidden");
+					logo.show();
+					shadow.show();
+					contactUs.hide();
 					contactUs.velocity({
 						top: '33%'
 					}, {duration: 100, queue: false});
 
-					contactUsBody.velocity({opacity: 0},{duration: 10, queue: false});
-					supportedBy.velocity({opacity: 0}, {duration: 10, queue: false});
+					contactUsBody.velocity({opacity: 0},{duration: 10, queue: false, complete: function(){
+						contactUsBody.hide();
+					}});
+					supportedBy.velocity({opacity: 0}, {duration: 10, queue: false, complete: function(){
+						supportedBy.hide();
+					}});
 
 					brick.velocity({ //Just use percentages so window can scale.
 						width: "240%",
@@ -807,7 +839,7 @@ $(document).ready(function() {
 						width: '240%',
 					}, {duration: 300, queue: false, complete: function() {
 						largeToSmallWood();
-						//maintainRatios();
+						maintainRatios();
 						initializeWood();
 					}});
 

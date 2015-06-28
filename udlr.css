@@ -154,10 +154,11 @@ z-index: 0;
 #front-1, #front-2 {
   width: 100%;
   height: auto;
+  left: -100%;
 }
 #middle-1, #middle-2, #middle-3 {
-  width: auto;
-  height: 70%;
+  width: 100%;
+  height: auto;
   }
 /*
 #confetti-1, #confetti-2, #confetti-3, #confetti-4 {
@@ -190,7 +191,7 @@ z-index: 0;
 }
 
 #contactUs {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 15vw;
   left: 13%;
@@ -262,7 +263,7 @@ z-index: 0;
 
 
 #aboutUs {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 77%;
   left: 13%;
