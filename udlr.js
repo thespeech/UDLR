@@ -350,8 +350,9 @@ $(document).ready(function() {
 
 	function initializeWood()
 	{
-		infiniteWood[0].css({"left": "-130%"});
-		infiniteWood[2].css({"left": "110%"});
+		infiniteWood[0].css({"left": "-250%"});
+		infiniteWood[1].css({"left": "-10%"})
+		infiniteWood[2].css({"left": "230%"});
 	}
 
 	function initializeBrick()
@@ -692,13 +693,13 @@ $(document).ready(function() {
 				{
 					mutexScroll = false;
 					infiniteWood[1].velocity({
-						left: '110%'}, 300);
+						left: '230%'}, 300);
 					infiniteWood[0].velocity({
 						left: '-10%'}, 300, function() {
 							var temp = infiniteWood[1];
 							infiniteWood[1] = infiniteWood[0];
 							infiniteWood[0] = temp;
-							infiniteWood[0].css({"left":"-130%"});
+							infiniteWood[0].css({"left":"-250%"});
 						});
 
 					infiniteBrick[1].velocity({
@@ -727,14 +728,14 @@ $(document).ready(function() {
 				{
 					mutexScroll = false;
 					infiniteWood[1].velocity({
-						left: '-130%'}, 300);
+						left: '-250%'}, 300);
 					infiniteWood[2].velocity({
 						left: '-10%'}, 300, function()
 											 {
 												 var temp = infiniteWood[1];
 												 infiniteWood[1] = infiniteWood[2];
 												 infiniteWood[2] = temp;
-												 infiniteWood[2].css({"left":"110%"});
+												 infiniteWood[2].css({"left":"230%"});
 											 });
 					infiniteBrick[1].velocity({
 						left: '-=5%'}, 300); //Shove current away

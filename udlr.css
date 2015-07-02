@@ -123,7 +123,9 @@ z-index: 0;
   position: absolute;
   top: 41.5vw;
   left: -10%;
+  margin: -5px -10px -10px -5px;
   z-index: 0;
+  transform: scale(1.05);
 }
 
 .largeWood {
