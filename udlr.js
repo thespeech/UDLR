@@ -13,6 +13,7 @@ $(document).ready(function() {
 	var aboutUs = $('#aboutUs');
 	var aboutUsBody = $('#aboutUsBody');
 	var page = $('html', 'body');
+	var projects = $('#projects');
 	var lastelement=null;
 	var alreadyInEdge = false;
 	var fadeOutUpArrow = false;
@@ -758,6 +759,13 @@ $(document).ready(function() {
 						left: '-=100%'}, 300);
 					shadow.velocity({
 						left: '-=100%'}, 300);
+/*
+						//Make projects visible and shunt it across.
+						projects.css({"display":"block"});
+						projects.velocity({
+							left: '50%'
+						}, 300);
+*/
 				}
 			}
 
