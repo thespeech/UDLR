@@ -41,7 +41,6 @@ $(document).ready(function() {
 	*/
 
 	//Run the actual functions.
-
 	bgHover(brick);
 	bgHover(wood);
 	arrowClick('#uparrow');
@@ -53,10 +52,57 @@ $(document).ready(function() {
 	initializeWood();
 	keyboardNav();
 	maintainRatios();
+	projectThumbnails();
 
 	window.addEventListener('resize', function(event){
 		maintainRatios();
 	});
+
+	function projectThumbnails()
+	{
+		var p1t = $('#p1-t');
+		var p2t = $('#p2-t');
+		var p3t = $('#p3-t');
+		var p4t = $('#p4-t');
+		var p1m = $('#p1-m');
+		var p2m = $('#p2-m');
+		var p3m = $('#p3-m');
+		var p4m = $('#p4-m');
+
+		p1m.mouseover(function(){
+			p1m.velocity("stop");
+			p1m.velocity({opacity: 1}, 500);
+		});
+		p1m.mouseleave(function(){
+			p1m.velocity("stop");
+			p1m.velocity({opacity: 0}, 500);
+		});
+		p2m.mouseover(function(){
+			p2m.velocity("stop");
+			p2m.velocity({opacity: 1}, 500);
+		});
+		p2m.mouseleave(function(){
+			p2m.velocity("stop");
+			p2m.velocity({opacity: 0}, 500);
+		});
+		p3m.mouseover(function(){
+			p3m.velocity("stop");
+			p3m.velocity({opacity: 1}, 500);
+		});
+		p3m.mouseleave(function(){
+			p3m.velocity("stop");
+			p3m.velocity({opacity: 0}, 500);
+		});
+		p4m.mouseover(function(){
+			p4m.velocity("stop");
+			p4m.velocity({opacity: 1}, 500);
+		});
+		p4m.mouseleave(function(){
+			p4m.velocity("stop");
+			p4m.velocity({opacity: 0}, 500);
+		});
+			
+	}
 
 	function smallToLargeWood()
 	{
@@ -102,6 +148,7 @@ $(document).ready(function() {
 			var viewportWidth = $(window).width();
 			var viewportHeight = $(window).height();
 			var visibleBrickHeight = brick.height();
+		
 			if(currentState == 'home')
 			{
 				//Check brick height to width ratio:
@@ -109,6 +156,7 @@ $(document).ready(function() {
 				{
 					//If the screen height exposes area below original wood,
 					//Tile
+					
 					$('body').css("overflow-y", "hidden");
 					$('html').css("overflow-y", "hidden");
 				}
@@ -588,6 +636,7 @@ $(document).ready(function() {
 					currentState="about";
 					spawnClouds();
 					aboutUs.show();
+					aboutUsBody.show();
 					setTimeout(function(){
 						wood.velocity({top:"100%"}, 300, function()
 									  {
@@ -724,6 +773,8 @@ $(document).ready(function() {
 						left: '+=100%'}, 300);
 					shadow.velocity({
 						left: '+=100%'}, 300);
+
+						currentState = 'events';
 				}
 				else if(arrow=='#rightarrow')
 				{
@@ -756,16 +807,113 @@ $(document).ready(function() {
 												  }
 											  });
 					logo.velocity({
-						left: '-=100%'}, 300);
+						left: '-=100%'}, 300, function(){
+							logo.hide();
+						});
 					shadow.velocity({
-						left: '-=100%'}, 300);
-/*
+						left: '-=100%'}, 300, function(){
+							shadow.hide();
+						});
+
 						//Make projects visible and shunt it across.
-						projects.css({"display":"block"});
+						projects.show();
 						projects.velocity({
 							left: '50%'
 						}, 300);
-*/
+						currentState="projects";
+
+				}
+			}
+
+			else if(currentState=="events")
+			{
+				if(arrow=='#rightarrow')
+				{
+					mutexScroll = false;
+					infiniteWood[1].velocity({
+						left: '-250%'}, 300);
+					infiniteWood[2].velocity({
+						left: '-10%'}, 300, function()
+											{
+												var temp = infiniteWood[1];
+												infiniteWood[1] = infiniteWood[2];
+												infiniteWood[2] = temp;
+												infiniteWood[2].css({"left":"230%"});
+											});
+					infiniteBrick[1].velocity({
+						left: '-=5%'}, 300); //Shove current away
+					infiniteBrick[0].velocity({
+						left: '-=5%'}, 300);
+					infiniteBrick[2].velocity({
+						left: '-=5%'}, 300, function()
+												{
+													var rightBrickPercent = infiniteBrick[2].position().left / infiniteBrick[0].parent().width() * 100;
+													if((rightBrickPercent-5)<0)
+													{
+														var temp = infiniteBrick[2];
+														infiniteBrick[2] = infiniteBrick[0];
+														infiniteBrick[0] = infiniteBrick[1];
+														infiniteBrick[1] = temp;
+														infiniteBrick[2].css({"left":((rightBrickPercent+195)+"%")});
+													}
+												});
+					logo.show();
+					logo.velocity({
+						left: '-=100%'}, 300, function(){
+						});
+						shadow.show();
+					shadow.velocity({
+						left: '-=100%'}, 300, function(){
+						});
+
+						currentState="home";
+
+				}
+			}
+
+			else if(currentState=="projects")
+			{
+				if(arrow=='#leftarrow')
+				{
+					mutexScroll = false;
+					infiniteWood[1].velocity({
+						left: '230%'}, 300);
+					infiniteWood[0].velocity({
+						left: '-10%'}, 300, function() {
+							var temp = infiniteWood[1];
+							infiniteWood[1] = infiniteWood[0];
+							infiniteWood[0] = temp;
+							infiniteWood[0].css({"left":"-250%"});
+						});
+
+					infiniteBrick[1].velocity({
+						left: '+=5%'}, 300); //Shove current away
+					infiniteBrick[2].velocity({
+						left: '+=5%'}, 300);
+					infiniteBrick[0].velocity({
+						left: '+=5%'}, 300, function()
+												{
+													var leftBrickPercent = infiniteBrick[0].position().left / infiniteBrick[0].parent().width() * 100;
+													if((leftBrickPercent+5)>0)
+													{
+														var temp = infiniteBrick[0];
+														infiniteBrick[0] = infiniteBrick[2];
+														infiniteBrick[2] = infiniteBrick[1];
+														infiniteBrick[1] = temp;
+														infiniteBrick[0].css({"left":((leftBrickPercent-195)+"%")});
+													}
+												});
+												logo.show();
+					logo.velocity({
+						left: '+=100%'}, 300);
+						shadow.show();
+					shadow.velocity({
+						left: '+=100%'}, 300);
+						projects.velocity({
+							left: '+=100%'}, 300, function(){
+								projects.hide();
+							});
+							currentState = 'home';
 				}
 			}
 
@@ -900,6 +1048,7 @@ $(document).ready(function() {
 
 	function focusAndFade(element1, blurRad1, element2, blurRad2)
 	{
+		//Don't get any bright ideas to velocitystop, it will interrupt brick movement.
 		element1.velocity({opacity: 1},{
 			duration: 200,
 			progress: function(elements, complete, remaining, start) {
@@ -934,6 +1083,22 @@ $(document).ready(function() {
 		});
 			};
 
+	function bgMouseOver(element) {
+		element.mouseover(
+			function() {
+				if(currentState == 'home')
+				{
+					if(element == brick)
+					{
+						focusAndFade(brick, 0.0, wood, 5.0);
+					}
+					else if(element == wood)
+					{
+						focusAndFade(wood, 0.0, brick, 5.0);
+					}
+				}
+			});
+	}
 	function bgHover(element) {
 		element.hover(
 			function() {
