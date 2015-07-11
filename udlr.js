@@ -41,8 +41,8 @@ $(document).ready(function() {
 	*/
 
 	//Run the actual functions.
-	//bgHover(brick);
-	//bgHover(wood);
+	bgHover(brick);
+	bgHover(wood);
 	arrowClick('#uparrow');
 	arrowClick('#downarrow');
 	arrowClick('#leftarrow');
@@ -293,6 +293,20 @@ $(document).ready(function() {
 		else if(currentState == 'contact')
 		{
 			if(direction == 'up')
+			{
+				return 'home';
+			}
+		}
+		else if(currentState == 'projects')
+		{
+			if(direction == 'left')
+			{
+				return 'home';
+			}
+		}
+		else if(currentState == 'events')
+		{
+			if(direction == 'right')
 			{
 				return 'home';
 			}
