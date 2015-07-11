@@ -41,9 +41,8 @@ $(document).ready(function() {
 	*/
 
 	//Run the actual functions.
-
-	bgHover(brick);
-	bgHover(wood);
+	//bgHover(brick);
+	//bgHover(wood);
 	arrowClick('#uparrow');
 	arrowClick('#downarrow');
 	arrowClick('#leftarrow');
@@ -53,10 +52,57 @@ $(document).ready(function() {
 	initializeWood();
 	keyboardNav();
 	maintainRatios();
+	projectThumbnails();
 
 	window.addEventListener('resize', function(event){
 		maintainRatios();
 	});
+
+	function projectThumbnails()
+	{
+		var p1t = $('#p1-t');
+		var p2t = $('#p2-t');
+		var p3t = $('#p3-t');
+		var p4t = $('#p4-t');
+		var p1m = $('#p1-m');
+		var p2m = $('#p2-m');
+		var p3m = $('#p3-m');
+		var p4m = $('#p4-m');
+
+		p1m.mouseover(function(){
+			p1m.velocity("stop");
+			p1m.velocity({opacity: 1}, 500);
+		});
+		p1m.mouseleave(function(){
+			p1m.velocity("stop");
+			p1m.velocity({opacity: 0}, 500);
+		});
+		p2m.mouseover(function(){
+			p2m.velocity("stop");
+			p2m.velocity({opacity: 1}, 500);
+		});
+		p2m.mouseleave(function(){
+			p2m.velocity("stop");
+			p2m.velocity({opacity: 0}, 500);
+		});
+		p3m.mouseover(function(){
+			p3m.velocity("stop");
+			p3m.velocity({opacity: 1}, 500);
+		});
+		p3m.mouseleave(function(){
+			p3m.velocity("stop");
+			p3m.velocity({opacity: 0}, 500);
+		});
+		p4m.mouseover(function(){
+			p4m.velocity("stop");
+			p4m.velocity({opacity: 1}, 500);
+		});
+		p4m.mouseleave(function(){
+			p4m.velocity("stop");
+			p4m.velocity({opacity: 0}, 500);
+		});
+
+	}
 
 	function smallToLargeWood()
 	{
@@ -102,6 +148,7 @@ $(document).ready(function() {
 			var viewportWidth = $(window).width();
 			var viewportHeight = $(window).height();
 			var visibleBrickHeight = brick.height();
+
 			if(currentState == 'home')
 			{
 				//Check brick height to width ratio:
@@ -109,6 +156,7 @@ $(document).ready(function() {
 				{
 					//If the screen height exposes area below original wood,
 					//Tile
+
 					$('body').css("overflow-y", "hidden");
 					$('html').css("overflow-y", "hidden");
 				}
@@ -588,6 +636,7 @@ $(document).ready(function() {
 					currentState="about";
 					spawnClouds();
 					aboutUs.show();
+					aboutUsBody.show();
 					setTimeout(function(){
 						wood.velocity({top:"100%"}, 300, function()
 									  {
@@ -999,6 +1048,7 @@ $(document).ready(function() {
 
 	function focusAndFade(element1, blurRad1, element2, blurRad2)
 	{
+		//Don't get any bright ideas to velocitystop, it will interrupt brick movement.
 		element1.velocity({opacity: 1},{
 			duration: 200,
 			progress: function(elements, complete, remaining, start) {
@@ -1033,6 +1083,22 @@ $(document).ready(function() {
 		});
 			};
 
+	function bgMouseOver(element) {
+		element.mouseover(
+			function() {
+				if(currentState == 'home')
+				{
+					if(element == brick)
+					{
+						focusAndFade(brick, 0.0, wood, 5.0);
+					}
+					else if(element == wood)
+					{
+						focusAndFade(wood, 0.0, brick, 5.0);
+					}
+				}
+			});
+	}
 	function bgHover(element) {
 		element.hover(
 			function() {

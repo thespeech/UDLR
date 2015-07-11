@@ -927,8 +927,8 @@ $(document).ready(function() {
 						top: '77%'
 					});
 					aboutUsBody.velocity({
-						'opacity': '0'
-					}, {duration: 150, queue: false, function(){
+						opacity: '0'
+					}, {duration: 150, queue: false, complete: function(){
 						aboutUsBody.hide();
 					}});
 					stopClouds();
