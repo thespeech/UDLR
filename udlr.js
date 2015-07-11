@@ -41,8 +41,8 @@ $(document).ready(function() {
 	*/
 
 	//Run the actual functions.
-	bgHover(brick);
-	bgHover(wood);
+	//bgHover(brick);
+	//bgHover(wood);
 	arrowClick('#uparrow');
 	arrowClick('#downarrow');
 	arrowClick('#leftarrow');
@@ -101,7 +101,7 @@ $(document).ready(function() {
 			p4m.velocity("stop");
 			p4m.velocity({opacity: 0}, 500);
 		});
-			
+
 	}
 
 	function smallToLargeWood()
@@ -148,7 +148,7 @@ $(document).ready(function() {
 			var viewportWidth = $(window).width();
 			var viewportHeight = $(window).height();
 			var visibleBrickHeight = brick.height();
-		
+
 			if(currentState == 'home')
 			{
 				//Check brick height to width ratio:
@@ -156,7 +156,7 @@ $(document).ready(function() {
 				{
 					//If the screen height exposes area below original wood,
 					//Tile
-					
+
 					$('body').css("overflow-y", "hidden");
 					$('html').css("overflow-y", "hidden");
 				}
