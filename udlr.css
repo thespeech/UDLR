@@ -127,11 +127,17 @@ z-index: 0;
   transform: scale(1.00);
 }
 
-#extendedWood1 {
+.extendedWood {
+  background-repeat: repeat-y;
+  background-image: url("wood.png");
+  background-size: 100%;
+  display: block;
   position: absolute;
-  height: auto;
+  height: 90vh;
   overflow: auto;
-  left: -10%;
+  width: 240%;
+  top: 41.5vw;
+  transform: scale(1.00);
 }
 
 .tiledWood {
