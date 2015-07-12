@@ -33,6 +33,8 @@ $(document).ready(function() {
 	var rightWordArrow=$('#rightWordArrow');
 	var downWordArrow=$('#downWordArrow');
 	var keyNav = false;
+	var extendedWood = $('#extendedWood');
+	var lowestWood = infiniteWood[1];
 
 		//Use original CSS values for ratios.
 	/*
@@ -56,7 +58,27 @@ $(document).ready(function() {
 
 	window.addEventListener('resize', function(event){
 		maintainRatios();
+		TileWood();
 	});
+
+	function TileWood()
+	{
+		//Determine the bottom of wood.
+		var lowestWoodPosition = lowestWood.position().top + lowestWood.height();
+		console.log("Wood lowest: " + (lowestWood.position().top + lowestWood.height()));
+		extendedWood.css({
+			top: lowestWoodPosition+"px"
+		});
+		winHeight = $(window).height();
+		console.log("Window height: " + winHeight);
+		var newWood = $('<img/>');
+		newWood.attr('width', '240%');
+		newWood.attr('left', '-10%');
+		newWood.attr('transform', 'scale(1.00)');
+		newWood.attr('height', 'auto');
+		newWood.attr('src', 'wood.png');
+		newWood.appendTo(extendedWood);
+	}
 
 	function projectThumbnails()
 	{
