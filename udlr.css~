@@ -123,7 +123,20 @@ z-index: 0;
   position: absolute;
   top: 41.5vw;
   left: -10%;
-  margin: -5px -10px -10px -5px;
+  z-index: 0;
+  transform: scale(1.00);
+}
+
+#extendedWood {
+  position: absolute;
+  display: inline;
+}
+
+.tiledWood {
+  -webkit-transform: translateZ(0);
+  width: 240%;
+  height: auto;
+  left: -10%;
   z-index: 0;
   transform: scale(1.00);
 }
