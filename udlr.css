@@ -128,7 +128,17 @@ z-index: 0;
 }
 
 #extendedWood {
-position: absolute;
+  position: absolute;
+  display: inline;
+}
+
+.tiledWood {
+  -webkit-transform: translateZ(0);
+  width: 240%;
+  height: auto;
+  left: -10%;
+  z-index: 0;
+  transform: scale(1.00);
 }
 
 .largeWood {

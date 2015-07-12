@@ -71,11 +71,7 @@ $(document).ready(function() {
 		});
 		winHeight = $(window).height();
 		console.log("Window height: " + winHeight);
-		var newWood = $('<img/>');
-		newWood.attr('width', '240%');
-		newWood.attr('left', '-10%');
-		newWood.attr('transform', 'scale(1.00)');
-		newWood.attr('height', 'auto');
+		var newWood = $('<img/>').addClass("tiledWood");
 		newWood.attr('src', 'wood.png');
 		newWood.appendTo(extendedWood);
 	}
