@@ -28,7 +28,7 @@ $(document).ready(function() {
 	var infiniteBrick=[$('#brick1'), $('#brick2'), $('#brick3')];
 	var infiniteWood=[$('#wood1'), $('#wood2'), $('#wood3')];
 	var infiniteLargeWood=[$('#largeWood1'), $('#largeWood2'), $('#largeWood3')];
-	var infiniteExtendedWood=[$('#extendedWood1')];
+	var infiniteExtendedWood=[$('#extendedWood1'),$('#extendedWood2'),$('#extendedWood3')];
 	var topWordArrow=$('#topWordArrow');
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
@@ -58,9 +58,9 @@ $(document).ready(function() {
 
 	window.addEventListener('resize', function(event){
 		maintainRatios();
-		TileWood();
+		//TileWood();
 	});
-
+/*
 	function TileWood()
 	{
 		var newWood = $('<img/>').addClass("tiledWood");
@@ -76,13 +76,17 @@ $(document).ready(function() {
 										 });
 										 //Check if wood is higher than bottom of window.
 										 var extendedArea = item.position().top + item.height();
-										 console.log(extendedArea);
 										 
 										 while(extendedArea <= winHeight)
 										 {
+											 console.log("adding wood.");
 											 newWood.appendTo(item);
 											 extendedArea = item.position().top + item.height();
+											 console.log("Extended area now: " + extendedArea);
+											 winHeight = $(window).height();
+											 console.log("Window height: "+winHeight);
 										 }
+
 										 if(winHeight < lowestWood)
 										 {
 										 item.empty();
@@ -90,7 +94,7 @@ $(document).ready(function() {
 										 }
 									 });
 	}
-
+*/
 	function projectThumbnails()
 	{
 		var p1t = $('#p1-t');
@@ -449,6 +453,9 @@ $(document).ready(function() {
 		infiniteWood[0].css({"left": "-250%"});
 		infiniteWood[1].css({"left": "-10%"})
 		infiniteWood[2].css({"left": "230%"});
+		infiniteExtendedWood[0].css({"left": "-250%"});
+		infiniteExtendedWood[1].css({"left": "-10%"});
+		infiniteExtendedWood[2].css({"left": "230%"});
 	}
 
 	function initializeBrick()
@@ -798,6 +805,16 @@ $(document).ready(function() {
 							infiniteWood[0] = temp;
 							infiniteWood[0].css({"left":"-250%"});
 						});
+					infiniteExtendedWood[1].velocity({
+						left: '230%'}, 300);
+					infiniteExtendedWood[0].velocity({
+						left: '-10%'}, 300, function() {
+							var temp = infiniteExtendedWood[1];
+							infiniteExtendedWood[1] = infiniteExtendedWood[0];
+							infiniteExtendedWood[0] = temp;
+							infiniteExtendedWood[0].css({"left":"-250%"});
+						});
+					
 
 					infiniteBrick[1].velocity({
 						left: '+=5%'}, 300); //Shove current away
@@ -836,6 +853,16 @@ $(document).ready(function() {
 												 infiniteWood[2] = temp;
 												 infiniteWood[2].css({"left":"230%"});
 											 });
+					infiniteExtendedWood[1].velocity({
+						left: '-250%'}, 300);
+					infiniteExtendedWood[2].velocity({
+						left: '-10%'}, 300, function()
+													 {
+														 var temp = infiniteExtendedWood[1];
+														 infiniteExtendedWood[1] = infiniteExtendedWood[2];
+														 infiniteExtendedWood[2] = temp;
+														 infiniteExtendedWood[2].css({"left":"230%"});
+													 });
 					infiniteBrick[1].velocity({
 						left: '-=5%'}, 300); //Shove current away
 					infiniteBrick[0].velocity({
@@ -887,6 +914,16 @@ $(document).ready(function() {
 												infiniteWood[2] = temp;
 												infiniteWood[2].css({"left":"230%"});
 											});
+					infiniteExtendedWood[1].velocity({
+						left: '-250%'}, 300);
+					infiniteExtendedWood[2].velocity({
+						left: '-10%'}, 300, function()
+													 {
+														 var temp = infiniteExtendedWood[1];
+														 infiniteExtendedWood[1] = infiniteExtendedWood[2];
+														 infiniteExtendedWood[2] = temp;
+														 infiniteExtendedWood[2].css({"left":"230%"});
+													 });
 					infiniteBrick[1].velocity({
 						left: '-=5%'}, 300); //Shove current away
 					infiniteBrick[0].velocity({
@@ -932,6 +969,17 @@ $(document).ready(function() {
 							infiniteWood[0] = temp;
 							infiniteWood[0].css({"left":"-250%"});
 						});
+										infiniteExtendedWood[1].velocity({
+						left: '230%'}, 300);
+					infiniteExtendedWood[0].velocity({
+						left: '-10%'}, 300, function() {
+							var temp = infiniteExtendedWood[1];
+							infiniteExtendedWood[1] = infiniteExtendedWood[0];
+							infiniteExtendedWood[0] = temp;
+							infiniteExtendedWood[0].css({"left":"-250%"});
+						});
+					
+
 
 					infiniteBrick[1].velocity({
 						left: '+=5%'}, 300); //Shove current away
