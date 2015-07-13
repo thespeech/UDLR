@@ -28,13 +28,13 @@ $(document).ready(function() {
 	var infiniteBrick=[$('#brick1'), $('#brick2'), $('#brick3')];
 	var infiniteWood=[$('#wood1'), $('#wood2'), $('#wood3')];
 	var infiniteLargeWood=[$('#largeWood1'), $('#largeWood2'), $('#largeWood3')];
+	var infiniteExtendedWood=[$('#extendedWood1')];
 	var topWordArrow=$('#topWordArrow');
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
 	var downWordArrow=$('#downWordArrow');
 	var keyNav = false;
 	var extendedWood = $('#extendedWood');
-	var lowestWood = infiniteWood[1];
 
 		//Use original CSS values for ratios.
 	/*
@@ -63,17 +63,32 @@ $(document).ready(function() {
 
 	function TileWood()
 	{
-		//Determine the bottom of wood.
-		var lowestWoodPosition = lowestWood.position().top + lowestWood.height();
-		console.log("Wood lowest: " + (lowestWood.position().top + lowestWood.height()));
-		extendedWood.css({
-			top: lowestWoodPosition+"px"
-		});
-		winHeight = $(window).height();
-		console.log("Window height: " + winHeight);
 		var newWood = $('<img/>').addClass("tiledWood");
 		newWood.attr('src', 'wood.png');
-		newWood.appendTo(extendedWood);
+		//Determine the bottom of wood.
+		var lowestWood = wood.position().top + wood.height();
+		winHeight = $(window).height(); //Need to keep refreshing this every time the function is called, which is assumed to be with the resize event.
+		console.log("Window height: " + winHeight);
+		infiniteExtendedWood.forEach(function(item)
+									 {
+										 item.css({
+											 top: lowestWood + "px"
+										 });
+										 //Check if wood is higher than bottom of window.
+										 var extendedArea = item.position().top + item.height();
+										 console.log(extendedArea);
+										 
+										 while(extendedArea <= winHeight)
+										 {
+											 newWood.appendTo(item);
+											 extendedArea = item.position().top + item.height();
+										 }
+										 if(winHeight < lowestWood)
+										 {
+										 item.empty();
+										 extendedArea = item.position().top+item.height();
+										 }
+									 });
 	}
 
 	function projectThumbnails()
@@ -136,7 +151,7 @@ $(document).ready(function() {
 			//Get x and y of each wood piece, then assign that to infiniteLargeWood.
 			infiniteLargeWood[count].css("left",percentageLeftPos+"%");
 			count++;
-		})
+		});
 		wood.hide();
 		largeWood.show();
 	}

@@ -133,10 +133,10 @@ z-index: 0;
 }
 
 .tiledWood {
+  display: block;
   -webkit-transform: translateZ(0);
-  width: 240%;
+  width: 240vw;
   height: auto;
-  left: -10%;
   z-index: 0;
   transform: scale(1.00);
 }
