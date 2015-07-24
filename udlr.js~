@@ -3,6 +3,7 @@ $(document).ready(function() {
 	var brick = $('.brick'); //Allow jquery to work on these elements.
 	var wood = $('.wood'); //This is all wood because it is possible for two wood to be on the screen at the same time
 	var largeWood=$('.largeWood');
+	var extendedWood=$('.extendedWood');
 	var sky = $('.sky');
 	var logo = $('#logo');
 	var shadow = $('#shadow');
@@ -34,8 +35,6 @@ $(document).ready(function() {
 	var rightWordArrow=$('#rightWordArrow');
 	var downWordArrow=$('#downWordArrow');
 	var keyNav = false;
-	var extendedWood = $('#extendedWood');
-
 		//Use original CSS values for ratios.
 	/*
 	var logoHeightPercentage = (logo.height()/$(window).height()) * 100;
@@ -45,6 +44,7 @@ $(document).ready(function() {
 	//Run the actual functions.
 	bgHover(brick);
 	bgHover(wood);
+	bgHover(extendedWood);
 	arrowClick('#uparrow');
 	arrowClick('#downarrow');
 	arrowClick('#leftarrow');
@@ -196,11 +196,14 @@ $(document).ready(function() {
 
 					$('body').css("overflow-y", "hidden");
 					$('html').css("overflow-y", "hidden");
+					extendedWood.show();
 				}
 				else
 				{
 					$('body').css("overflow-y", "auto");
 					$('html').css("overflow-y", "auto");
+					console.log("ASDFASD");
+					extendedWood.hide();
 				}
 			}
 		else if(currentState == 'about')
@@ -1194,36 +1197,38 @@ $(document).ready(function() {
 				}
 			});
 	}
+
 	function bgHover(element) {
 		element.hover(
 			function() {
 				if(currentState == 'home')
 				{
-				if(element == brick && (lastelement == wood || lastelement == null))
+				if(element == brick && lastelement !== brick)
 					{
-						if(lastelement !== null)
+						if(extendedWood.css('display') == 'none')
 						{
 							focusAndFade(brick, 0.0, wood, 5.0);
+							focusAndFade(extendedWood, 5.0, extendedWood, 5.0);
 						}
-						else if(lastelement == null)
+						else
 						{
-							focusAndFade(brick, 0.0, wood, 5.0);
+							focusAndFade(brick, 0.0, extendedWood, 5.0);
+							focusAndFade(wood, 5.0, wood, 5.0);
 						}
-						lastelement = brick;
+							lastelement = brick;
 					}
-				else if(element == wood && (lastelement == brick || lastelement == null))
-				{
-						if(lastelement !== null)
-						{
-							focusAndFade(wood, 0.0, brick, 5.0);
-						}
-					else if(lastelement == null)
+					else if(element == wood && (lastelement !== wood && lastelement !== extendedWood))
 					{
 						focusAndFade(wood, 0.0, brick, 5.0);
-					}
+						focusAndFade(extendedWood, 0.0, extendedWood, 0.0);
 						lastelement = wood;
-
-				}
+					}
+					else if(element == extendedWood && (lastelement !== extendedWood && lastelement !== wood))
+					{
+						focusAndFade(extendedWood, 0.0, brick, 5.0);
+						focusAndFade(wood, 0.0, wood, 0.0);
+						lastelement = extendedWood;
+					}
 				}
 			});
 	};
