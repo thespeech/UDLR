@@ -27,6 +27,7 @@ $(document).ready(function() {
 	var frontClouds=[$('#front-1'), $('#front-2')];
 	var middleClouds=[$('#middle-1'), $('#middle-2'), $('#middle-3')];
 	var infiniteBrick=[$('#brick1'), $('#brick2'), $('#brick3')];
+	var extendedBrick=$('.extendedBrick');
 	var infiniteWood=[$('#wood1'), $('#wood2'), $('#wood3')];
 	var infiniteLargeWood=[$('#largeWood1'), $('#largeWood2'), $('#largeWood3')];
 	var infiniteExtendedWood=[$('#extendedWood1'),$('#extendedWood2'),$('#extendedWood3')];
@@ -694,6 +695,7 @@ $(document).ready(function() {
 					spawnClouds();
 					aboutUs.show();
 					aboutUsBody.show();
+					extendedBrick.show();
 					setTimeout(function(){
 						wood.velocity({top:"100%"}, 300, function()
 									  {
@@ -701,6 +703,7 @@ $(document).ready(function() {
 									  });
 						extendedWood.velocity({top:"100%"}, 300, function()
 											  {
+												  extendedWood.hide();
 											  });
 						logo.velocity({top:"100%"}, 300, function()
 									  {
@@ -726,8 +729,11 @@ $(document).ready(function() {
 											   'opacity': '1'
 										   }, {duration: 150, queue: false});
 									   });
+						extendedBrick.velocity({top:"101vw",
+												left: "-100%"
+											   }, 300);
 
-						focusAndFade(sky, 0.0, brick, 7.0);
+						focusAndFade(sky, 0.0, brick, 0.0);
 						currentState = 'about';
 
 					}, 100); //Set timeout to let clouds load a bit longer.
@@ -1073,6 +1079,11 @@ $(document).ready(function() {
 										  {
 											  initializeBrick();
 										  });
+					extendedBrick.stop().velocity({top:"41.5vw",
+												   left:"-50%"}, 300, function()
+												  {
+													  extendedBrick.hide();
+												  });
 
 					$('#uparrow').css({display:"block"});
 					fadeOutUpArrow = false;

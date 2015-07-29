@@ -201,23 +201,25 @@ $(document).ready(function() {
 				}
 				else
 				{
-					$('body').css("overflow-y", "auto");
-					$('html').css("overflow-y", "auto");
+				//	$('body').css("overflow-y", "auto");
+				//	$('html').css("overflow-y", "auto");
 					console.log("ASDFASD");
-					extendedWood.hide();
+					//extendedWood.hide();
 				}
 			}
 		else if(currentState == 'about')
 		{
-			if(aboutUs.position().top < viewportHeight)
+			if(brick.position().top + brick.height() < viewportHeight)
 			{
 				$('body').css("overflow-y", "hidden");
 				$('html').css("overflow-y", "hidden");
+				extendedBrick.show();
 			}
 			else
 			{
-				$('body').css("overflow-y", "auto");
-				$('html').css("overflow-y", "auto");
+			//	$('body').css("overflow-y", "auto");
+			//	$('html').css("overflow-y", "auto");
+				//extendedBrick.hide();
 			}
 		}
 	}
@@ -730,6 +732,7 @@ $(document).ready(function() {
 										   }, {duration: 150, queue: false});
 									   });
 						extendedBrick.velocity({top:"101vw",
+												width: "300%",
 												left: "-100%"
 											   }, 300);
 
@@ -1080,9 +1083,11 @@ $(document).ready(function() {
 											  initializeBrick();
 										  });
 					extendedBrick.stop().velocity({top:"41.5vw",
-												   left:"-50%"}, 300, function()
+												   left:"-50%",
+												   width:"240%",
+												  }, 300, function()
 												  {
-													  extendedBrick.hide();
+													  //extendedBrick.hide();
 												  });
 
 					$('#uparrow').css({display:"block"});
@@ -1130,7 +1135,7 @@ $(document).ready(function() {
 						top: '41.5vw',
 						width: '240%',
 					}, {duration: 300, queue: false, complete: function() {
-						largeToSmallWood();
+						//largeToSmallWood();
 						maintainRatios();
 						initializeWood();
 					}});
