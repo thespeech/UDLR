@@ -699,6 +699,9 @@ $(document).ready(function() {
 									  {
 										  wood.hide();
 									  });
+						extendedWood.velocity({top:"100%"}, 300, function()
+											  {
+											  });
 						logo.velocity({top:"100%"}, 300, function()
 									  {
 										  logo.hide();
@@ -767,12 +770,32 @@ $(document).ready(function() {
 						width: "150%",
 						left: '-25%',
 						top: '-3vw'
-					},  {duration: 150, queue: false
-					});
+					},  {duration: 150, queue: false});
 
-					smallToLargeWood();
-
-					largeWood.velocity({
+					//smallToLargeWood();
+					extendedWood.velocity({
+						left: '0%',
+						width: '240%',
+						top: '13vw'
+					}, {duration: 150, queue:false, complete: function() {
+						contactUs.show();
+						contactUs.velocity({
+							top: '14vw'
+						}, {duration: 50, queue: false, complete: function() {
+							maintainRatios();
+						}
+						   });
+						contactUsBody.show();
+						contactUsBody.velocity({
+							opacity: 1
+						}, {duration: 150, queue: false});
+						supportedBy.show();
+						supportedBy.velocity({
+							opacity: 1
+						}, {duration: 150, queue: false});
+					}});
+					
+					/*largeWood.velocity({
 						left: '0%',
 						width: '240%',
 						top: '13vw' //Temporary
@@ -792,7 +815,7 @@ $(document).ready(function() {
 						supportedBy.velocity({
 							opacity: 1
 						}, {duration: 150, queue: false});
-					}});
+					}});*/
 
 					currentState = 'contact';
 				}
@@ -1032,10 +1055,13 @@ $(document).ready(function() {
 					stopClouds();
 					focusAndFade(wood, 0, brick, 5.0);
 					wood.show();
-					wood.stop().velocity({top:"41.5vw"}, 300, function()
-										 {
-											 initializeWood();
-										 });
+					extendedWood.show();
+					extendedWood.stop().velocity({top:"41.5vw"}, 300, function()
+												 {
+													 initializeWood();
+												 });
+					wood.stop().velocity({top:"41.5vw"}, 300); //Needed for calca on scroll and extendedWood
+					
 					logo.show();
 					logo.stop().velocity({top:"18vw"}, 300);
 					shadow.show();
@@ -1097,6 +1123,10 @@ $(document).ready(function() {
 						maintainRatios();
 						initializeWood();
 					}});
+					extendedWood.stop().velocity({
+						top: '41.5vw',
+						width: '240%',
+					});
 
 					//Get percentage of width:
 					var widthPercentage = (100*(logo.width()))/(screenSize.width());
