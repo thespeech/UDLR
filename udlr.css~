@@ -15,6 +15,18 @@ html, body {
   transform: translate(-50%, 0%);
 }
 
+#construction
+{
+  position: absolute;
+  display: block;
+  width: 30%;
+  height: auto;
+  left: -50%;
+  top: 25vw;
+  z-index: 0;
+transform: translate(-50%, -50%);  
+}
+
 #shadow
 {
   top: 18.5vw;
@@ -299,6 +311,14 @@ z-index: 0;
   height: auto;
   left: 48.5%;
   top: 5.7vw;
+  position: absolute;
+}
+
+#mndlogo {
+  width: 10%;
+  height: auto;
+  left: 66%;
+  top: 5.8vw;
   position: absolute;
   }
 

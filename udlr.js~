@@ -35,6 +35,7 @@ $(document).ready(function() {
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
 	var downWordArrow=$('#downWordArrow');
+	var construction = $('#construction');
 	var keyNav = false;
 		//Use original CSS values for ratios.
 	/*
@@ -610,7 +611,7 @@ $(document).ready(function() {
 						alreadyInEdge = true; //Set last mouse pos to be near edge.
 					}
 				}
-				else
+				else //If cursor is not near the edge
 				{
 					if(alreadyInEdge == true) //Converse.
 					{
@@ -870,6 +871,8 @@ $(document).ready(function() {
 											  });
 					logo.velocity({
 						left: '+=100%'}, 300);
+					construction.velocity({
+						left: '+=100%'}, 300);
 					shadow.velocity({
 						left: '+=100%'}, 300);
 
@@ -938,6 +941,8 @@ $(document).ready(function() {
 			{
 				if(arrow=='#rightarrow')
 				{
+					construction.velocity({
+						left: '-=100%'}, 300);
 					mutexScroll = false;
 					infiniteWood[1].velocity({
 						left: '-250%'}, 300);

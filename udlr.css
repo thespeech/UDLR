@@ -5,6 +5,11 @@ html, body {
   width: 100%;
   }
 
+a {
+  color: black;
+  text-decoration: none;
+  }
+
 #logo, #shadow{
   position: absolute;
   width: 33.5%;
@@ -18,11 +23,11 @@ html, body {
 #construction
 {
   position: absolute;
-  display: none;
-  width: 20%;
+  display: block;
+  width: 30%;
   height: auto;
-  left: 50%;
-  top: 20vw;
+  left: -50%;
+  top: 25vw;
   z-index: 0;
 transform: translate(-50%, -50%);  
 }
@@ -155,7 +160,7 @@ z-index: 0;
 
 .extendedWood {
   background-repeat: repeat-y;
-  background-image: url("wood.png");
+  background-image: url("wood.jpg");
   background-size: 100%;
   display: block;
   position: absolute;
@@ -311,6 +316,14 @@ z-index: 0;
   height: auto;
   left: 48.5%;
   top: 5.7vw;
+  position: absolute;
+}
+
+#mndlogo {
+  width: 10%;
+  height: auto;
+  left: 66%;
+  top: 5.8vw;
   position: absolute;
   }
 

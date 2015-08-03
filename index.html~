@@ -18,7 +18,7 @@
 	<img src="brick.png"  class="brick centered" id="brick1" alt="">
 	  <img src="brick.png" class="brick centered" id="brick2" alt="">
 	<img src="brick.png" class="brick centered" id="brick3" alt="">
-
+	<img src="Under construction.png" id="construction">
 	<img src="shortwood.png" class="wood" id="wood1" alt="">
 	<img src="shortwood.png" class="wood" id="wood2" alt="">
 	<img src="shortwood.png" class="wood" id="wood3" alt="">
@@ -28,9 +28,9 @@
 	<<div id ="extendedBrick1" class="extendedBrick"></div>
 	<div id="extendedBrick2" class="extendedBrick"></div>
 	<div id="extendedBrick3" class="extendedBrick"></div>
-	<img src="wood.png" class="largeWood" id="largeWood1" alt="">
-	<img src="wood.png" class="largeWood" id="largeWood2" alt="">
-	<img src="wood.png" class="largeWood" id="largeWood3" alt="">
+	<img src="wood.jpg" class="largeWood" id="largeWood1" alt="">
+	<img src="wood.jpg" class="largeWood" id="largeWood2" alt="">
+	<img src="wood.jpg" class="largeWood" id="largeWood3" alt="">
 
 	  <img src="Clouds/Clouds-BG.jpg" id="skybg" 7alt="">
 	  <img src="Clouds/Clouds-Back.png" id="back" class="skyfg" alt="">
@@ -82,14 +82,14 @@
 	  </div>
 
 	  <div id="contactUsBody">
-		For more inquiries please call or email us at:
+		For more enquiries please call or email us at:
 		<br>
 		<br>
 		Tel: +65 8500 0358
 		<br>
-		Email: shi@udlrs.com
+		Email: enquiries@udlrs.com
 		<br>
-		facebook.com/udlrstudios
+		<a href="http://www.facebook.com/udlrstudios">facebook.com/udlrstudios</a>
 	  </div>
 
 	  <div id="supportedBy">
@@ -99,6 +99,7 @@
 		<img src="SMU Logo.png" id="smulogo">
 		<img src="AWP logo.jpg" id="awplogo">
 		<img src="National Archives Logo.png" id="nalogo">
+		<img src="MND Logo.png" id="mndlogo">
 	  </div>
 
 	  <div id="aboutUsBody">

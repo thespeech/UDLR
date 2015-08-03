@@ -611,7 +611,7 @@ $(document).ready(function() {
 						alreadyInEdge = true; //Set last mouse pos to be near edge.
 					}
 				}
-				else
+				else //If cursor is not near the edge
 				{
 					if(alreadyInEdge == true) //Converse.
 					{
@@ -750,7 +750,6 @@ $(document).ready(function() {
 				}
 				else if(arrow == '#downarrow')
 				{
-					focusAndFade(wood, 0, brick, 5.0);
 					var scale = 0.90;
 					var w = brick.width();
 					var h = brick.height();
@@ -780,7 +779,9 @@ $(document).ready(function() {
 						width: "150%",
 						left: '-25%',
 						top: '-3vw'
-					},  {duration: 150, queue: false});
+					},  {duration: 150, queue: false, complete: function() {
+						focusAndFade(extendedWood, 0.0, brick, 5.0);}
+					});
 
 					//smallToLargeWood();
 					extendedWood.velocity({
@@ -871,6 +872,8 @@ $(document).ready(function() {
 											  });
 					logo.velocity({
 						left: '+=100%'}, 300);
+					construction.velocity({
+						left: '+=100%'}, 300);
 					shadow.velocity({
 						left: '+=100%'}, 300);
 
@@ -937,10 +940,10 @@ $(document).ready(function() {
 
 			else if(currentState=="events")
 			{
-				construction.show();
 				if(arrow=='#rightarrow')
 				{
-					construction.hide();
+					construction.velocity({
+						left: '-=100%'}, 300);
 					mutexScroll = false;
 					infiniteWood[1].velocity({
 						left: '-250%'}, 300);
