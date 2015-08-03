@@ -35,6 +35,7 @@ $(document).ready(function() {
 	var leftWordArrow=$('#leftWordArrow');
 	var rightWordArrow=$('#rightWordArrow');
 	var downWordArrow=$('#downWordArrow');
+	var construction = $('#construction');
 	var keyNav = false;
 		//Use original CSS values for ratios.
 	/*
@@ -936,8 +937,10 @@ $(document).ready(function() {
 
 			else if(currentState=="events")
 			{
+				construction.show();
 				if(arrow=='#rightarrow')
 				{
+					construction.hide();
 					mutexScroll = false;
 					infiniteWood[1].velocity({
 						left: '-250%'}, 300);

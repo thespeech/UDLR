@@ -15,6 +15,18 @@ html, body {
   transform: translate(-50%, 0%);
 }
 
+#construction
+{
+  position: absolute;
+  display: none;
+  width: 20%;
+  height: auto;
+  left: 50%;
+  top: 20vw;
+  z-index: 0;
+transform: translate(-50%, -50%);  
+}
+
 #shadow
 {
   top: 18.5vw;
